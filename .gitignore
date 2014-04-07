@@ -17,3 +17,7 @@ javaLikeNames.txt
 *.settings
 *.classpath
 *.project
+Verslag.synctex.gz(busy)
+Verslag.aux
+Verslag.pdf
+Thumbs.db
