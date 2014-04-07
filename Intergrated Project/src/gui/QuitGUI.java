@@ -32,6 +32,7 @@ public class QuitGUI implements ActionListener{
 		quitFrame.setSize(220,110);
 		quitFrame.setVisible(true);
 		quitFrame.setLocationRelativeTo(null);
+		quitFrame.setResizable(false);
 		quitFrame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 	}
 	
