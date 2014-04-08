@@ -88,32 +88,102 @@ Thomas is verantwoordelijk voor de alle documenten dat ingeleverd moeten worden.
 \newpage
 
 \section{Grafische Ontwerp}
-
+\label{aangegeven}
+Voor het grafisch ontwerp is er gekozen om meerdere user interfaces te maken met elk hun eigen thema(in section 5.1 Schetsen wordt hier dieper op in gegaan). Voor een user interface is het van belang dat er meerdere windows gemaakt worden, er mag niet vanuit worden gegaan dat de gebruikers van de chatapplicatie het begrijpen en daarom moet de user interface hen bij de hand nemen.  Er is gekozen om losstaande Graphical User Interfaces te ontwerpen met allebei meerdere windows. De ChatGUI waar op pagina~\pageref{ChatGUI} verder op in wordt gegaan bevat drie aparte windows en de ConnectGUI waar op pagina ~\pageref{ConnectGUI} verder op in wordt gegaan bevat twee aparte windows. De ConnectGUI zal gebruikt worden voor de gebruikers om hun gegevens op te geven en stelt ze in staat om een profiel aan te maken en te verbinden met de andere chatters. De ConnectGUI zal de gebruikers overdragen aan de ChatGUI die de rest van de sessie afhandelt totdat er afgesloten wordt.
 
 \subsection{Schetsen}
+De eerste versie van de ChatGUI lijkt nagenoeg op de uiteindelijk gekozen versie van de ChatGUI. Er ontbreken echter wat features in de eerste versie, zoals profiel ondersteuning, een instellingen knop en een  logout knop. Deze zijn er in de breinstorm bijgekomen in de uiteindelijke versie dat uit de doeken wordt gedaan op pagina~\pageref{Chat Window}. \\
+De eerste versie van de ChatGUI ziet er dan als volgt uit:
+%Hier ChGv1%
+\\
 
+\noindent De tweede versie van de ChatGUI is in tegenstelling van de eerste versie en van de uiteindelijke versie niet strak maar legt de nadruk op rondingen en heeft een speels ontwerp:
+%Hier ChGv2%
+\\
+
+\noindent De derde versie van de ChatGUI is ook onze uiteindelijk gekozen ontwerp voor de chat window, logout window en de settings window. Er zal op pagina~\pageref{ChatGUI} verder ingegaan worden op de redenen voor het kiezen van dit ontwerp. Het ontwerp dat we geschetst hebben ziet er dan ook als volg uit:
+\label{ChGv3Chat}
+%Hier ChGv3%
+\\
+
+\noindent De eerste ConnectGUI is heel basaal en bevat enkel een tekstveld en een "connect"-knop en ondersteunt om die reden weinig functionaliteiten:
+%Hier CGv1%
+\\
+
+\noindent De tweede ConnectGUI voegt \'e\'en fuctionaliteit toe aan het eerste ontwerp en dat is de functie om je alias op te geven en het ontwerp is net iets anders gestructureerd:
+%Hier CGv2%
+\\
+
+\noindent De derde ConnectGUI voegt op zijn beurt weer een functionaliteit toe aan het tweede ontwerp en dat is een "Maak profiel aan" knop. Deze knop navigeert naar een ander window, de create profile window waar op pagina~\pageref{CPW} verder op in wordt gegaan:
+%Hier CGv3%
 
 \subsection{ChatGUI versie 3(ChGv3)}
+\label{ChatGUI}
+Er is gekozen na het maken van de schetsen om voor de laatste versie van de ChatGUI te kiezen. Deze versie is de derde gemaakte versie en is om die reden omgedoopt tot ChGv3. \\
+
+\noindent Met het implementeren van ChGv3 als de ChatGUI is het de bedoeling dat het gebruiken van de applicatie niet lang aan het ontwerp te moeten wennen als deze gebruikt wordt naast andere applicaties. Om dit te bereiken zijn er een drietal peilers waar het ontwerp op is gebaseerd:
+\begin{itemize}
+\item{Strak Ontwerp}
+\item{Schaalbaarheid}
+\item{Overzicht}
+\end{itemize}
+Met deze drie peilers is het doel om een gebruiksvriendelijke applicatie te maken voor iedereen om te gebruiken. In de volgende subsections zullen deze drie peilers terugkomen.
 
 \subsection*{Chat Window}
+\label{Chat Window}
+Zoals te zien is op pagina~\pageref{ChGv3Chat} is het ontwerp van de chat window strak, schaalbaar en overzichtelijk. De drie peilers komen respectievelijk terug in de rechthoekige vormen, schaalbare onderdelen en de layout. Er zijn twee chat window versies dat gebruikt worden. Een versie voor twee gebruikers en een versie voor 4 gebruikers.\\
 
-\subsection*{Close Window en Settings Window}
+\noindent De structuur van de chatwindow is hetzelfde opgebouwd als alle andere bekende (mobiele) chatapplicaties. Wij wilden echter de tekstveld voor de chat benadrukken en om die reden is deze zeer groot ten opzichten van alle andere onderdelen in de window en als gevolg van deze keuze zijn de namen van de andere mensen waarmee gechat word naar de zijkant verplaatst. Deze namen zijn knoppen die met een klik het profiel tekstveld onder de namen naar het profiel van diegene wiens naam is aangeklikt verandert. \\
 
+\noindent Rechtsboven aan zijn er twee knoppen, de settings knop en een logout knop. Deze twee knoppen navigeren naar de windows die op pagina~\pageref{LWSW} uitgelegd worden.
 
-\subsection{ConnectGUI versie 4(CGv4)}
-Profiel ondersteuning.
+\subsection*{Settings Window en Logout Window}
+\label{LWSW}
+De settings window heeft \'e\'en optie dat aangevinkt kan worden door een checkbox en dat is de optie of de notificatiegeluid aan of uit moet. Bovendien word de software versie van de applicatie aangegeven.
+\\
+
+\noindent De logout window bevat de vraag of de gebruiker echt uit de chat wil stappen en de twee knoppen Ja en Nee. Als er op Nee geklikt word dan zal de logout window gesloten worden. Als er voor Ja gekozen wordt dan zal zowel de logout window als de chat window gesloten worden en de gebruiker wordt genavigeerd naar de connect window van de ConnectGUI wat op pagina~\pageref{connectie}  word uitgelegd.
+
+\subsection{ConnectGUI versie 3(CGv3)}
+\label{ConnectGUI}
+De connectGUI bestaat zoals al aangegeven op pagina~\pageref{aangegeven} uit twee verschillende windows, de connect window en de create profile window. Deze twee windows zijn de portalen naar de chat window. De gebruiker hoeft geen profiel aan te maken als het 'anoniem' wil chatten met anderen. Als de gebruiker een profiel wil hebben dan is dat mogelijk door op de "Maak profiel aan" knop te klikken.
+
 \subsection*{Connect Window}
+\label{connectie}
+De connect window heeft twee tekstvelden en twee knoppen. Deze twee tekstvelden zijn voor het invullen van je alias en de ander is voor je adres dat een IPv4 adres is waar de 24 bytes vaststaan en de laaste vier bytes staat voor de devicesnumber dat de gebruiker heeft. Dit kan dus 1, 2, 3 of 4 zijn. De twee knoppen zijn om een profiel aan te maken en om te verbinden. De "maak profiel aan" knop navigeert naar de create profile window en de "connect" knop navigeert naar de chat window.
 
 \subsection*{Create Profile Window}
-
+\label{CPW}
+De create profile window heeft vijf tekstvelden die ingevuld kunnen worden. De velden voor de voornaam, achternaam en leeftijd zijn verplicht en deze verplichte velden worden aangegeven met een(*). De overige twee velden, interesses en relatie status zijn niet verplicht. Het invullen van de verplichte velden zijn alleen verplicht als er een profiel aangemaakt word. Dus als de gebruiker geen profiel aan wil maken dan zijn deze velden uiteraard niet verplicht om in te vullen. 
 \newpage
 
 \section{Resultaten}
+In deze section zullen de resultaten van het netwerk ontwerp en van het software ontwerp besproken worden. Voor het netwerk ontwep gedeelte zal het afhandelen van de backend gedeelte centraal komen te staan en voor het grafische ontwerp zal het belangrijk zijn om naar de user interfaces te kijken die uiteindelijk gemaakt zijn na de gemaakte schetsen. 
 
 \subsection{Netwerk Ontwerp}
 
 \subsection{Grafisch Ontwerp}
+De gemaakte chat windows lijken veel op de schets dat gemaakt is. Er was geen schets gemaakt voor de twee gebruikers variant maar het enige verschil is dat voor de twee gebruikers versie dat de knoppen met namen er niet op staan. De twee versies zien er uiteindelijk als volgt uit:
+%Hier de chat windows%
+\\
 
+\noindent De settings window heeft tijdens de ontwikkelfase de software versie gekregen, dit stond in eerste instantie niet in het ontwerp, maar het was een mooie toevoeging. De settings window ziet er dan ook als volgt uit:
+%Hier de settings window%
+\\
+
+\noindent De logout window is na implementatie hetzelfde als de schets dat gemaakt is, dit omdat het een eenvoudig ontwerp had:
+%Hier de logout window%
+\\
+
+\noindent De connect window heeft tijdens de ontwikkelfase een keuze blok erbij gekregen waarin kan worden met hoeveel gebruikers er gechat wil worden, als gevolg hiervan wordt de gebruiker altijd naar de goede chat window genavigeerd:
+%Hier de connect window%
+\\
+
+\noindent De create profile window heeft een paar wijzigingen ten opzichte van het ontwerp. De tekstvelden zijn even groot en dus ook de interesses veld is van gelijke grootte als de andere velden. Ook is er een paneelnaam toegevoegd zodat de window er wat gelikter uit kwam te zien. Ook Zijn er knoppen toegevoegd aan de onderkant om terug te navigeren naar de connect window. De ene knop slaat de gegevens op en de ander niet, mocht de gebruiker toch geen profiel willen:
+%Hier de create profile window%
+\\
+
+\noindent Zoals de user interfaces laten zien zijn de resultaten in vele gevallen hetzelfde als de ontwerpen. De veranderde interfaces hebben een enkele toevoeging gekregen om het netwerk ontwerp te ondersteunen.
 \newpage
 
 \section{Conclusie}
@@ -121,6 +191,8 @@ Profiel ondersteuning.
 \newpage
 
 \section{Nawoord}
+
+\newpage
 
 \bibliographystyle{plain}
 \bibliography{ProjectBib}
