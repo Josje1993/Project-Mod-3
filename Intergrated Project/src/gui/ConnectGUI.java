@@ -24,6 +24,7 @@ public class ConnectGUI extends JPanel implements ActionListener {
 	 */
 	private static final long serialVersionUID = -928496846447179820L;
 	private JTextField nickName;
+	private String nickNameString;
 	private JButton createProfile;
 	private JTextField connAddr;
 	private JButton connect;
@@ -37,7 +38,8 @@ public class ConnectGUI extends JPanel implements ActionListener {
 	
 //---------------------------------------------------------------------//
 	
-	public ConnectGUI() {
+	public ConnectGUI(String nickNameString) {
+		this.nickNameString = nickNameString;
 		connecting = new JFrame();
 		connecting.setTitle(TITLE);
 		layout = new BorderLayout();
@@ -46,13 +48,13 @@ public class ConnectGUI extends JPanel implements ActionListener {
 		connecting.add(connectAddr(), BorderLayout.CENTER);
 		connecting.add(southLayout(),BorderLayout.SOUTH);
 		connecting.setVisible(true);
-		connecting.setSize(400, 160);
+		connecting.setSize(400, 170);
 		connecting.setLocationRelativeTo(null);
 		connecting.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 	}
 	
 	private JPanel nickName() {
-		nickName = new JTextField("Nickname", 10);
+		nickName = new JTextField(nickNameString, 10);
 		nickName.setEditable(true);
 		nickNamePanel = new JPanel();
 		nickNamePanel.add(nickName);
@@ -100,12 +102,14 @@ public class ConnectGUI extends JPanel implements ActionListener {
 	}
 	
 	public static void main(String[] args0){
-		new ConnectGUI();
+		new ConnectGUI("Nickname");
 	}
 	
 	public void actionPerformed(ActionEvent arg0) {
-		// TODO Auto-generated method stub
-		
+		if(arg0.getSource() == createProfile){
+			new MaakProfielGUI();
+			connecting.dispose();
+		}
 	}
 	
 	
