@@ -118,7 +118,7 @@ public class ChatGUI extends JPanel implements ActionListener{
 	
 	private JPanel profileInfo1(){
 		JPanel profileInfoPanel = new JPanel();
-		nameAndProfile = new JTextArea(15,20);
+		nameAndProfile = new JTextArea(14,20);
 		nameAndProfile.setEditable(false);
 		TitledBorder title = BorderFactory.createTitledBorder(blackline, "Profile of name1");
 		title.setTitleJustification(TitledBorder.CENTER);
@@ -129,7 +129,7 @@ public class ChatGUI extends JPanel implements ActionListener{
 	
 	private JPanel profileInfo2(){
 		JPanel profileInfoPanel = new JPanel();
-		nameAndProfile = new JTextArea(15,20);
+		nameAndProfile = new JTextArea(14,20);
 		nameAndProfile.setEditable(false);
 		TitledBorder title = BorderFactory.createTitledBorder(blackline, "Profile of name2");
 		title.setTitleJustification(TitledBorder.CENTER);
@@ -140,7 +140,7 @@ public class ChatGUI extends JPanel implements ActionListener{
 	
 	private JPanel profileInfo3(){
 		JPanel profileInfoPanel = new JPanel();
-		nameAndProfile = new JTextArea(15,20);
+		nameAndProfile = new JTextArea(14,20);
 		nameAndProfile.setEditable(false);
 		TitledBorder title = BorderFactory.createTitledBorder(blackline, "Profile of name3");
 		title.setTitleJustification(TitledBorder.CENTER);
