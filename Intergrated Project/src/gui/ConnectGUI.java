@@ -166,7 +166,7 @@ public class ConnectGUI extends JPanel implements ActionListener {
 			}
 			else{
 				connecting.dispose();
-				new ChatGUI();
+				new ChatGUI(nickName.getText());
 			}
 			
 		}
@@ -182,11 +182,9 @@ public class ConnectGUI extends JPanel implements ActionListener {
 			}
 			else{
 				connecting.dispose();
-				// TO-DO
+				new ChatGUI2(nickName.getText());
 			}
-			
 		}
-		
 		
 		if(arg0.getSource() == okButtonNickName){
 			connecting.setEnabled(true);

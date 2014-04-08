@@ -29,6 +29,7 @@ public class ChatGUI extends JPanel implements ActionListener{
 //--------------------------------------------------------------------------//
 	
 	private static final long serialVersionUID = -591603013574440445L;
+	private String myNickName;
 	private JFrame chatser;
 	private JButton settings;
 	private JButton log_out;
@@ -52,10 +53,11 @@ public class ChatGUI extends JPanel implements ActionListener{
 	
 //--------------------------------------------------------------------------//
 	
-	public ChatGUI() {
+	public ChatGUI(String myNickName) {
+		this.myNickName = myNickName;
 		importPictures();
 		chatser = new JFrame();
-		chatser.setTitle(TITLE);
+		chatser.setTitle(TITLE + " - " + myNickName);
 		layout = new BorderLayout();
 		chatser.setLayout(layout);
 		chatser.add(chatBoxPanel(), BorderLayout.CENTER);
@@ -187,7 +189,7 @@ public class ChatGUI extends JPanel implements ActionListener{
 	}
 	
 	public static void main(String[] args){
-		new ChatGUI();
+		new ChatGUI("hoi");
 	}
 	
 	@Override

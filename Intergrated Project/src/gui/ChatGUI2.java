@@ -22,7 +22,9 @@ public class ChatGUI2 implements ActionListener {
 
 	// --------------------------------------------------------------------------//
 
+	@SuppressWarnings("unused")
 	private static final long serialVersionUID = -591603013574440445L;
+	private String myNickName;
 	private JFrame chatser;
 	private JButton settings;
 	private JButton log_out;
@@ -36,13 +38,15 @@ public class ChatGUI2 implements ActionListener {
 	private ImageIcon logoutPic;
 	private static final String TITLE = "Chatser";
 	private Border blackline = BorderFactory.createLineBorder(Color.BLACK);
+	
 
 	// --------------------------------------------------------------------------//
 
-	public ChatGUI2() {
+	public ChatGUI2(String myNickName) {
+		this.myNickName = myNickName;
 		importPictures();
 		chatser = new JFrame();
-		chatser.setTitle(TITLE);
+		chatser.setTitle(TITLE + " - " + myNickName);
 		layout = new BorderLayout();
 		chatser.setLayout(layout);
 		chatser.add(chatBoxPanel(), BorderLayout.CENTER);
@@ -111,17 +115,21 @@ public class ChatGUI2 implements ActionListener {
 		log_out.setOpaque(false);
 		log_out.setContentAreaFilled(false);
 		log_out.setBorderPainted(false);
+		log_out.addActionListener(this);
 		settingsAndLogoutPanel.add(settings);
 		settingsAndLogoutPanel.add(log_out);
 		return settingsAndLogoutPanel;
 	}
 
 	public static void main(String[] args) {
-		new ChatGUI2();
+		new ChatGUI2("hoi");
 	}
 
 	public void actionPerformed(ActionEvent ae) {
-	
+		if(ae.getSource() == log_out){
+			chatser.dispose();
+			new ConnectGUI(myNickName);
+		}
 	}
 
 }
