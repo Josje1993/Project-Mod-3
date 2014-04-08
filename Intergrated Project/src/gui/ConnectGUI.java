@@ -110,6 +110,9 @@ public class ConnectGUI extends JPanel implements ActionListener {
 			new MaakProfielGUI();
 			connecting.dispose();
 		}
+		if(arg0.getSource() == connect){
+			new ChatGUI();
+		}
 	}
 	
 	
