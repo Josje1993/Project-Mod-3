@@ -150,7 +150,7 @@ public class MaakProfielGUI implements ActionListener{
 	}
 	
 	public JFrame errorFrame(){
-		errorFrame = new JFrame();
+		errorFrame = new JFrame("Error!");
 		errorFrame.setLayout(new FlowLayout());
 		JLabel errorLabel = new JLabel("Niet alle verplichte velden zijn ingevoerd");
 		errorFrame.add(errorLabel);
