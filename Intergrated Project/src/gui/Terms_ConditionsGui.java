@@ -107,7 +107,7 @@ public class Terms_ConditionsGui extends JPanel implements ActionListener {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource() == agreed) {
-			new ConnectGUI();
+			new ConnectGUI("Nickname");
 			conditions.dispose();
 		}
 		if (e.getSource() == notAgreed) {
