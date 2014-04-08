@@ -101,9 +101,9 @@ public class ConnectGUI extends JPanel implements ActionListener {
 		return paneltje;
 	}
 	
-	public static void main(String[] args0){
-		new ConnectGUI("Nickname");
-	}
+//	public static void main(String[] args0){
+//		new ConnectGUI("Nickname");
+//	}
 	
 	public void actionPerformed(ActionEvent arg0) {
 		if(arg0.getSource() == createProfile){
