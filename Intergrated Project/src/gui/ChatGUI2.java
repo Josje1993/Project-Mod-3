@@ -10,6 +10,7 @@ import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
@@ -24,8 +25,11 @@ public class ChatGUI2 implements ActionListener {
 
 	@SuppressWarnings("unused")
 	private static final long serialVersionUID = -591603013574440445L;
+	public JFrame quitFrame;
+	public JButton yesButton;
+	public JButton noButton;
 	private String myNickName;
-	private JFrame chatser;
+	public JFrame chatser;
 	private JButton settings;
 	private JButton log_out;
 	private JButton extentions;
@@ -38,7 +42,6 @@ public class ChatGUI2 implements ActionListener {
 	private ImageIcon logoutPic;
 	private static final String TITLE = "Chatser";
 	private Border blackline = BorderFactory.createLineBorder(Color.BLACK);
-	
 
 	// --------------------------------------------------------------------------//
 
@@ -127,9 +130,54 @@ public class ChatGUI2 implements ActionListener {
 
 	public void actionPerformed(ActionEvent ae) {
 		if(ae.getSource() == log_out){
+			quitFrame();
+			
+		}
+		if(ae.getSource() == yesButton){
 			chatser.dispose();
+			quitFrame.dispose();
 			new ConnectGUI(myNickName);
 		}
+		if(ae.getSource() == noButton){
+			quitFrame.dispose();
+		}
 	}
-
+	
+	public void quitFrame(){
+		quitFrame = new JFrame();
+		quitFrame.setLayout(new BorderLayout());
+		quitFrame.add(textPanel(), BorderLayout.NORTH);
+		quitFrame.add(yesPanel(), BorderLayout.WEST);
+		quitFrame.add(noPanel(), BorderLayout.EAST);
+		quitFrame.setSize(220,110);
+		quitFrame.setVisible(true);
+		quitFrame.setLocationRelativeTo(null);
+		quitFrame.setResizable(false);
+		quitFrame.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
+	}
+	
+	public JPanel textPanel(){
+		JLabel textLabel = new JLabel("Weet u zeker dat u wilt afsluiten?");
+		JPanel textPanel = new JPanel();
+		textPanel.add(textLabel);
+		return textPanel;
+	}
+	
+	public JPanel yesPanel(){
+		JPanel yesPanel = new JPanel();
+		yesButton = new JButton("Ja");
+		yesButton.addActionListener(this);
+		yesPanel.add(yesButton);
+		yesPanel.setBorder(BorderFactory.createEmptyBorder(0,20,0,0));
+		return yesPanel;
+	}
+	
+	public JPanel noPanel(){
+		JPanel noPanel = new JPanel();
+		noButton = new JButton("Nee");
+		noButton.addActionListener(this);
+		noPanel.add(noButton);
+		noPanel.setBorder(BorderFactory.createEmptyBorder(0,0,0,20));
+		return noPanel;
+	}
 }

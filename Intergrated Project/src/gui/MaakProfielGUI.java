@@ -30,16 +30,11 @@ public class MaakProfielGUI implements ActionListener{
 		maakProfielFrame();
 	}
 	
-	public JFrame maakProfielFrame(){
-		maakProfielFrame = new JFrame("Maak nieuw Profiel");
-		
+	public JPanel labelPanel(){
 		GridLayout grid = new GridLayout();
 		grid.setRows(6);
 		grid.setColumns(1);
 		JPanel labelPanel = new JPanel(grid);
-		JPanel textFieldPanel = new JPanel(grid);
-		JPanel maakProfielPanel = new JPanel(new BorderLayout());
-		JPanel maakProfielPanel1 = new JPanel();
 		
 		JPanel labelPanel1 = new JPanel();
 		JPanel labelPanel2 = new JPanel();
@@ -47,7 +42,6 @@ public class MaakProfielGUI implements ActionListener{
 		JPanel labelPanel4 = new JPanel();
 		JPanel labelPanel5 = new JPanel();
 		JPanel labelPanel6 = new JPanel();
-		JPanel labelPanel7 = new JPanel();
 		
 		labelPanel6.setBorder(BorderFactory.createEmptyBorder(0, 10, 0, 0));
 		labelPanel1.setBorder(BorderFactory.createEmptyBorder(0,10,0,0));
@@ -55,6 +49,36 @@ public class MaakProfielGUI implements ActionListener{
 		labelPanel3.setBorder(BorderFactory.createEmptyBorder(0,10,0,0));
 		labelPanel4.setBorder(BorderFactory.createEmptyBorder(0,10,0,0));
 		labelPanel5.setBorder(BorderFactory.createEmptyBorder(0,10,30,0));
+		
+		JLabel nicknameLabel = new JLabel("Nickname*: ");
+		JLabel voornaamLabel = new JLabel("Voornaam*: ");
+		JLabel achternaamLabel = new JLabel("Achternaam*: ");
+		JLabel leeftijdLabel = new JLabel("Leeftijd*: ");
+		JLabel interessesLabel = new JLabel("Interesses: ");
+		JLabel relatiestatusLabel = new JLabel("relatiestatus: ");
+		
+		labelPanel1.add(voornaamLabel);
+		labelPanel2.add(achternaamLabel);
+		labelPanel3.add(leeftijdLabel);
+		labelPanel4.add(interessesLabel);
+		labelPanel5.add(relatiestatusLabel);
+		labelPanel6.add(nicknameLabel);
+		
+		labelPanel.add(labelPanel6);
+		labelPanel.add(labelPanel1);
+		labelPanel.add(labelPanel2);
+		labelPanel.add(labelPanel3);
+		labelPanel.add(labelPanel4);
+		labelPanel.add(labelPanel5);
+		
+		return labelPanel;
+	}
+	
+	public JPanel textFieldPanel(){
+		GridLayout grid = new GridLayout();
+		grid.setRows(6);
+		grid.setColumns(1);
+		JPanel textFieldPanel = new JPanel(grid);
 		
 		JPanel textFieldPanel1 = new JPanel();
 		JPanel textFieldPanel2 = new JPanel();
@@ -70,16 +94,6 @@ public class MaakProfielGUI implements ActionListener{
 		textFieldPanel4.setBorder(BorderFactory.createEmptyBorder(0,10,0,0));
 		textFieldPanel5.setBorder(BorderFactory.createEmptyBorder(0,10,30,0));
 		
-		geenNieuwProfiel = new JButton("Ga terug!");
-		maakProfielButton = new JButton("Maak Profiel");
-		//maakProfielButton.setEnabled(false);
-		maakProfielButton.addActionListener(this);
-		geenNieuwProfiel.addActionListener(this);
-		JPanel maakProfielButtonPanel = new JPanel();	
-		maakProfielButtonPanel.add(labelPanel6);
-		maakProfielButtonPanel.add(maakProfielButton);
-		maakProfielButtonPanel.add(geenNieuwProfiel);
-		
 		nickname = new JTextField("", 30);
 		voornaam = new JTextField("", 30);
 		achternaam = new JTextField("", 30);
@@ -93,33 +107,12 @@ public class MaakProfielGUI implements ActionListener{
 		interesses.setEditable(true);
 		relatiestatus.setEditable(true);
 		
-		JLabel nicknameLabel = new JLabel("Nickname*: ");
-		JLabel voornaamLabel = new JLabel("Voornaam*: ");
-		JLabel achternaamLabel = new JLabel("Achternaam*: ");
-		JLabel leeftijdLabel = new JLabel("Leeftijd*: ");
-		JLabel interessesLabel = new JLabel("Interesses: ");
-		JLabel relatiestatusLabel = new JLabel("relatiestatus: ");
-		JLabel verplichteVelden = new JLabel("* Verlplichte velden");
-
-		voornaam.setEditable(true);
-		achternaam.setEditable(true);
-		leeftijd.setEditable(true);
-		interesses.setEditable(true);
-		relatiestatus.setEditable(true);
-		
-		labelPanel1.add(voornaamLabel);
 		textFieldPanel1.add(voornaam);
-		labelPanel2.add(achternaamLabel);
 		textFieldPanel2.add(achternaam);
-		labelPanel3.add(leeftijdLabel);
 		textFieldPanel3.add(leeftijd);
-		labelPanel4.add(interessesLabel);
 		textFieldPanel4.add(interesses);
-		labelPanel5.add(relatiestatusLabel);
 		textFieldPanel5.add(relatiestatus);
-		labelPanel6.add(nicknameLabel);
 		textFieldPanel6.add(nickname);
-		labelPanel7.add(verplichteVelden);
 		
 		textFieldPanel.add(textFieldPanel6);
 		textFieldPanel.add(textFieldPanel1);
@@ -128,27 +121,51 @@ public class MaakProfielGUI implements ActionListener{
 		textFieldPanel.add(textFieldPanel4);
 		textFieldPanel.add(textFieldPanel5);
 		
-		labelPanel.add(labelPanel6);
-		labelPanel.add(labelPanel1);
-		labelPanel.add(labelPanel2);
-		labelPanel.add(labelPanel3);
-		labelPanel.add(labelPanel4);
-		labelPanel.add(labelPanel5);
+		return textFieldPanel;
+	}
+	
+	public JPanel maakProfielButtonPanel(){
+		JPanel labelPanel7 = new JPanel();
+		geenNieuwProfiel = new JButton("Ga terug!");
+		maakProfielButton = new JButton("Maak Profiel");
+		//maakProfielButton.setEnabled(false);
+		maakProfielButton.addActionListener(this);
+		geenNieuwProfiel.addActionListener(this);
+		JPanel maakProfielButtonPanel = new JPanel();	
+		maakProfielButtonPanel.add(labelPanel7);
+		maakProfielButtonPanel.add(maakProfielButton);
+		maakProfielButtonPanel.add(geenNieuwProfiel);
 		
+		return maakProfielButtonPanel;
+	}
+	
+	public JPanel maakProfielPanel(){
+		JPanel maakProfielPanel = new JPanel(new BorderLayout());
+		maakProfielPanel.add(labelPanel(), BorderLayout.WEST);
+		maakProfielPanel.add(textFieldPanel(), BorderLayout.CENTER);
+		maakProfielPanel.add(maakProfielButtonPanel(), BorderLayout.SOUTH);
+		return maakProfielPanel;
+	}
+	
+	public JPanel maakProfielPanel1(){
+		JPanel maakProfielPanel1 = new JPanel();
+		maakProfielPanel1.add(maakProfielPanel());
+		maakProfielPanel1.setBorder(BorderFactory.createTitledBorder(BorderFactory.createLineBorder(Color.black), "Maak chat profiel aan:"));
+		
+		return maakProfielPanel1;
+	}
+
+	public JFrame maakProfielFrame(){
+		maakProfielFrame = new JFrame("Maak nieuw Profiel");
 		maakProfielFrame.setSize(500,480);
 		maakProfielFrame.setVisible(true);
 		maakProfielFrame.setResizable(false);
 		maakProfielFrame.setLocationRelativeTo(null);
 		maakProfielFrame.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
-		maakProfielPanel.add(labelPanel, BorderLayout.WEST);
-		maakProfielPanel.add(textFieldPanel, BorderLayout.CENTER);
-		maakProfielPanel.add(maakProfielButtonPanel, BorderLayout.SOUTH);
-		maakProfielPanel1.add(maakProfielPanel);
-		maakProfielPanel1.setBorder(BorderFactory.createTitledBorder(BorderFactory.createLineBorder(Color.black), "Maak chat profiel aan:"));
-		maakProfielFrame.add(maakProfielPanel1);
+		maakProfielFrame.add(maakProfielPanel1());
 		return maakProfielFrame;
 	}
-	
+
 	public JFrame errorFrame(){
 		errorFrame = new JFrame("Error!");
 		errorFrame.setLayout(new FlowLayout());
@@ -164,7 +181,7 @@ public class MaakProfielGUI implements ActionListener{
 		errorFrame.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
 		return errorFrame;
 	}
-	
+
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if(e.getSource() == maakProfielButton){
