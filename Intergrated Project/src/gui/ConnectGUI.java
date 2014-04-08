@@ -9,6 +9,7 @@ import java.awt.BorderLayout;
 import java.awt.FlowLayout;
 
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
@@ -30,6 +31,7 @@ public class ConnectGUI extends JPanel implements ActionListener {
 	private JButton createProfile;
 	private JTextField connAddr;
 	private JButton connect;
+	private JComboBox<String> amountChatters;
 	private JButton okButtonConnAddr;
 	private JButton okButtonNickName;
 	private BorderLayout layout;
@@ -86,8 +88,13 @@ public class ConnectGUI extends JPanel implements ActionListener {
 	private JPanel connect() {
 		connect = new JButton("Connect");
 		connect.addActionListener(this);
+		amountChatters = new JComboBox<String>();
+		amountChatters.addItem("Two chatters");
+		amountChatters.addItem("Four chatters");
+		amountChatters.addActionListener(this);
 		connectPanel = new JPanel();
 		connectPanel.add(connect);
+		connectPanel.add(amountChatters);
 		return connectPanel;
 	}
 	
@@ -148,7 +155,7 @@ public class ConnectGUI extends JPanel implements ActionListener {
 			new MaakProfielGUI();
 			connecting.dispose();
 		}
-		if(arg0.getSource() == connect){
+		if(arg0.getSource() == connect && amountChatters.getSelectedItem().equals("Four chatters")){
 			if(nickName.getText().equals("Nickname") || nickName.getText().equals("")){
 				connecting.setEnabled(false);
 				errorFrameNickName();
@@ -163,14 +170,34 @@ public class ConnectGUI extends JPanel implements ActionListener {
 			}
 			
 		}
+		
+		if(arg0.getSource() == connect && amountChatters.getSelectedItem().equals("Two chatters")){
+			if(nickName.getText().equals("Nickname") || nickName.getText().equals("")){
+				connecting.setEnabled(false);
+				errorFrameNickName();
+			}
+			else if(connAddr.getText().equals("Connect Address") || connAddr.getText().equals("")){
+				connecting.setEnabled(false);
+				errorFrameConnAddr();
+			}
+			else{
+				connecting.dispose();
+				// TO-DO
+			}
+			
+		}
+		
+		
 		if(arg0.getSource() == okButtonNickName){
 			connecting.setEnabled(true);
 			errorFrameNickName.dispose();
 		}
+		
 		if(arg0.getSource() == okButtonConnAddr){
 			connecting.setEnabled(true);
 			errorFrameConnAddr.dispose();
 		}
+		
 	}
 	
 	
