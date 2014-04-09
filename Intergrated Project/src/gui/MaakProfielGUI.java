@@ -5,6 +5,9 @@ import java.awt.Color;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
@@ -15,10 +18,14 @@ import javax.swing.JTextField;
 import javax.swing.WindowConstants;
 
 public class MaakProfielGUI implements ActionListener{
+	WindowListener listener = new WindowAdapter(){
+		public void windowClosing(WindowEvent we){
+			maakProfielFrame.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
+			new ConnectGUI("Nickname");
+		}	
+	};
 	JButton maakProfielButton;
 	JButton geenNieuwProfiel;
-	JButton okButton;
-	JFrame errorFrame;
 	JFrame maakProfielFrame;
 	JTextField voornaam;
 	JTextField achternaam;
@@ -156,11 +163,11 @@ public class MaakProfielGUI implements ActionListener{
 
 	public JFrame maakProfielFrame(){
 		maakProfielFrame = new JFrame("Maak nieuw Profiel");
+		maakProfielFrame.addWindowListener(listener);
 		maakProfielFrame.setSize(500,480);
 		maakProfielFrame.setVisible(true);
 		maakProfielFrame.setResizable(false);
 		maakProfielFrame.setLocationRelativeTo(null);
-		maakProfielFrame.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
 		maakProfielFrame.add(maakProfielPanel1());
 		return maakProfielFrame;
 	}
@@ -200,10 +207,6 @@ public class MaakProfielGUI implements ActionListener{
 				maakProfielFrame.dispose();
 				new ConnectGUI(nickname.getText());
 			}
-		}
-		if(e.getSource() == okButton){
-			errorFrame.dispose();
-			maakProfielFrame.setEnabled(true);
 		}
 		if(e.getSource() == geenNieuwProfiel){
 			maakProfielFrame.dispose();

@@ -99,7 +99,6 @@ public class StartGUI extends JPanel implements ActionListener {
 	
 	public static void main(String[] args0) {
 		new StartGUI();
-		
 	}
 
 }
