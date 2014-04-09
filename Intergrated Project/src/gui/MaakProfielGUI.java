@@ -164,13 +164,37 @@ public class MaakProfielGUI implements ActionListener{
 		maakProfielFrame.add(maakProfielPanel1());
 		return maakProfielFrame;
 	}
+	
+	public boolean onlyNumbers(String numbers){
+		boolean result = false;
+		for(int x = 0; x < 200; x++){
+			String stringx = Integer.toString(x);
+			if(numbers.equals(stringx)){
+				result = true;
+			}
+		}
+		return result;
+	}
+	
+	public boolean max20(String nickname){
+		boolean result = false;
+		if(nickname.length() <= 20){
+			result = true;
+		}
+		return result;
+	}
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if(e.getSource() == maakProfielButton){
 			if(voornaam.getText().equals("")||achternaam.getText().equals("")||leeftijd.getText().equals("")||nickname.getText().equals("")){
-				new ErrorGUI("Niet alle verplichte velden zijn ingevoerd1", 250);
-				maakProfielFrame.setEnabled(false);
+				new ErrorGUI("Niet alle verplichte velden zijn ingevoerd", 250);
+			}
+			else if(!max20(nickname.getText())){
+				new ErrorGUI("Nickname te lang", 200);
+			}
+			else if(!onlyNumbers(leeftijd.getText())){
+				new ErrorGUI("Voor geldige leeftijd in", 230);
 			}
 			else{
 				maakProfielFrame.dispose();

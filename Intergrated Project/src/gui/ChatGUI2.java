@@ -5,6 +5,9 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
 
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
@@ -19,12 +22,10 @@ import javax.swing.WindowConstants;
 import javax.swing.border.Border;
 import javax.swing.border.TitledBorder;
 
-public class ChatGUI2 implements ActionListener {
+public class ChatGUI2 extends WindowAdapter  implements ActionListener {
 
 	// --------------------------------------------------------------------------//
 
-	@SuppressWarnings("unused")
-	private static final long serialVersionUID = -591603013574440445L;
 	public JFrame quitFrame;
 	public JButton yesButton;
 	public JButton noButton;
@@ -42,13 +43,22 @@ public class ChatGUI2 implements ActionListener {
 	private ImageIcon logoutPic;
 	private static final String TITLE = "Chatser";
 	private Border blackline = BorderFactory.createLineBorder(Color.BLACK);
-
+	private SettingsGUI settingsGUI;
+	private int checker = 0;
+	
 	// --------------------------------------------------------------------------//
 
 	public ChatGUI2(String myNickName) {
+		WindowListener listener = new WindowAdapter(){
+			public void windowClosing(WindowEvent we){
+				chatser.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
+				quitFrame();
+			}
+		};
 		this.myNickName = myNickName;
 		importPictures();
 		chatser = new JFrame();
+		chatser.addWindowListener(listener);
 		chatser.setTitle(TITLE + " - " + myNickName);
 		layout = new BorderLayout();
 		chatser.setLayout(layout);
@@ -125,13 +135,23 @@ public class ChatGUI2 implements ActionListener {
 	}
 
 	public static void main(String[] args) {
-		new ChatGUI2("hoi");
+		new ChatGUI2("noNickName");
 	}
 
 	public void actionPerformed(ActionEvent ae) {
 		if(ae.getSource() == log_out){
 			quitFrame();
 			
+		}
+		if(ae.getSource() == settings){
+			if(checker == 0){
+				settingsGUI = new SettingsGUI(false);
+				checker = 2;
+			}else if(settingsGUI.notificationSoundCheckbox.isSelected()){
+				settingsGUI = new SettingsGUI(true);
+			}else{
+				settingsGUI = new SettingsGUI(false);
+			}
 		}
 		if(ae.getSource() == yesButton){
 			chatser.dispose();
@@ -143,6 +163,7 @@ public class ChatGUI2 implements ActionListener {
 		}
 	}
 	
+	//Quit Frame Methods
 	public void quitFrame(){
 		quitFrame = new JFrame();
 		quitFrame.setLayout(new BorderLayout());
