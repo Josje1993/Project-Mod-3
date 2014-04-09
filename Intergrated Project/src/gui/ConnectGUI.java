@@ -29,6 +29,7 @@ public class ConnectGUI extends JPanel implements ActionListener {
 	private String nickNameString;
 	private JButton createProfile;
 	private JTextField connAddr;
+	private JTextField port;
 	private JButton connect;
 	private JButton quitButton;
 	private JComboBox<String> amountChatters;
@@ -71,10 +72,12 @@ public class ConnectGUI extends JPanel implements ActionListener {
 	}
 	
 	private JPanel connectAddr() {
-		connAddr = new JTextField("Connect Address", 15);
+		connAddr = new JTextField("Connect Address", 10);
 		connAddr.setEditable(true);
+		port = new JTextField("Port Address", 10);
 		connectAddrPanel = new JPanel();
 		connectAddrPanel.add(connAddr);
+		connectAddrPanel.add(port);
 		return connectAddrPanel;
 	}
 	
