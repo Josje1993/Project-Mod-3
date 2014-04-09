@@ -6,6 +6,7 @@ import java.awt.event.ActionListener;
 import javax.swing.JFrame;
 
 import java.awt.BorderLayout;
+import java.util.Arrays;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
@@ -92,6 +93,28 @@ public class ConnectGUI extends JPanel implements ActionListener {
 		return result;
 	}
 	
+	public boolean onlyNumbersconnAddr(String numbers){
+		System.out.println(numbers);
+		int resultint = 0;
+		String[] splitter = numbers.split("\\.");
+		System.out.println(Arrays.toString(splitter));
+		boolean result = false;
+		if(splitter.length == 4){
+			for(int y = 0; y < splitter.length; y++){
+				for(int x = 0; x < 255; x++){
+					String stringx = Integer.toString(x);
+					if(splitter[y].equals(stringx)){
+						resultint++;
+						if(resultint == 4){
+							result = true;
+						}
+					}
+				}
+			}
+		}
+		return result;
+	}
+	
 	private JPanel createProfile() {
 		createProfile = new JButton("Create Profile");
 		createProfile.addActionListener(this);
@@ -152,7 +175,7 @@ public class ConnectGUI extends JPanel implements ActionListener {
 			else if(nickName.getText().equals("Nickname") || nickName.getText().equals("")){
 				new ErrorGUI("Voer nickname in of maak nieuw profiel aan", 280);
 			}
-			else if(connAddr.getText().equals("Connect Address") || connAddr.getText().equals("")){
+			else if(connAddr.getText().equals("Connect Address") || connAddr.getText().equals("") || !onlyNumbersconnAddr(connAddr.getText())){
 				new ErrorGUI("Incorrect connect Address", 200);
 			}
 			else if(!onlyNumbersAbove1023(port.getText())){
