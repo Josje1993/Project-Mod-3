@@ -113,31 +113,18 @@ public class ConnectGUI extends JPanel implements ActionListener {
 			new MaakProfielGUI();
 			connecting.dispose();
 		}
-		if(arg0.getSource() == connect && amountChatters.getSelectedItem().equals("Four chatters")){
+		if(arg0.getSource() == connect){
 			if(nickName.getText().equals("Nickname") || nickName.getText().equals("")){
-				connecting.setEnabled(false);
 				new ErrorGUI("Voer nickname in of maak nieuw profiel aan", 280);
 			}
 			else if(connAddr.getText().equals("Connect Address") || connAddr.getText().equals("")){
-				connecting.setEnabled(false);
 				new ErrorGUI("Incorrect connect Address", 200);
 			}
-			else{
+			else if(amountChatters.getSelectedItem().equals("Four chatters")){
 				connecting.dispose();
 				new ChatGUI(nickName.getText());
 			}
-		}
-		
-		if(arg0.getSource() == connect && amountChatters.getSelectedItem().equals("Two chatters")){
-			if(nickName.getText().equals("Nickname") || nickName.getText().equals("")){
-				connecting.setEnabled(false);
-				new ErrorGUI("Voer nickname in of maak nieuw profiel aan", 280);
-			}
-			else if(connAddr.getText().equals("Connect Address") || connAddr.getText().equals("")){
-				connecting.setEnabled(false);
-				new ErrorGUI("Incorrect connect Address", 200);
-			}
-			else{
+			else if(amountChatters.getSelectedItem().equals("Two chatters")){
 				connecting.dispose();
 				new ChatGUI2(nickName.getText());
 			}
