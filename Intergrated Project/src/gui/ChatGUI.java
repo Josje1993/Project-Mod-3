@@ -25,6 +25,7 @@ public class ChatGUI extends JPanel implements ActionListener{
 //--------------------------------------------------------------------------//
 	
 	private static final long serialVersionUID = -591603013574440445L;
+	private String myNickName;
 	private JFrame chatser;
 	private JButton settings;
 	private JButton log_out;
@@ -50,10 +51,11 @@ public class ChatGUI extends JPanel implements ActionListener{
 	
 //--------------------------------------------------------------------------//
 	
-	public ChatGUI() {
+	public ChatGUI(String myNickName) {
+		this.myNickName = myNickName;
 		importPictures();
 		chatser = new JFrame();
-		chatser.setTitle(TITLE);
+		chatser.setTitle(TITLE + " - " + myNickName);
 		layout = new BorderLayout();
 		chatser.setLayout(layout);
 		chatser.add(chatBoxPanel(), BorderLayout.CENTER);
@@ -116,7 +118,7 @@ public class ChatGUI extends JPanel implements ActionListener{
 	
 	private JPanel profileInfo1(){
 		JPanel profileInfoPanel = new JPanel();
-		nameAndProfile = new JTextArea(15,20);
+		nameAndProfile = new JTextArea(14,20);
 		nameAndProfile.setEditable(false);
 		TitledBorder title = BorderFactory.createTitledBorder(blackline, "Profile of name1");
 		title.setTitleJustification(TitledBorder.CENTER);
@@ -127,7 +129,7 @@ public class ChatGUI extends JPanel implements ActionListener{
 	
 	private JPanel profileInfo2(){
 		JPanel profileInfoPanel = new JPanel();
-		nameAndProfile = new JTextArea(15,20);
+		nameAndProfile = new JTextArea(14,20);
 		nameAndProfile.setEditable(false);
 		TitledBorder title = BorderFactory.createTitledBorder(blackline, "Profile of name2");
 		title.setTitleJustification(TitledBorder.CENTER);
@@ -138,7 +140,7 @@ public class ChatGUI extends JPanel implements ActionListener{
 	
 	private JPanel profileInfo3(){
 		JPanel profileInfoPanel = new JPanel();
-		nameAndProfile = new JTextArea(15,20);
+		nameAndProfile = new JTextArea(14,20);
 		nameAndProfile.setEditable(false);
 		TitledBorder title = BorderFactory.createTitledBorder(blackline, "Profile of name3");
 		title.setTitleJustification(TitledBorder.CENTER);
@@ -189,7 +191,7 @@ public class ChatGUI extends JPanel implements ActionListener{
 	}
 	
 	public static void main(String[] args){
-		new ChatGUI();
+		new ChatGUI("hoi");
 	}
 	
 	@Override

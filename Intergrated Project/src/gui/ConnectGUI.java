@@ -8,6 +8,7 @@ import javax.swing.JFrame;
 import java.awt.BorderLayout;
 
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.WindowConstants;
@@ -24,9 +25,11 @@ public class ConnectGUI extends JPanel implements ActionListener {
 	 */
 	private static final long serialVersionUID = -928496846447179820L;
 	private JTextField nickName;
+	private String nickNameString;
 	private JButton createProfile;
 	private JTextField connAddr;
 	private JButton connect;
+	private JComboBox<String> amountChatters;
 	private BorderLayout layout;
 	private JFrame connecting;
 	private JPanel nickNamePanel;
@@ -37,7 +40,8 @@ public class ConnectGUI extends JPanel implements ActionListener {
 	
 //---------------------------------------------------------------------//
 	
-	public ConnectGUI() {
+	public ConnectGUI(String nickNameString) {
+		this.nickNameString = nickNameString;
 		connecting = new JFrame();
 		connecting.setTitle(TITLE);
 		layout = new BorderLayout();
@@ -46,13 +50,13 @@ public class ConnectGUI extends JPanel implements ActionListener {
 		connecting.add(connectAddr(), BorderLayout.CENTER);
 		connecting.add(southLayout(),BorderLayout.SOUTH);
 		connecting.setVisible(true);
-		connecting.setSize(400, 160);
+		connecting.setSize(400, 170);
 		connecting.setLocationRelativeTo(null);
 		connecting.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 	}
 	
 	private JPanel nickName() {
-		nickName = new JTextField("Nickname", 10);
+		nickName = new JTextField(nickNameString, 10);
 		nickName.setEditable(true);
 		nickNamePanel = new JPanel();
 		nickNamePanel.add(nickName);
@@ -78,8 +82,13 @@ public class ConnectGUI extends JPanel implements ActionListener {
 	private JPanel connect() {
 		connect = new JButton("Connect");
 		connect.addActionListener(this);
+		amountChatters = new JComboBox<String>();
+		amountChatters.addItem("Two chatters");
+		amountChatters.addItem("Four chatters");
+		amountChatters.addActionListener(this);
 		connectPanel = new JPanel();
 		connectPanel.add(connect);
+		connectPanel.add(amountChatters);
 		return connectPanel;
 	}
 	
@@ -99,14 +108,39 @@ public class ConnectGUI extends JPanel implements ActionListener {
 		return paneltje;
 	}
 	
-	public static void main(String[] args0){
-		new ConnectGUI();
-	}
-	
 	public void actionPerformed(ActionEvent arg0) {
-		// TODO Auto-generated method stub
+		if(arg0.getSource() == createProfile){
+			new MaakProfielGUI();
+			connecting.dispose();
+		}
+		if(arg0.getSource() == connect && amountChatters.getSelectedItem().equals("Four chatters")){
+			if(nickName.getText().equals("Nickname") || nickName.getText().equals("")){
+				connecting.setEnabled(false);
+				new ErrorGUI("Voer nickname in of maak nieuw profiel aan", 280);
+			}
+			else if(connAddr.getText().equals("Connect Address") || connAddr.getText().equals("")){
+				connecting.setEnabled(false);
+				new ErrorGUI("Incorrect connect Address", 200);
+			}
+			else{
+				connecting.dispose();
+				new ChatGUI(nickName.getText());
+			}
+		}
 		
+		if(arg0.getSource() == connect && amountChatters.getSelectedItem().equals("Two chatters")){
+			if(nickName.getText().equals("Nickname") || nickName.getText().equals("")){
+				connecting.setEnabled(false);
+				new ErrorGUI("Voer nickname in of maak nieuw profiel aan", 280);
+			}
+			else if(connAddr.getText().equals("Connect Address") || connAddr.getText().equals("")){
+				connecting.setEnabled(false);
+				new ErrorGUI("Incorrect connect Address", 200);
+			}
+			else{
+				connecting.dispose();
+				new ChatGUI2(nickName.getText());
+			}
+		}
 	}
-	
-	
 }
