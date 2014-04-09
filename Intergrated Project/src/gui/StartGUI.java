@@ -1,6 +1,7 @@
 package gui;
 
 import java.awt.BorderLayout;
+
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -39,6 +40,7 @@ public class StartGUI extends JPanel implements ActionListener {
 		starter.add(northTitle(), BorderLayout.NORTH);
 		starter.add(centerSQ(), BorderLayout.CENTER);
 		starter.add(names(), BorderLayout.SOUTH);
+		
 		starter.setVisible(true);
 		starter.setSize(400, 300);
 		starter.setLocationRelativeTo(null);
@@ -97,6 +99,7 @@ public class StartGUI extends JPanel implements ActionListener {
 	
 	public static void main(String[] args0) {
 		new StartGUI();
+		
 	}
 
 }
