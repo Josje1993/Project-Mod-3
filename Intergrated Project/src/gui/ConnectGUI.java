@@ -6,6 +6,7 @@ import java.awt.event.ActionListener;
 import javax.swing.JFrame;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.util.Arrays;
 
 import javax.swing.BorderFactory;
@@ -68,6 +69,7 @@ public class ConnectGUI extends JPanel implements ActionListener {
 		nickName = new JTextField(nickNameString, 10);
 		nickName.setEditable(true);
 		nickNamePanel = new JPanel();
+		nickNamePanel.setBackground(Color.DARK_GRAY);
 		nickNamePanel.add(nickName);
 		return nickNamePanel;
 	}
@@ -77,6 +79,7 @@ public class ConnectGUI extends JPanel implements ActionListener {
 		connAddr.setEditable(true);
 		port = new JTextField("Port Address", 10);
 		connectAddrPanel = new JPanel();
+		connectAddrPanel.setBackground(Color.DARK_GRAY);
 		connectAddrPanel.add(connAddr);
 		connectAddrPanel.add(port);
 		return connectAddrPanel;
@@ -119,12 +122,14 @@ public class ConnectGUI extends JPanel implements ActionListener {
 		createProfile = new JButton("Create Profile");
 		createProfile.addActionListener(this);
 		createProfilePanel = new JPanel();
+		createProfilePanel.setBackground(Color.DARK_GRAY);
 		createProfilePanel.add(createProfile);
 		return createProfilePanel;
 	}
 	
 	private JPanel quitPanel(){
 		JPanel quitPanel = new JPanel();
+		quitPanel.setBackground(Color.DARK_GRAY);
 		quitButton = new JButton("Shut down");
 		quitButton.addActionListener(this);
 		quitPanel.add(quitButton);
@@ -141,6 +146,7 @@ public class ConnectGUI extends JPanel implements ActionListener {
 		amountChatters.addItem("Four chatters");
 		amountChatters.addActionListener(this);
 		connectPanel = new JPanel();
+		connectPanel.setBackground(Color.DARK_GRAY);
 		connectPanel.add(connect);
 		connectPanel.add(amountChatters);
 		connectPanel.add(quitPanel());
@@ -149,7 +155,7 @@ public class ConnectGUI extends JPanel implements ActionListener {
 	
 	private JPanel southLayout() {
 		JPanel southPaneltje = new JPanel();
-		
+		southPaneltje.setBackground(Color.DARK_GRAY);
 		southPaneltje.add(connect(), BorderLayout.NORTH);
 		
 		return southPaneltje;
@@ -157,7 +163,7 @@ public class ConnectGUI extends JPanel implements ActionListener {
 	
 	private JPanel layOut() {
 		JPanel paneltje = new JPanel();
-		
+		paneltje.setBackground(Color.DARK_GRAY);
 		paneltje.add(nickName(), BorderLayout.WEST);
 		paneltje.add(createProfile(), BorderLayout.EAST);
 		return paneltje;
