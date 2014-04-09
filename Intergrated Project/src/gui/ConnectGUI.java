@@ -81,6 +81,17 @@ public class ConnectGUI extends JPanel implements ActionListener {
 		return connectAddrPanel;
 	}
 	
+	public boolean onlyNumbersAbove1023(String numbers){
+		boolean result = false;
+		for(int x = 0; x < 6000; x++){
+			String stringx = Integer.toString(x);
+			if(numbers.equals(stringx) && x >= 1024){
+				result = true;
+			}
+		}
+		return result;
+	}
+	
 	private JPanel createProfile() {
 		createProfile = new JButton("Create Profile");
 		createProfile.addActionListener(this);
@@ -135,7 +146,7 @@ public class ConnectGUI extends JPanel implements ActionListener {
 			connecting.dispose();
 		}
 		if(arg0.getSource() == connect){
-			if((nickName.getText().equals("Nickname") || nickName.getText().equals(""))&&(connAddr.getText().equals("Connect Address") || connAddr.getText().equals(""))){
+			if((nickName.getText().equals("Nickname") || nickName.getText().equals(""))&&(connAddr.getText().equals("Connect Address") || connAddr.getText().equals("")||port.getText().equals(""))){
 				new ErrorGUI("Nickname en connect address incorrect", 260);
 			}
 			else if(nickName.getText().equals("Nickname") || nickName.getText().equals("")){
@@ -143,6 +154,9 @@ public class ConnectGUI extends JPanel implements ActionListener {
 			}
 			else if(connAddr.getText().equals("Connect Address") || connAddr.getText().equals("")){
 				new ErrorGUI("Incorrect connect Address", 200);
+			}
+			else if(!onlyNumbersAbove1023(port.getText())){
+				new ErrorGUI("Voer geldige portnummer in", 230);
 			}
 			else if(amountChatters.getSelectedItem().equals("Four chatters")){
 				connecting.dispose();
@@ -152,8 +166,10 @@ public class ConnectGUI extends JPanel implements ActionListener {
 				connecting.dispose();
 				new ChatGUI(nickName.getText(),2);
 			}	
+			
 		}
-		if(arg0.getSource() == quitButton){
+		
+			if(arg0.getSource() == quitButton){
 			connecting.dispose();
 		}
 	}
