@@ -3,6 +3,7 @@ package gui;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -12,39 +13,48 @@ import javax.swing.WindowConstants;
 
 public class SettingsGUI extends JPanel implements ActionListener{
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 2649087924237302027L;
-	private JCheckBox notificationSoundCheckbox;
+	public JCheckBox notificationSoundCheckbox;
 	private BoxLayout layout;
 	private JFrame settings;
-	private JLabel notificationLabel;
+	private JButton notificationLabel;
 	private JLabel versionLabel;
 	private JLabel copyrightLabel;
 	private static final String TITLE = "Settings";
+	private boolean statusSetting;
+	private JButton okButton;
 	
 	//---------------------------------------------------------------------//
 	
-	public SettingsGUI() {
+	public SettingsGUI(boolean status) {
+		statusSetting = status;
 		settings = new JFrame();
 		settings.setTitle(TITLE);
 		layout = new BoxLayout(settings.getContentPane(), BoxLayout.Y_AXIS);
 		settings.setLayout(layout);
 		settings.add(notificationSound());
+		settings.add(okButton());
 		settings.add(version());
 		settings.add(copyRight());
 		settings.setVisible(true);
-		settings.setSize(300,120);
+		settings.setSize(300,156);
 		settings.setLocationRelativeTo(null);
-		settings.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-		
+		settings.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
 	}
 	
 	private JPanel notificationSound() {
 		JPanel notSoundPanel = new JPanel();
 		notificationSoundCheckbox = new JCheckBox();
-		notificationLabel = new JLabel("Zet notificatie-geluid uit");
+		if(statusSetting){
+			notificationSoundCheckbox.setSelected(true);
+		}else{
+			notificationSoundCheckbox.setSelected(false);
+		}
+		notificationLabel = new JButton("Zet notificatie-geluid uit");
+		notificationLabel.setOpaque(false);
+		notificationLabel.setContentAreaFilled(false);
+		notificationLabel.setBorderPainted(false);
+		notificationLabel.addActionListener(this);
 		notSoundPanel.add(notificationSoundCheckbox);
 		notSoundPanel.add(notificationLabel);
 		return notSoundPanel;
@@ -57,21 +67,33 @@ public class SettingsGUI extends JPanel implements ActionListener{
 		return versionPanel;
 	}
 	
-	public JPanel copyRight() {
+	private JPanel copyRight() {
 		JPanel copyRightPanel = new JPanel();
 		copyrightLabel = new JLabel("Chatser\u00a9");
 		copyRightPanel.add(copyrightLabel);
 		return copyRightPanel;
 	}
 	
-	public static void main(String[] args){
-		new SettingsGUI();
+	private JPanel okButton() {
+		JPanel okButtonPanel = new JPanel();
+		okButton = new JButton("Save and Apply Settings");
+		okButton.addActionListener(this);
+		okButtonPanel.add(okButton);
+		return okButtonPanel;
 	}
 	
+	public static void main(String[] args){
+		new SettingsGUI(false);
+	}
+
 	@Override
-	public void actionPerformed(ActionEvent arg0) {
-		// TODO Auto-generated method stub
-		
+	public void actionPerformed(ActionEvent ae) {
+		if (ae.getSource() == okButton){
+			settings.dispose();
+		}
+		if (ae.getSource() == notificationLabel) {
+			notificationSoundCheckbox.setSelected(true);
+		}
 	}
 	
 }
