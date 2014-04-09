@@ -6,11 +6,9 @@ import java.awt.event.ActionListener;
 import javax.swing.JFrame;
 
 import java.awt.BorderLayout;
-import java.awt.FlowLayout;
 
 import javax.swing.JButton;
 import javax.swing.JComboBox;
-import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.WindowConstants;
@@ -32,12 +30,8 @@ public class ConnectGUI extends JPanel implements ActionListener {
 	private JTextField connAddr;
 	private JButton connect;
 	private JComboBox<String> amountChatters;
-	private JButton okButtonConnAddr;
-	private JButton okButtonNickName;
 	private BorderLayout layout;
 	private JFrame connecting;
-	private JFrame errorFrameConnAddr;
-	private JFrame errorFrameNickName;
 	private JPanel nickNamePanel;
 	private JPanel connectAddrPanel;
 	private JPanel connectPanel;
@@ -114,42 +108,6 @@ public class ConnectGUI extends JPanel implements ActionListener {
 		return paneltje;
 	}
 	
-//	public static void main(String[] args0){
-//		new ConnectGUI("Nickname");
-//	}
-	private JFrame errorFrameConnAddr(){
-		errorFrameConnAddr = new JFrame("Error");
-		errorFrameConnAddr.setLayout(new FlowLayout());
-		JLabel errorLabel = new JLabel("Incorrect connect Address");
-		errorFrameConnAddr.add(errorLabel);
-		okButtonConnAddr = new JButton("OK");
-		okButtonConnAddr.addActionListener(this);
-		errorFrameConnAddr.add(okButtonConnAddr);
-		errorFrameConnAddr.setVisible(true);
-		errorFrameConnAddr.setSize(200, 120);
-		errorFrameConnAddr.setResizable(false);
-		errorFrameConnAddr.setLocationRelativeTo(null);
-		errorFrameConnAddr.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
-		return errorFrameConnAddr;
-	}
-	
-	
-	private JFrame errorFrameNickName(){
-		errorFrameNickName = new JFrame("Error");
-		errorFrameNickName.setLayout(new FlowLayout());
-		JLabel errorLabel = new JLabel("Voer nickname in of maak nieuw profiel aan");
-		errorFrameNickName.add(errorLabel);
-		okButtonNickName = new JButton("OK");
-		okButtonNickName.addActionListener(this);
-		errorFrameNickName.add(okButtonNickName);
-		errorFrameNickName.setVisible(true);
-		errorFrameNickName.setSize(280, 120);
-		errorFrameNickName.setResizable(false);
-		errorFrameNickName.setLocationRelativeTo(null);
-		errorFrameNickName.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
-		return errorFrameNickName;
-	}
-	
 	public void actionPerformed(ActionEvent arg0) {
 		if(arg0.getSource() == createProfile){
 			new MaakProfielGUI();
@@ -158,45 +116,31 @@ public class ConnectGUI extends JPanel implements ActionListener {
 		if(arg0.getSource() == connect && amountChatters.getSelectedItem().equals("Four chatters")){
 			if(nickName.getText().equals("Nickname") || nickName.getText().equals("")){
 				connecting.setEnabled(false);
-				errorFrameNickName();
+				new ErrorGUI("Voer nickname in of maak nieuw profiel aan", 280);
 			}
 			else if(connAddr.getText().equals("Connect Address") || connAddr.getText().equals("")){
 				connecting.setEnabled(false);
-				errorFrameConnAddr();
+				new ErrorGUI("Incorrect connect Address", 200);
 			}
 			else{
 				connecting.dispose();
 				new ChatGUI(nickName.getText());
 			}
-			
 		}
 		
 		if(arg0.getSource() == connect && amountChatters.getSelectedItem().equals("Two chatters")){
 			if(nickName.getText().equals("Nickname") || nickName.getText().equals("")){
 				connecting.setEnabled(false);
-				errorFrameNickName();
+				new ErrorGUI("Voer nickname in of maak nieuw profiel aan", 280);
 			}
 			else if(connAddr.getText().equals("Connect Address") || connAddr.getText().equals("")){
 				connecting.setEnabled(false);
-				errorFrameConnAddr();
+				new ErrorGUI("Incorrect connect Address", 200);
 			}
 			else{
 				connecting.dispose();
 				new ChatGUI2(nickName.getText());
 			}
 		}
-		
-		if(arg0.getSource() == okButtonNickName){
-			connecting.setEnabled(true);
-			errorFrameNickName.dispose();
-		}
-		
-		if(arg0.getSource() == okButtonConnAddr){
-			connecting.setEnabled(true);
-			errorFrameConnAddr.dispose();
-		}
-		
 	}
-	
-	
 }

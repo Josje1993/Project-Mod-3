@@ -2,7 +2,6 @@ package gui;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -161,32 +160,16 @@ public class MaakProfielGUI implements ActionListener{
 		maakProfielFrame.setVisible(true);
 		maakProfielFrame.setResizable(false);
 		maakProfielFrame.setLocationRelativeTo(null);
-		maakProfielFrame.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
+		maakProfielFrame.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
 		maakProfielFrame.add(maakProfielPanel1());
 		return maakProfielFrame;
-	}
-
-	public JFrame errorFrame(){
-		errorFrame = new JFrame("Error!");
-		errorFrame.setLayout(new FlowLayout());
-		JLabel errorLabel = new JLabel("Niet alle verplichte velden zijn ingevoerd");
-		errorFrame.add(errorLabel);
-		okButton = new JButton("OK");
-		okButton.addActionListener(this);
-		errorFrame.add(okButton);
-		errorFrame.setVisible(true);
-		errorFrame.setSize(250, 120);
-		errorFrame.setResizable(false);
-		errorFrame.setLocationRelativeTo(null);
-		errorFrame.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
-		return errorFrame;
 	}
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if(e.getSource() == maakProfielButton){
 			if(voornaam.getText().equals("")||achternaam.getText().equals("")||leeftijd.getText().equals("")||nickname.getText().equals("")){
-				errorFrame();
+				new ErrorGUI("Niet alle verplichte velden zijn ingevoerd1", 250);
 				maakProfielFrame.setEnabled(false);
 			}
 			else{
