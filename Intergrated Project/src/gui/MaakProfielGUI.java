@@ -201,7 +201,7 @@ public class MaakProfielGUI implements ActionListener{
 				new ErrorGUI("Nickname te lang", 200);
 			}
 			else if(!onlyNumbers(leeftijd.getText())){
-				new ErrorGUI("Voor geldige leeftijd in", 230);
+				new ErrorGUI("Voer geldige leeftijd in", 230);
 			}
 			else{
 				maakProfielFrame.dispose();

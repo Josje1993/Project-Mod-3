@@ -54,10 +54,11 @@ public class ChatGUI extends WindowAdapter implements ActionListener{
 	private Border blackline = BorderFactory.createLineBorder(Color.BLACK);
 	private SettingsGUI settingsGUI;
 	private int checker = 0;
+	private int chatters;
 	
 //--------------------------------------------------------------------------//
 	
-	public ChatGUI(String myNickName) {
+	public ChatGUI(String myNickName, int chatters) {
 		WindowListener listener = new WindowAdapter(){
 			public void windowClosing(WindowEvent we){
 				chatser.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
@@ -65,6 +66,7 @@ public class ChatGUI extends WindowAdapter implements ActionListener{
 			}	
 		};
 		this.myNickName = myNickName;
+		this.chatters = chatters;
 		importPictures();
 		chatser = new JFrame();
 		chatser.addWindowListener(listener);
@@ -104,7 +106,9 @@ public class ChatGUI extends WindowAdapter implements ActionListener{
 		BorderLayout layOut = new BorderLayout();
 		JPanel eastSidePanel = new JPanel(layOut);
 		eastSidePanel.add(settingsAndLogoutPanel(),BorderLayout.NORTH);
-		eastSidePanel.add(namesChooser(), BorderLayout.CENTER);
+		if(chatters == 4){
+			eastSidePanel.add(namesChooser(), BorderLayout.CENTER);
+		}
 		eastSidePanel.add(switchingPanel(), BorderLayout.SOUTH);
 		
 		return eastSidePanel;
@@ -208,7 +212,7 @@ public class ChatGUI extends WindowAdapter implements ActionListener{
 	}
 	
 	public static void main(String[] args){
-		new ChatGUI("noNickName");
+		new ChatGUI("noNickName", 4);
 	}
 	
 	public void actionPerformed(ActionEvent ae) {

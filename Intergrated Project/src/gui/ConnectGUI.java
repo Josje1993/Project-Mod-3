@@ -143,11 +143,11 @@ public class ConnectGUI extends JPanel implements ActionListener {
 			}
 			else if(amountChatters.getSelectedItem().equals("Four chatters")){
 				connecting.dispose();
-				new ChatGUI(nickName.getText());
+				new ChatGUI(nickName.getText(), 4);
 			}
 			else if(amountChatters.getSelectedItem().equals("Two chatters")){
 				connecting.dispose();
-				new ChatGUI2(nickName.getText());
+				new ChatGUI(nickName.getText(),2);
 			}	
 		}
 		if(arg0.getSource() == quitButton){

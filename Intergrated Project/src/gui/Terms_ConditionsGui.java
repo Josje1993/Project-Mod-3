@@ -97,6 +97,7 @@ public class Terms_ConditionsGui extends JPanel implements ActionListener {
 		terms.setText(TEXT);
 		terms.setEditable(false);
 		JScrollPane chatBoxScrollPane = new JScrollPane(terms);
+		terms.setCaretPosition(0);
 		chatBoxScrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
 		chatBoxScrollPane.setPreferredSize(new Dimension(250, 250));
 		return chatBoxScrollPane;
