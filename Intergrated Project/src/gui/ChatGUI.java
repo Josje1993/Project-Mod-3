@@ -7,11 +7,15 @@ import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
 
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
@@ -20,13 +24,13 @@ import javax.swing.WindowConstants;
 import javax.swing.border.Border;
 import javax.swing.border.TitledBorder;
 
-public class ChatGUI extends JPanel implements ActionListener{
+public class ChatGUI extends WindowAdapter implements ActionListener{
 
 //--------------------------------------------------------------------------//
 	
-	private static final long serialVersionUID = -591603013574440445L;
 	private String myNickName;
 	private JFrame chatser;
+	private JFrame quitFrame;
 	private JButton settings;
 	private JButton log_out;
 	private JButton name1;
@@ -34,6 +38,8 @@ public class ChatGUI extends JPanel implements ActionListener{
 	private JButton name3;
 	private JButton extentions;
 	private JButton send;
+	private JButton yesButton;
+	private JButton noButton;
 	private JTextArea nameAndProfile;
 	private JTextField input;
 	private JTextArea chatBox;
@@ -52,9 +58,16 @@ public class ChatGUI extends JPanel implements ActionListener{
 //--------------------------------------------------------------------------//
 	
 	public ChatGUI(String myNickName) {
+		WindowListener listener = new WindowAdapter(){
+			public void windowClosing(WindowEvent we){
+				chatser.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
+				quitFrame();
+			}	
+		};
 		this.myNickName = myNickName;
 		importPictures();
 		chatser = new JFrame();
+		chatser.addWindowListener(listener);
 		chatser.setTitle(TITLE + " - " + myNickName);
 		layout = new BorderLayout();
 		chatser.setLayout(layout);
@@ -65,7 +78,11 @@ public class ChatGUI extends JPanel implements ActionListener{
 		chatser.setSize(600, 500);
 		chatser.setResizable(false);
 		chatser.setLocationRelativeTo(null);
-		chatser.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+		
+	}
+	
+	public String getNickName(){
+		return this.myNickName;
 	}
 	
 	private void importPictures(){
@@ -191,10 +208,9 @@ public class ChatGUI extends JPanel implements ActionListener{
 	}
 	
 	public static void main(String[] args){
-		new ChatGUI("hoi");
+		new ChatGUI("noNickName");
 	}
 	
-	@Override
 	public void actionPerformed(ActionEvent ae) {
 		CardLayout cl = (CardLayout) switchPanel.getLayout();
 		if(ae.getSource() == name1){
@@ -214,9 +230,57 @@ public class ChatGUI extends JPanel implements ActionListener{
 			}else{
 				settingsGUI = new SettingsGUI(false);
 			}
-		}else if(ae.getSource() == log_out){
-			new QuitGUI();
 		}
+		if(ae.getSource() == log_out){
+			quitFrame();
+		}
+		if(ae.getSource() == yesButton){
+			chatser.dispose();
+			quitFrame.dispose();
+			new ConnectGUI(myNickName);
+		}
+		if(ae.getSource() == noButton){
+			quitFrame.dispose();
+		}
+		
 	}
-
+	
+	//Quit frame methods
+	public void quitFrame(){
+		quitFrame = new JFrame();
+		quitFrame.setLayout(new BorderLayout());
+		quitFrame.add(textPanel(), BorderLayout.NORTH);
+		quitFrame.add(yesPanel(), BorderLayout.WEST);
+		quitFrame.add(noPanel(), BorderLayout.EAST);
+		quitFrame.setSize(220,110);
+		quitFrame.setVisible(true);
+		quitFrame.setLocationRelativeTo(null);
+		quitFrame.setResizable(false);
+		quitFrame.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
+	}
+	
+	public JPanel textPanel(){
+		JLabel textLabel = new JLabel("Weet u zeker dat u wilt afsluiten?");
+		JPanel textPanel = new JPanel();
+		textPanel.add(textLabel);
+		return textPanel;
+	}
+	
+	public JPanel yesPanel(){
+		JPanel yesPanel = new JPanel();
+		yesButton = new JButton("Ja");
+		yesButton.addActionListener(this);
+		yesPanel.add(yesButton);
+		yesPanel.setBorder(BorderFactory.createEmptyBorder(0,20,0,0));
+		return yesPanel;
+	}
+	
+	public JPanel noPanel(){
+		JPanel noPanel = new JPanel();
+		noButton = new JButton("Nee");
+		noButton.addActionListener(this);
+		noPanel.add(noButton);
+		noPanel.setBorder(BorderFactory.createEmptyBorder(0,0,0,20));
+		return noPanel;
+	}
 }
