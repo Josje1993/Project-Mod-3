@@ -19,11 +19,7 @@ import javax.swing.JTextField;
 import javax.swing.WindowConstants;
 import javax.swing.border.Border;
 import javax.swing.border.TitledBorder;
-/**
- * 
- * @author Gerwin
- *
- */
+
 public class ChatGUI extends JPanel implements ActionListener{
 
 //--------------------------------------------------------------------------//
@@ -50,6 +46,8 @@ public class ChatGUI extends JPanel implements ActionListener{
 	private ImageIcon logoutPic;
 	private static final String TITLE = "Chatser";
 	private Border blackline = BorderFactory.createLineBorder(Color.BLACK);
+	private SettingsGUI settingsGUI;
+	private int checker = 0;
 	
 //--------------------------------------------------------------------------//
 	
@@ -163,17 +161,21 @@ public class ChatGUI extends JPanel implements ActionListener{
 	}
 	
 	private JPanel settingsAndLogoutPanel(){
-		JPanel settingsAndLogoutPanel = new JPanel();
+		JPanel settingsAndLogoutPanel = new JPanel(new BorderLayout());
+		JPanel borderSettingsLogout = new JPanel();
 		settings = new JButton(settingsPic);
 		settings.setOpaque(false);
 		settings.setContentAreaFilled(false);
 		settings.setBorderPainted(false);
+		settings.addActionListener(this);
 		log_out = new JButton(logoutPic);
 		log_out.setOpaque(false);
 		log_out.setContentAreaFilled(false);
 		log_out.setBorderPainted(false);
-		settingsAndLogoutPanel.add(settings);
-		settingsAndLogoutPanel.add(log_out);
+		log_out.addActionListener(this);
+		borderSettingsLogout.add(settings);
+		borderSettingsLogout.add(log_out);
+		settingsAndLogoutPanel.add(borderSettingsLogout, BorderLayout.EAST);
 		return settingsAndLogoutPanel;
 	}
 	
@@ -201,6 +203,19 @@ public class ChatGUI extends JPanel implements ActionListener{
 			cl.show(switchPanel, "Person2");
 		}else if(ae.getSource() == name3){
 			cl.show(switchPanel, "Person3");
+		}
+		
+		if(ae.getSource() == settings){
+			if(checker == 0){
+				settingsGUI = new SettingsGUI(false);
+				checker = 2;
+			}else if(settingsGUI.notificationSoundCheckbox.isSelected()){
+				settingsGUI = new SettingsGUI(true);
+			}else{
+				settingsGUI = new SettingsGUI(false);
+			}
+		}else if(ae.getSource() == log_out){
+			new QuitGUI();
 		}
 	}
 

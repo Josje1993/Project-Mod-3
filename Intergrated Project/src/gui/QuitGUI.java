@@ -33,7 +33,7 @@ public class QuitGUI implements ActionListener{
 		quitFrame.setVisible(true);
 		quitFrame.setLocationRelativeTo(null);
 		quitFrame.setResizable(false);
-		quitFrame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+		quitFrame.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
 	}
 	
 	public JPanel textPanel(){
