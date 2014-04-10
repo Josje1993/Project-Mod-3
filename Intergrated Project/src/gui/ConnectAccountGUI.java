@@ -8,6 +8,7 @@ import javax.swing.JFrame;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.FlowLayout;
+import java.awt.Font;
 import java.awt.GridLayout;
 import java.util.Arrays;
 
@@ -17,6 +18,7 @@ import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 import javax.swing.WindowConstants;
 
@@ -36,7 +38,7 @@ public class ConnectAccountGUI extends JPanel implements ActionListener {
 	private JButton createProfile;
 	private JTextField connAddr;
 	private JTextField port;
-	private JTextField passWord;
+	private JPasswordField passWord;
 	private JCheckBox vinkje;
 	private JLabel onthoud;
 	private JButton connect;
@@ -68,7 +70,7 @@ public class ConnectAccountGUI extends JPanel implements ActionListener {
 		connecting.add(flowPanel(), BorderLayout.CENTER);
 		connecting.add(southLayout(),BorderLayout.SOUTH);
 		connecting.setVisible(true);
-		connecting.setSize(400, 300);
+		connecting.setSize(400, 240);
 		connecting.setLocationRelativeTo(null);
 		connecting.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 		return connecting;
@@ -85,11 +87,10 @@ public class ConnectAccountGUI extends JPanel implements ActionListener {
 	
 	private JPanel connectAddr() {
 		connAddr = new JTextField("Connect Address", 10);
-		
 		connAddr.setEditable(true);
 		port = new JTextField("Port Address", 10);
 		connectAddrPanel = new JPanel();
-		connectAddrPanel.setLayout(new GridLayout(2,1));
+		connectAddrPanel.setLayout(new GridLayout(1, 2));
 		connectAddrPanel.setBackground(Color.DARK_GRAY);
 		connectAddrPanel.add(connAddr);
 		connectAddrPanel.add(port);
@@ -98,7 +99,10 @@ public class ConnectAccountGUI extends JPanel implements ActionListener {
 	
 	private JPanel onthoud() {
 		vinkje = new JCheckBox();
-		onthoud = new JLabel("Wachtwoord onthouden?");
+		vinkje.setBackground(Color.DARK_GRAY);
+		onthoud = new JLabel("<html> <font color='white'>Wachtwoord Onthouden?</font></html>");
+		Font myFont = new Font("28 Days Later",Font.PLAIN,12);
+		onthoud.setFont(myFont);
 		onthoudPanel = new JPanel();
 		onthoudPanel.setLayout(new FlowLayout());
 		onthoudPanel.setBackground(Color.DARK_GRAY);
@@ -109,7 +113,7 @@ public class ConnectAccountGUI extends JPanel implements ActionListener {
 	
 	private JPanel pOV() {
 		JPanel pOVPanel = new JPanel();
-		pOVPanel.setLayout(new GridLayout(2,2));
+		pOVPanel.setLayout(new GridLayout(2,1));
 		pOVPanel.setBackground(Color.DARK_GRAY);
 		pOVPanel.add(passWord());
 		pOVPanel.add(onthoud());
@@ -117,7 +121,7 @@ public class ConnectAccountGUI extends JPanel implements ActionListener {
 	}
 	
 	private JPanel passWord() {
-		passWord = new JTextField("Password", 10);
+		passWord = new JPasswordField("Password");
 		passWord.setEditable(true);
 		passwordPanel = new JPanel();
 		passwordPanel.setLayout(new GridLayout(1,1));
@@ -256,6 +260,6 @@ public class ConnectAccountGUI extends JPanel implements ActionListener {
 	}
 	
 	public static void main (String[] args) {
-		new ConnectAccountGUI("Henk");
+		new ConnectAccountGUI("Nickname");
 	}
 }
