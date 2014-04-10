@@ -27,7 +27,9 @@ import javax.swing.border.TitledBorder;
 public class ChatGUI extends WindowAdapter implements ActionListener{
 
 //--------------------------------------------------------------------------//
-	
+	/**
+	 * Initialization and creation of global variables
+	 */
 	private static final String[] emoticonArray = {":-|", ":-[", ":-#", ";-(", ":^D", ":-)", ":-))", ":*-)", ">-<", "*<|:-)", "<:-(", "X-(", ":*)", ">:)", "~:-;", "0:-)", "O:-)", "|-o", "#:-o", "8-]", "8-)", ":'(", "_|:-)", ";-)", ";P", ";-D", "[:-)", ":)", "@}->----", "2B|^2B", ":-P", "B:-)", ":{"};
 	private WindowListener listener = new WindowAdapter(){
 		public void windowClosing(WindowEvent we){
@@ -75,7 +77,11 @@ public class ChatGUI extends WindowAdapter implements ActionListener{
 	private int chatters;
 	
 //--------------------------------------------------------------------------//
-	
+	/**
+	 * Constructor, called when class starts
+	 * @param myNickName
+	 * @param chatters
+	 */
 	public ChatGUI(String myNickName, int chatters) {
 		this.myNickName = myNickName;
 		this.chatters = chatters;
@@ -84,6 +90,10 @@ public class ChatGUI extends WindowAdapter implements ActionListener{
 		makeEmoticonFrame();
 	}
 	
+	/**
+	 * Makes the Chat Frame
+	 * @return chatser
+	 */
 	public JFrame chatserFrame(){
 		chatser = new JFrame();
 		chatser.addWindowListener(listener);
@@ -100,15 +110,18 @@ public class ChatGUI extends WindowAdapter implements ActionListener{
 		return chatser;
 	}
 	
-	public String getNickName(){
-		return this.myNickName;
-	}
-	
+	/**
+	 * Import the pictures used for the quit and settings button
+	 */
 	private void importPictures(){
 		settingsPic = new ImageIcon("settings.png");
 		logoutPic = new ImageIcon("logout.png");
 	}
 	
+	/**
+	 * Makes the panel for the chat log
+	 * @return chatBoxScrollPane
+	 */
 	private JScrollPane chatBoxPanel(){
 		chatBox = new JTextArea(25,30);
 		chatBox.setBorder(blackline);
@@ -120,6 +133,10 @@ public class ChatGUI extends WindowAdapter implements ActionListener{
 		return chatBoxScrollPane;
 	}
 	
+	/**
+	 * Makes the east side of the main frame
+	 * @return eastSidePanel
+	 */
 	private JPanel eastSide() {
 		BorderLayout layOut = new BorderLayout();
 		JPanel eastSidePanel = new JPanel(layOut);
@@ -133,6 +150,10 @@ public class ChatGUI extends WindowAdapter implements ActionListener{
 		return eastSidePanel;
 	}
 	
+	/**
+	 * Makes the panel where the name can be chosen to show the respective profile
+	 * @return namesChooserPanel
+	 */
 	private JPanel namesChooser(){
 		GridLayout grid = new GridLayout();
 		grid.setColumns(1);
@@ -160,6 +181,10 @@ public class ChatGUI extends WindowAdapter implements ActionListener{
 		return namesChooserPanel;
 	}
 	
+	/**
+	 * Makes the ProfileInfo Panel for the first user
+	 * @return profileInfoPanel
+	 */
 	private JPanel profileInfo1(){
 		JPanel profileInfoPanel = new JPanel();
 		profileInfoPanel.setBackground(Color.GRAY);
@@ -172,6 +197,10 @@ public class ChatGUI extends WindowAdapter implements ActionListener{
 		return profileInfoPanel;
 	}
 	
+	/**
+	 * Makes the ProfileInfo for the second user
+	 * @return profileInfoPanel
+	 */
 	private JPanel profileInfo2(){
 		JPanel profileInfoPanel = new JPanel();
 		profileInfoPanel.setBackground(Color.GRAY);
@@ -184,6 +213,10 @@ public class ChatGUI extends WindowAdapter implements ActionListener{
 		return profileInfoPanel;
 	}
 	
+	/**
+	 * Makes the ProfileInfo for the third user
+	 * @return profileInfoPanel
+	 */
 	private JPanel profileInfo3(){
 		JPanel profileInfoPanel = new JPanel();
 		profileInfoPanel.setBackground(Color.GRAY);
@@ -196,6 +229,10 @@ public class ChatGUI extends WindowAdapter implements ActionListener{
 		return profileInfoPanel;
 	}
 	
+	/**
+	 * Makes the panel for the text area and the send and extentions buttons
+	 * @return toSend_ExtentionsAndSendPanel
+	 */
 	private JPanel toSend_ExtentionsAndSendPanel(){
 		JPanel toSend_ExtentionsAndSendPanel = new JPanel();
 		toSend_ExtentionsAndSendPanel.setBackground(Color.GRAY);
@@ -210,6 +247,10 @@ public class ChatGUI extends WindowAdapter implements ActionListener{
 		return toSend_ExtentionsAndSendPanel;
 	}
 	
+	/**
+	 * Makes the panel for the Settings and the LogOut panel
+	 * @return settingsAndLogoutPanel
+	 */
 	private JPanel settingsAndLogoutPanel(){
 		JPanel settingsAndLogoutPanel = new JPanel(new BorderLayout());
 		settingsAndLogoutPanel.setBackground(Color.GRAY);
@@ -231,6 +272,10 @@ public class ChatGUI extends WindowAdapter implements ActionListener{
 		return settingsAndLogoutPanel;
 	}
 	
+	/**
+	 * Makes a panel for switching between profiles
+	 * @return switchPanel
+	 */
 	private JPanel switchingPanel() {
 		switchPanel = new JPanel(new CardLayout());
 		switchPanel.setBackground(Color.GRAY);
@@ -243,10 +288,11 @@ public class ChatGUI extends WindowAdapter implements ActionListener{
 		return switchPanel;
 	}
 	
-	public static void main(String[] args){
-		new ChatGUI("noNickName", 4);
-	}
-	
+	/**
+	 * The ActionPerformed Method, to check for actionEvents
+	 * After an ActionEvent follows a correct reaction
+	 * @param ae
+	 */
 	public void actionPerformed(ActionEvent ae) {
 		CardLayout cl = (CardLayout) switchPanel.getLayout();
 		if(ae.getSource() == name1){
@@ -315,6 +361,10 @@ public class ChatGUI extends WindowAdapter implements ActionListener{
 
 	//--------------------Quit Frame Methods-----------------------------------//
 
+	/**
+	 * Makes the quitFrame
+	 * Gets called when QuitButton is pressed
+	 */
 	public void quitFrame(){
 		quitFrame = new JFrame();
 		quitFrame.setLayout(new BorderLayout());
@@ -328,6 +378,10 @@ public class ChatGUI extends WindowAdapter implements ActionListener{
 		quitFrame.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
 	}
 	
+	/**
+	 * Makes textPanel for the QuitFrame
+	 * @return textPanel
+	 */
 	public JPanel textPanel(){
 		JLabel textLabel = new JLabel("Weet u zeker dat u wilt afsluiten?");
 		JPanel textPanel = new JPanel();
@@ -335,6 +389,10 @@ public class ChatGUI extends WindowAdapter implements ActionListener{
 		return textPanel;
 	}
 	
+	/**
+	 * Makes a Panel with a YesButton
+	 * @return yesPanel
+	 */
 	public JPanel yesPanel(){
 		JPanel yesPanel = new JPanel();
 		yesButton = new JButton("Ja");
@@ -344,6 +402,10 @@ public class ChatGUI extends WindowAdapter implements ActionListener{
 		return yesPanel;
 	}
 	
+	/**
+	 * Makes a Panel with a NoButton
+	 * @return noPanel
+	 */
 	public JPanel noPanel(){
 		JPanel noPanel = new JPanel();
 		noButton = new JButton("Nee");
@@ -356,7 +418,11 @@ public class ChatGUI extends WindowAdapter implements ActionListener{
 	
 	//--------------------Emoticon Frame Methods--------------------------------//
 	
-	private JFrame makeEmoticonFrame(){
+	/**
+	 * Makes the EmoticonFrame
+	 * Gets called when the ExtensionsButton is pressed
+	 */
+	private void makeEmoticonFrame(){
 		emoticonFrame = new JFrame();
 		emoticonFrame.addWindowListener(listenerEF);
 		emoticonFrame.setTitle(TITLE);
@@ -368,9 +434,12 @@ public class ChatGUI extends WindowAdapter implements ActionListener{
 		emoticonFrame.setSize(300,300);
 		emoticonFrame.setLocationRelativeTo(null);
 		emoticonFrame.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
-		return emoticonFrame;
 	}
 	
+	/**
+	 * Makes the emoticonButtons and puts them in a frame
+	 * @return emoticonPanel
+	 */
 	private JPanel emoticonButtonsFrame(){
 		JPanel emoticonPanel = new JPanel();
 		buttons = new JButton[emoticonArray.length];
@@ -382,6 +451,10 @@ public class ChatGUI extends WindowAdapter implements ActionListener{
 		return emoticonPanel;
 	}
 	
+	/**
+	 * Makes a panel for the choose, close and clear button
+	 * @return chooseAndCancelPanel
+	 */
 	private JPanel chooseAndCancel(){
 		JPanel chooseAndCancelPanel = new JPanel();
 		choose = new JButton("Choose");
@@ -398,4 +471,12 @@ public class ChatGUI extends WindowAdapter implements ActionListener{
 
 	//--------------------End of Emoticon Frame Methods-------------------------//
 	
+	
+	/**
+	 * Further Unused Main Method, Starts the GUI on its own.
+	 * @param args
+	 */
+	public static void main(String[] args){
+		new ChatGUI("noNickName", 4);
+	}
 }
