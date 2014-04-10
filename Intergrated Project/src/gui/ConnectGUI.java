@@ -59,7 +59,7 @@ public class ConnectGUI extends JPanel implements ActionListener {
 		connecting.add(connectAddr(), BorderLayout.CENTER);
 		connecting.add(southLayout(),BorderLayout.SOUTH);
 		connecting.setVisible(true);
-		connecting.setSize(400, 180);
+		connecting.setSize(400, 190);
 		connecting.setLocationRelativeTo(null);
 		connecting.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 		return connecting;
