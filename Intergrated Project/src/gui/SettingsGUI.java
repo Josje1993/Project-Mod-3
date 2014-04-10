@@ -17,11 +17,12 @@ public class SettingsGUI extends JPanel implements ActionListener{
 	public JCheckBox notificationSoundCheckbox;
 	private BoxLayout layout;
 	private JFrame settings;
-	private JLabel notificationLabel;
+	private JButton notificationLabel;
 	private JLabel versionLabel;
 	private JLabel copyrightLabel;
 	private static final String TITLE = "Settings";
 	private boolean statusSetting;
+	private boolean statusSetting2 = false;
 	private JButton okButton;
 	
 	//---------------------------------------------------------------------//
@@ -47,10 +48,16 @@ public class SettingsGUI extends JPanel implements ActionListener{
 		notificationSoundCheckbox = new JCheckBox();
 		if(statusSetting){
 			notificationSoundCheckbox.setSelected(true);
+			statusSetting2 = false;
 		}else{
 			notificationSoundCheckbox.setSelected(false);
+			statusSetting2 = true;
 		}
-		notificationLabel = new JLabel("Zet notificatie-geluid uit");
+		notificationLabel = new JButton("Zet notificatie-geluid uit");
+		notificationLabel.setOpaque(false);
+		notificationLabel.setContentAreaFilled(false);
+		notificationLabel.setBorderPainted(false);
+		notificationLabel.addActionListener(this);
 		notSoundPanel.add(notificationSoundCheckbox);
 		notSoundPanel.add(notificationLabel);
 		return notSoundPanel;
@@ -84,8 +91,19 @@ public class SettingsGUI extends JPanel implements ActionListener{
 
 	@Override
 	public void actionPerformed(ActionEvent ae) {
-		if(ae.getSource() == okButton){
+		if (ae.getSource() == okButton){
 			settings.dispose();
+		}
+		if (ae.getSource() == notificationLabel) {
+			if(statusSetting2){
+				notificationSoundCheckbox.setSelected(true);
+				statusSetting2 = false;
+			}
+			else{
+				notificationSoundCheckbox.setSelected(false);
+				statusSetting2 = true;
+			}
+			
 		}
 	}
 	

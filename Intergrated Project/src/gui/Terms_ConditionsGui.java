@@ -3,6 +3,7 @@ package gui;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -27,11 +28,13 @@ public class Terms_ConditionsGui extends JPanel implements ActionListener {
 	private BorderLayout layout;
 	private JFrame conditions;
 	private JLabel terms_of_agreement;
-	private JLabel agreeLabel;
+	private JButton agreeLabel;
 	private JTextArea terms;
 	private JButton agreed;
 	private JButton notAgreed;
 	private Border blackline = BorderFactory.createLineBorder(Color.BLACK);
+	private boolean statusSetting;
+	private boolean statusSetting2 = false;
 	private static final String TEXT = " This is an agreement between Chatser Inc., \n"
 			+ " a Dutch corporation (“Chatser”), \n"
 			+ " the owner and operator of www.Chatser.nl (the “Chatser Site”), \n"
@@ -62,27 +65,58 @@ public class Terms_ConditionsGui extends JPanel implements ActionListener {
 		conditions.add(termsBoxPanel(), BorderLayout.CENTER);
 		conditions.add(agreeing(), BorderLayout.SOUTH);
 		conditions.setVisible(true);
-		conditions.setSize(450, 300);
+		conditions.setSize(460, 300);
 		conditions.setLocationRelativeTo(null);
 		conditions.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 	}
 	
 	private JPanel title() {
 		JPanel titlePanel = new JPanel();
-		terms_of_agreement = new JLabel("Accept the following terms and conditions:");
+		titlePanel.setBackground(Color.GRAY);
+		terms_of_agreement = new JLabel("<html> <font color='black'>Accept these terms and conditions:</font></html>");
+		Font termsFont = new Font("28 Days Later",Font.PLAIN,14);
+		terms_of_agreement.setFont(termsFont);
 		titlePanel.add(terms_of_agreement);
 		return titlePanel;
 	}
 	
 	private JPanel agreeing() {
 		JPanel agreePanel = new JPanel();
+		agreePanel.setBackground(Color.GRAY);
 		iAgree = new JCheckBox();
+		iAgree.setBackground(Color.GRAY);
+		if(statusSetting){
+			iAgree.setSelected(true);
+			statusSetting2 = false;
+			
+			
+		}else{
+			iAgree.setSelected(false);
+			statusSetting2 = true;
+		
+		}
 		iAgree.addActionListener(this);
-		agreeLabel = new JLabel("I agree with the terms and conditions");
-		agreed = new JButton("Next");
+		agreeLabel = new JButton("<html> <font color='black'>I accept these terms and conditions</font></html>");
+		Font agreeFont = new Font("28 Days Later",Font.PLAIN,14);
+		agreeLabel.setFont(agreeFont);
+		agreeLabel.setOpaque(false);
+		agreeLabel.setContentAreaFilled(false);
+		agreeLabel.setBorderPainted(false);
+		agreeLabel.addActionListener(this);
+		agreed = new JButton("<html> <font color='black'>Next</font></html>");
+		Font agreedFont = new Font("28 Days Later",Font.PLAIN,20);
+		agreed.setFont(agreedFont);
+		agreed.setOpaque(false);
+		agreed.setContentAreaFilled(false);
+		agreed.setBorderPainted(false);
 		agreed.setEnabled(false);
 		agreed.addActionListener(this);
-		notAgreed = new JButton("Cancel");
+		notAgreed = new JButton("<html> <font color='black'>Cancel</font></html>");
+		Font notagreedFont = new Font("28 Days Later",Font.PLAIN,20);
+		notAgreed.setFont(notagreedFont);
+		notAgreed.setOpaque(false);
+		notAgreed.setContentAreaFilled(false);
+		notAgreed.setBorderPainted(false);
 		notAgreed.addActionListener(this);
 		agreePanel.add(iAgree);
 		agreePanel.add(agreeLabel);
@@ -107,15 +141,21 @@ public class Terms_ConditionsGui extends JPanel implements ActionListener {
 	
 	@Override
 	public void actionPerformed(ActionEvent e) {
+		if (e.getSource() == agreeLabel) {
+			iAgree.setSelected(statusSetting2);
+			statusSetting2 = !statusSetting2;
+		}
+		
 		if (e.getSource() == agreed) {
 			new ConnectGUI("Nickname");
 			conditions.dispose();
 		}
+		
 		if (e.getSource() == notAgreed) {
 			conditions.dispose();
 		}
-		if (iAgree != null);
-			agreed.setEnabled(true);
+		
+		agreed.setEnabled(iAgree.isSelected());
 	}
 	
 	public static void main(String[] args0){

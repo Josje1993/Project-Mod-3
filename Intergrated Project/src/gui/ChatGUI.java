@@ -28,9 +28,23 @@ public class ChatGUI extends WindowAdapter implements ActionListener{
 
 //--------------------------------------------------------------------------//
 	
+	private static final String[] emoticonArray = {":-|", ":-[", ":-#", ";-(", ":^D", ":-)", ":-))", ":*-)", ">-<", "*<|:-)", "<:-(", "X-(", ":*)", ">:)", "~:-;", "0:-)", "O:-)", "|-o", "#:-o", "8-]", "8-)", ":'(", "_|:-)", ";-)", ";P", ";-D", "[:-)", ":)", "@}->----", "2B|^2B", ":-P", "B:-)", ":{"};
+	private WindowListener listener = new WindowAdapter(){
+		public void windowClosing(WindowEvent we){
+			chatser.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
+			quitFrame();
+		}	
+	};
+	private WindowListener listenerEF = new WindowAdapter(){
+		public void windowClosing(WindowEvent we){
+			emoticonFrame.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
+		}
+		
+	};
 	private String myNickName;
 	private JFrame chatser;
 	private JFrame quitFrame;
+	private JFrame emoticonFrame;
 	private JButton settings;
 	private JButton log_out;
 	private JButton name1;
@@ -40,6 +54,10 @@ public class ChatGUI extends WindowAdapter implements ActionListener{
 	private JButton send;
 	private JButton yesButton;
 	private JButton noButton;
+	private JButton choose;
+	private JButton close;
+	private JButton clear;
+	private JButton[] buttons;
 	private JTextArea nameAndProfile;
 	private JTextField input;
 	private JTextArea chatBox;
@@ -59,15 +77,14 @@ public class ChatGUI extends WindowAdapter implements ActionListener{
 //--------------------------------------------------------------------------//
 	
 	public ChatGUI(String myNickName, int chatters) {
-		WindowListener listener = new WindowAdapter(){
-			public void windowClosing(WindowEvent we){
-				chatser.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
-				quitFrame();
-			}	
-		};
 		this.myNickName = myNickName;
 		this.chatters = chatters;
 		importPictures();
+		chatserFrame();
+		makeEmoticonFrame();
+	}
+	
+	public JFrame chatserFrame(){
 		chatser = new JFrame();
 		chatser.addWindowListener(listener);
 		chatser.setTitle(TITLE + " - " + myNickName);
@@ -80,7 +97,7 @@ public class ChatGUI extends WindowAdapter implements ActionListener{
 		chatser.setSize(600, 500);
 		chatser.setResizable(false);
 		chatser.setLocationRelativeTo(null);
-		
+		return chatser;
 	}
 	
 	public String getNickName(){
@@ -97,14 +114,16 @@ public class ChatGUI extends WindowAdapter implements ActionListener{
 		chatBox.setBorder(blackline);
 		chatBox.setEditable(false);
 		JScrollPane chatBoxScrollPane = new JScrollPane(chatBox);
+		chatBoxScrollPane.setBackground(Color.GRAY);
 		chatBoxScrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
-		chatBoxScrollPane.setPreferredSize(new Dimension(250, 250));
+		chatBoxScrollPane.setPreferredSize(new Dimension(249, 249));
 		return chatBoxScrollPane;
 	}
 	
 	private JPanel eastSide() {
 		BorderLayout layOut = new BorderLayout();
 		JPanel eastSidePanel = new JPanel(layOut);
+		eastSidePanel.setBackground(Color.GRAY);
 		eastSidePanel.add(settingsAndLogoutPanel(),BorderLayout.NORTH);
 		if(chatters == 4){
 			eastSidePanel.add(namesChooser(), BorderLayout.CENTER);
@@ -119,6 +138,7 @@ public class ChatGUI extends WindowAdapter implements ActionListener{
 		grid.setColumns(1);
 		grid.setRows(3);
 		JPanel namesChooserPanel = new JPanel(grid);
+		namesChooserPanel.setBackground(Color.GRAY);
 		name1 = new JButton("Name1");
 		name2 = new JButton("Name2");
 		name3 = new JButton("Name3");
@@ -126,8 +146,11 @@ public class ChatGUI extends WindowAdapter implements ActionListener{
 		name2.addActionListener(this);
 		name3.addActionListener(this);
 		JPanel name1Panel = new JPanel();
+		name1Panel.setBackground(Color.GRAY);
 		JPanel name2Panel = new JPanel();
+		name2Panel.setBackground(Color.GRAY);
 		JPanel name3Panel = new JPanel();
+		name3Panel.setBackground(Color.GRAY);
 		name1Panel.add(name1);
 		name2Panel.add(name2);
 		name3Panel.add(name3);
@@ -139,6 +162,7 @@ public class ChatGUI extends WindowAdapter implements ActionListener{
 	
 	private JPanel profileInfo1(){
 		JPanel profileInfoPanel = new JPanel();
+		profileInfoPanel.setBackground(Color.GRAY);
 		nameAndProfile = new JTextArea(14,20);
 		nameAndProfile.setEditable(false);
 		TitledBorder title = BorderFactory.createTitledBorder(blackline, "Profile of name1");
@@ -150,6 +174,7 @@ public class ChatGUI extends WindowAdapter implements ActionListener{
 	
 	private JPanel profileInfo2(){
 		JPanel profileInfoPanel = new JPanel();
+		profileInfoPanel.setBackground(Color.GRAY);
 		nameAndProfile = new JTextArea(14,20);
 		nameAndProfile.setEditable(false);
 		TitledBorder title = BorderFactory.createTitledBorder(blackline, "Profile of name2");
@@ -161,6 +186,7 @@ public class ChatGUI extends WindowAdapter implements ActionListener{
 	
 	private JPanel profileInfo3(){
 		JPanel profileInfoPanel = new JPanel();
+		profileInfoPanel.setBackground(Color.GRAY);
 		nameAndProfile = new JTextArea(14,20);
 		nameAndProfile.setEditable(false);
 		TitledBorder title = BorderFactory.createTitledBorder(blackline, "Profile of name3");
@@ -172,9 +198,12 @@ public class ChatGUI extends WindowAdapter implements ActionListener{
 	
 	private JPanel toSend_ExtentionsAndSendPanel(){
 		JPanel toSend_ExtentionsAndSendPanel = new JPanel();
-		input = new JTextField("",37);
+		toSend_ExtentionsAndSendPanel.setBackground(Color.GRAY);
+		input = new JTextField(null,37);
 		extentions = new JButton("Extentions");
+		extentions.addActionListener(this);
 		send = new JButton("Send");
+		send.addActionListener(this);
 		toSend_ExtentionsAndSendPanel.add(input);
 		toSend_ExtentionsAndSendPanel.add(send);
 		toSend_ExtentionsAndSendPanel.add(extentions);
@@ -183,7 +212,9 @@ public class ChatGUI extends WindowAdapter implements ActionListener{
 	
 	private JPanel settingsAndLogoutPanel(){
 		JPanel settingsAndLogoutPanel = new JPanel(new BorderLayout());
+		settingsAndLogoutPanel.setBackground(Color.GRAY);
 		JPanel borderSettingsLogout = new JPanel();
+		borderSettingsLogout.setBackground(Color.GRAY);
 		settings = new JButton(settingsPic);
 		settings.setOpaque(false);
 		settings.setContentAreaFilled(false);
@@ -202,6 +233,7 @@ public class ChatGUI extends WindowAdapter implements ActionListener{
 	
 	private JPanel switchingPanel() {
 		switchPanel = new JPanel(new CardLayout());
+		switchPanel.setBackground(Color.GRAY);
 		card1 = profileInfo1();
 		card2 = profileInfo2();
 		card3 = profileInfo3();
@@ -246,10 +278,43 @@ public class ChatGUI extends WindowAdapter implements ActionListener{
 		if(ae.getSource() == noButton){
 			quitFrame.dispose();
 		}
+		if(ae.getSource() == extentions){
+			emoticonFrame.setVisible(true);
+		}
+		if(emoticonFrame.isVisible()){
+			if(ae.getSource() == close){
+				emoticonFrame.setVisible(false);
+			}
+			if(ae.getSource() == choose){
+				for(int x = 0; x < emoticonArray.length; x++){
+					if(buttons[x].getBackground() == Color.GRAY){
+						input.setText(input.getText() + buttons[x].getText());
+					}
+				}
+			}
+				for(int x = 0; x < emoticonArray.length; x++){
+					if(ae.getSource() == buttons[x]){
+						for(int y = 0; y < emoticonArray.length;y++){
+							buttons[y].setBackground(null);
+						}
+						buttons[x].setBackground(Color.GRAY);
+					}
+				}
 		
+				if(ae.getSource() == clear){
+					input.setText("");
+				}
+		}
+		if(ae.getSource() == send){
+			if(input.getText() != null){
+				chatBox.append(input.getText() + "\n");
+				input.setText(null);
+			}
+		}
 	}
-	
-	//Quit frame methods
+
+	//--------------------Quit Frame Methods-----------------------------------//
+
 	public void quitFrame(){
 		quitFrame = new JFrame();
 		quitFrame.setLayout(new BorderLayout());
@@ -287,4 +352,50 @@ public class ChatGUI extends WindowAdapter implements ActionListener{
 		noPanel.setBorder(BorderFactory.createEmptyBorder(0,0,0,20));
 		return noPanel;
 	}
+	//--------------------End Of Quit Frame Methods-----------------------------//
+	
+	//--------------------Emoticon Frame Methods--------------------------------//
+	
+	private JFrame makeEmoticonFrame(){
+		emoticonFrame = new JFrame();
+		emoticonFrame.addWindowListener(listenerEF);
+		emoticonFrame.setTitle(TITLE);
+		layout = new BorderLayout();
+		emoticonFrame.setLayout(layout);
+		emoticonFrame.add(emoticonButtonsFrame(), BorderLayout.CENTER);
+		emoticonFrame.add(chooseAndCancel(), BorderLayout.SOUTH);
+		emoticonFrame.setVisible(false);
+		emoticonFrame.setSize(300,300);
+		emoticonFrame.setLocationRelativeTo(null);
+		emoticonFrame.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
+		return emoticonFrame;
+	}
+	
+	private JPanel emoticonButtonsFrame(){
+		JPanel emoticonPanel = new JPanel();
+		buttons = new JButton[emoticonArray.length];
+		for(int x = 0; x < emoticonArray.length; x++){
+			buttons[x] = new JButton(emoticonArray[x]);
+			buttons[x].addActionListener(this);
+			emoticonPanel.add(buttons[x]);
+		}
+		return emoticonPanel;
+	}
+	
+	private JPanel chooseAndCancel(){
+		JPanel chooseAndCancelPanel = new JPanel();
+		choose = new JButton("Choose");
+		choose.addActionListener(this);
+		close = new JButton("Close");
+		close.addActionListener(this);
+		clear = new JButton("Clear");
+		clear.addActionListener(this);
+		chooseAndCancelPanel.add(choose);
+		chooseAndCancelPanel.add(close);
+		chooseAndCancelPanel.add(clear);
+		return chooseAndCancelPanel;
+	}
+
+	//--------------------End of Emoticon Frame Methods-------------------------//
+	
 }
