@@ -14,6 +14,7 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 import javax.swing.WindowConstants;
 
@@ -31,6 +32,8 @@ public class MaakProfielGUI implements ActionListener{
 	JTextField achternaam;
 	JTextField leeftijd;
 	JTextField nickname;
+	JPasswordField password;
+	JPasswordField herhaalPassword;
 
 	public MaakProfielGUI(){
 		maakProfielFrame();
@@ -38,7 +41,7 @@ public class MaakProfielGUI implements ActionListener{
 	
 	public JPanel labelPanel(){
 		GridLayout grid = new GridLayout();
-		grid.setRows(6);
+		grid.setRows(8);
 		grid.setColumns(1);
 		JPanel labelPanel = new JPanel(grid);
 		
@@ -48,13 +51,8 @@ public class MaakProfielGUI implements ActionListener{
 		JPanel labelPanel4 = new JPanel();
 		JPanel labelPanel5 = new JPanel();
 		JPanel labelPanel6 = new JPanel();
-		
-		labelPanel6.setBorder(BorderFactory.createEmptyBorder(0, 10, 0, 0));
-		labelPanel1.setBorder(BorderFactory.createEmptyBorder(0,10,0,0));
-		labelPanel2.setBorder(BorderFactory.createEmptyBorder(0,10,0,0));
-		labelPanel3.setBorder(BorderFactory.createEmptyBorder(0,10,0,0));
-		labelPanel4.setBorder(BorderFactory.createEmptyBorder(0,10,0,0));
-		labelPanel5.setBorder(BorderFactory.createEmptyBorder(0,10,30,0));
+		JPanel labelPanel8 = new JPanel();
+		JPanel labelPanel9 = new JPanel();
 		
 		JLabel nicknameLabel = new JLabel("Nickname*: ");
 		JLabel voornaamLabel = new JLabel("Voornaam*: ");
@@ -62,6 +60,8 @@ public class MaakProfielGUI implements ActionListener{
 		JLabel leeftijdLabel = new JLabel("Leeftijd*: ");
 		JLabel interessesLabel = new JLabel("Interesses: ");
 		JLabel relatiestatusLabel = new JLabel("relatiestatus: ");
+		JLabel passwordLabel = new JLabel("Wachtwoord*: ");
+		JLabel herhaalPasswordLabel = new JLabel("Herhaal wachtwoord*: ");
 		
 		labelPanel1.add(voornaamLabel);
 		labelPanel2.add(achternaamLabel);
@@ -69,20 +69,25 @@ public class MaakProfielGUI implements ActionListener{
 		labelPanel4.add(interessesLabel);
 		labelPanel5.add(relatiestatusLabel);
 		labelPanel6.add(nicknameLabel);
+		labelPanel8.add(passwordLabel);
+		labelPanel9.add(herhaalPasswordLabel);
 		
 		labelPanel.add(labelPanel6);
+		labelPanel.add(labelPanel8);
+		labelPanel.add(labelPanel9);
 		labelPanel.add(labelPanel1);
 		labelPanel.add(labelPanel2);
 		labelPanel.add(labelPanel3);
 		labelPanel.add(labelPanel4);
 		labelPanel.add(labelPanel5);
 		
+		
 		return labelPanel;
 	}
 	
 	public JPanel textFieldPanel(){
 		GridLayout grid = new GridLayout();
-		grid.setRows(6);
+		grid.setRows(8);
 		grid.setColumns(1);
 		JPanel textFieldPanel = new JPanel(grid);
 		
@@ -92,20 +97,17 @@ public class MaakProfielGUI implements ActionListener{
 		JPanel textFieldPanel4 = new JPanel();
 		JPanel textFieldPanel5 = new JPanel();
 		JPanel textFieldPanel6 = new JPanel();
+		JPanel textFieldPanel7 = new JPanel();
+		JPanel textFieldPanel8 = new JPanel();
 		
-		textFieldPanel6.setBorder(BorderFactory.createEmptyBorder(0,10,0,0));
-		textFieldPanel1.setBorder(BorderFactory.createEmptyBorder(0,10,0,0));
-		textFieldPanel2.setBorder(BorderFactory.createEmptyBorder(0,10,0,0));
-		textFieldPanel3.setBorder(BorderFactory.createEmptyBorder(0,10,0,0));
-		textFieldPanel4.setBorder(BorderFactory.createEmptyBorder(0,10,0,0));
-		textFieldPanel5.setBorder(BorderFactory.createEmptyBorder(0,10,30,0));
-		
-		nickname = new JTextField("", 30);
-		voornaam = new JTextField("", 30);
-		achternaam = new JTextField("", 30);
-		leeftijd = new JTextField("", 30);
-		JTextField interesses = new JTextField(" ", 30);
-		JTextField relatiestatus = new JTextField(" ", 30);
+		nickname = new JTextField("", 15);
+		password = new JPasswordField("", 15);
+		herhaalPassword = new JPasswordField("", 15);
+		voornaam = new JTextField("", 15);
+		achternaam = new JTextField("", 15);
+		leeftijd = new JTextField("", 15);
+		JTextField interesses = new JTextField(" ", 15);
+		JTextField relatiestatus = new JTextField(" ", 15);
 		nickname.setEditable(true);
 		voornaam.setEditable(true);
 		achternaam.setEditable(true);
@@ -119,8 +121,12 @@ public class MaakProfielGUI implements ActionListener{
 		textFieldPanel4.add(interesses);
 		textFieldPanel5.add(relatiestatus);
 		textFieldPanel6.add(nickname);
+		textFieldPanel7.add(password);
+		textFieldPanel8.add(herhaalPassword);
 		
 		textFieldPanel.add(textFieldPanel6);
+		textFieldPanel.add(textFieldPanel7);
+		textFieldPanel.add(textFieldPanel8);
 		textFieldPanel.add(textFieldPanel1);
 		textFieldPanel.add(textFieldPanel2);
 		textFieldPanel.add(textFieldPanel3);
@@ -164,7 +170,7 @@ public class MaakProfielGUI implements ActionListener{
 	public JFrame maakProfielFrame(){
 		maakProfielFrame = new JFrame("Maak nieuw Profiel");
 		maakProfielFrame.addWindowListener(listener);
-		maakProfielFrame.setSize(500,480);
+		maakProfielFrame.setSize(360,340);
 		maakProfielFrame.setVisible(true);
 		maakProfielFrame.setResizable(false);
 		maakProfielFrame.setLocationRelativeTo(null);
@@ -194,7 +200,7 @@ public class MaakProfielGUI implements ActionListener{
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if(e.getSource() == maakProfielButton){
-			if(voornaam.getText().equals("")||achternaam.getText().equals("")||leeftijd.getText().equals("")||nickname.getText().equals("")){
+			if(voornaam.getText().equals("")||achternaam.getText().equals("")||leeftijd.getText().equals("")||nickname.getText().equals("")||password.getPassword().equals("") ||herhaalPassword.getPassword().equals("")){
 				new ErrorGUI("Niet alle verplichte velden zijn ingevoerd", 250);
 			}
 			else if(!max20(nickname.getText())){
@@ -202,6 +208,9 @@ public class MaakProfielGUI implements ActionListener{
 			}
 			else if(!onlyNumbers(leeftijd.getText())){
 				new ErrorGUI("Voer geldige leeftijd in", 230);
+			}
+			else if(!password.equals(herhaalPassword)){
+				new ErrorGUI("Wachtwoorden zijn ongelijk", 240);
 			}
 			else{
 				maakProfielFrame.dispose();
