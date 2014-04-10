@@ -205,7 +205,7 @@ public class MaakProfielGUI implements ActionListener{
 			}
 			else{
 				maakProfielFrame.dispose();
-				new ConnectGUI(nickname.getText());
+				new ConnectAccountGUI(nickname.getText());
 			}
 		}
 		if(e.getSource() == geenNieuwProfiel){
