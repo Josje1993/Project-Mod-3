@@ -214,7 +214,7 @@ public class ChatGUI extends WindowAdapter implements ActionListener{
 	}
 	
 	/**
-	 * Makes the ProfileInfo for the second user
+	 * Makes the ProfileInfo Panel for the second user
 	 * @return profileInfoPanel
 	 */
 	private JPanel profileInfo2(){
@@ -231,7 +231,7 @@ public class ChatGUI extends WindowAdapter implements ActionListener{
 	}
 	
 	/**
-	 * Makes the ProfileInfo for the third user
+	 * Makes the ProfileInfo Panel for the third user
 	 * @return profileInfoPanel
 	 */
 	private JPanel profileInfo3(){
