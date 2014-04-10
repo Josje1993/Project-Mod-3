@@ -48,18 +48,6 @@ public class StartGUI extends JPanel implements ActionListener {
 		starter.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 	}
 	
-<<<<<<< HEAD
-	private void importPNGs() {
-		namePic = new ImageIcon("groep.png");
-		titlePic = new ImageIcon("ChatserStart.png");
-		startPic = new ImageIcon("Startbutton.png");
-		quitPic = new ImageIcon("Quitbutton.png");
-	}
-	
-	
-	
-=======
->>>>>>> 30f993d551ccd2257c5f83d3ae2449522f12c861
 	private JPanel northTitle() {
 		title = new JLabel("<html> <font color='white'>CHATSER</font></html>");
 		Font titleFont = new Font("28 Days Later",Font.PLAIN,70);
