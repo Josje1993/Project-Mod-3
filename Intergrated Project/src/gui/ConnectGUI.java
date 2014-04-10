@@ -108,7 +108,7 @@ public class ConnectGUI extends JPanel implements ActionListener {
 		boolean result = false;
 		if(splitter.length == 4){
 			for(int y = 0; y < splitter.length; y++){
-				for(int x = 0; x < 255; x++){
+				for(int x = 0; x < 256; x++){
 					String stringx = Integer.toString(x);
 					if(splitter[y].equals(stringx)){
 						resultint++;
