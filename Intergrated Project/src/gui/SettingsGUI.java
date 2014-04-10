@@ -22,6 +22,7 @@ public class SettingsGUI extends JPanel implements ActionListener{
 	private JLabel copyrightLabel;
 	private static final String TITLE = "Settings";
 	private boolean statusSetting;
+	private boolean statusSetting2 = false;
 	private JButton okButton;
 	
 	//---------------------------------------------------------------------//
@@ -47,8 +48,10 @@ public class SettingsGUI extends JPanel implements ActionListener{
 		notificationSoundCheckbox = new JCheckBox();
 		if(statusSetting){
 			notificationSoundCheckbox.setSelected(true);
+			statusSetting2 = false;
 		}else{
 			notificationSoundCheckbox.setSelected(false);
+			statusSetting2 = true;
 		}
 		notificationLabel = new JButton("Zet notificatie-geluid uit");
 		notificationLabel.setOpaque(false);
@@ -92,7 +95,15 @@ public class SettingsGUI extends JPanel implements ActionListener{
 			settings.dispose();
 		}
 		if (ae.getSource() == notificationLabel) {
-			notificationSoundCheckbox.setSelected(true);
+			if(statusSetting2){
+				notificationSoundCheckbox.setSelected(true);
+				statusSetting2 = false;
+			}
+			else{
+				notificationSoundCheckbox.setSelected(false);
+				statusSetting2 = true;
+			}
+			
 		}
 	}
 	
