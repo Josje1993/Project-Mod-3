@@ -50,6 +50,8 @@ public class ConnectAccountGUI extends JPanel implements ActionListener {
 	private JPanel createProfilePanel;
 	private JPanel passwordPanel;
 	private JPanel onthoudPanel;
+	private boolean statusSetting;
+	private boolean statusSetting2 = false;
 	private static final String TITLE = "Connect";
 	
 //---------------------------------------------------------------------//
@@ -103,6 +105,13 @@ public class ConnectAccountGUI extends JPanel implements ActionListener {
 	
 	private JPanel onthoud() {
 		vinkje = new JCheckBox();
+		if(statusSetting){
+			vinkje.setSelected(true);
+			statusSetting2 = false;
+		}else{
+			vinkje.setSelected(false);
+			statusSetting2 = true;
+		}
 		vinkje.setBackground(Color.DARK_GRAY);
 		onthoud = new JButton("<html> <font color='white'>Wachtwoord Onthouden?</font></html>");
 		Font myFont = new Font("28 Days Later",Font.PLAIN,12);
@@ -285,7 +294,15 @@ public class ConnectAccountGUI extends JPanel implements ActionListener {
 		}
 		
 		if (arg0.getSource() == onthoud) {
-			vinkje.setSelected(true);
+			if(statusSetting2){
+				vinkje.setSelected(true);
+				statusSetting2 = false;
+			}
+			else{
+				vinkje.setSelected(false);
+				statusSetting2 = true;
+			}
+			
 		}
 	}
 	
