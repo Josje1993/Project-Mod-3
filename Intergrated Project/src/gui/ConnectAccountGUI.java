@@ -10,7 +10,6 @@ import java.awt.Color;
 import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.GridLayout;
-import java.util.Arrays;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
@@ -156,10 +155,8 @@ public class ConnectAccountGUI extends JPanel implements ActionListener {
 	}
 	
 	public boolean onlyNumbersconnAddr(String numbers){
-		System.out.println(numbers);
 		int resultint = 0;
 		String[] splitter = numbers.split("\\.");
-		System.out.println(Arrays.toString(splitter));
 		boolean result = false;
 		if(splitter.length == 4){
 			for(int y = 0; y < splitter.length; y++){
@@ -215,10 +212,9 @@ public class ConnectAccountGUI extends JPanel implements ActionListener {
 		connect.setContentAreaFilled(false);
 		connect.setBorderPainted(false);
 		connect.addActionListener(this);
-		
 		amountChatters = new JComboBox<String>();
-		amountChatters.addItem("<html> <font color='black'>two chatters</font></html>");
-		amountChatters.addItem("<html> <font color='black'>four chatters</font></html>");
+		amountChatters.addItem("Two chatters");
+		amountChatters.addItem("Four chatters");
 		Font amountFont = new Font("28 Days Later",Font.PLAIN,16);
 		amountChatters.setFont(amountFont);
 		amountChatters.addActionListener(this);
@@ -274,7 +270,6 @@ public class ConnectAccountGUI extends JPanel implements ActionListener {
 			}	
 			
 		}
-		
 		if(arg0.getSource() == quitButton){
 			connecting.dispose();
 		}
