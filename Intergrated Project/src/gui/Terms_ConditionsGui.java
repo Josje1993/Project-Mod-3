@@ -27,7 +27,7 @@ public class Terms_ConditionsGui extends JPanel implements ActionListener {
 	private BorderLayout layout;
 	private JFrame conditions;
 	private JLabel terms_of_agreement;
-	private JLabel agreeLabel;
+	private JButton agreeLabel;
 	private JTextArea terms;
 	private JButton agreed;
 	private JButton notAgreed;
@@ -78,7 +78,11 @@ public class Terms_ConditionsGui extends JPanel implements ActionListener {
 		JPanel agreePanel = new JPanel();
 		iAgree = new JCheckBox();
 		iAgree.addActionListener(this);
-		agreeLabel = new JLabel("I agree with the terms and conditions");
+		agreeLabel = new JButton("I agree with the terms and conditions");
+		agreeLabel.setOpaque(false);
+		agreeLabel.setContentAreaFilled(false);
+		agreeLabel.setBorderPainted(false);
+		agreeLabel.addActionListener(this);
 		agreed = new JButton("Next");
 		agreed.setEnabled(false);
 		agreed.addActionListener(this);
@@ -107,13 +111,19 @@ public class Terms_ConditionsGui extends JPanel implements ActionListener {
 	
 	@Override
 	public void actionPerformed(ActionEvent e) {
+		if (e.getSource () == agreeLabel) {
+			iAgree.setSelected(true);
+		}
+		
 		if (e.getSource() == agreed) {
 			new ConnectGUI("Nickname");
 			conditions.dispose();
 		}
+		
 		if (e.getSource() == notAgreed) {
 			conditions.dispose();
 		}
+		
 		if (iAgree != null);
 			agreed.setEnabled(true);
 	}
