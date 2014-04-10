@@ -37,7 +37,7 @@ public class SettingsGUI extends JPanel implements ActionListener{
 		settings.add(version());
 		settings.add(copyRight());
 		settings.setVisible(true);
-		settings.setSize(300,156);
+		settings.setSize(300,170);
 		settings.setLocationRelativeTo(null);
 		settings.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
 	}

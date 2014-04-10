@@ -54,6 +54,8 @@ public class StartGUI extends JPanel implements ActionListener {
 		quitPic = new ImageIcon("Quitbutton.png");
 	}
 	
+	
+	
 	private JPanel northTitle() {
 		title = new JLabel(titlePic);
 		titlePanel = new JPanel();
