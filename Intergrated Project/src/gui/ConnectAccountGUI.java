@@ -16,7 +16,6 @@ import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
-import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
@@ -40,7 +39,7 @@ public class ConnectAccountGUI extends JPanel implements ActionListener {
 	private JTextField port;
 	private JPasswordField passWord;
 	private JCheckBox vinkje;
-	private JLabel onthoud;
+	private JButton onthoud;
 	private JButton connect;
 	private JButton quitButton;
 	private JComboBox<String> amountChatters;
@@ -70,7 +69,7 @@ public class ConnectAccountGUI extends JPanel implements ActionListener {
 		connecting.add(flowPanel(), BorderLayout.CENTER);
 		connecting.add(southLayout(),BorderLayout.SOUTH);
 		connecting.setVisible(true);
-		connecting.setSize(400, 240);
+		connecting.setSize(400, 250);
 		connecting.setLocationRelativeTo(null);
 		connecting.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 		return connecting;
@@ -100,8 +99,12 @@ public class ConnectAccountGUI extends JPanel implements ActionListener {
 	private JPanel onthoud() {
 		vinkje = new JCheckBox();
 		vinkje.setBackground(Color.DARK_GRAY);
-		onthoud = new JLabel("<html> <font color='white'>Wachtwoord Onthouden?</font></html>");
+		onthoud = new JButton("<html> <font color='white'>Wachtwoord Onthouden?</font></html>");
 		Font myFont = new Font("28 Days Later",Font.PLAIN,12);
+		onthoud.setOpaque(false);
+		onthoud.setContentAreaFilled(false);
+		onthoud.setBorderPainted(false);
+		onthoud.addActionListener(this);
 		onthoud.setFont(myFont);
 		onthoudPanel = new JPanel();
 		onthoudPanel.setLayout(new FlowLayout());
@@ -175,7 +178,12 @@ public class ConnectAccountGUI extends JPanel implements ActionListener {
 	}
 	
 	private JPanel createProfile() {
-		createProfile = new JButton("Create Profile");
+		createProfile = new JButton("<html> <font color='white'>verander jouw profiel</font></html>");
+		Font profileFont = new Font("28 Days Later",Font.PLAIN,16);
+		createProfile.setFont(profileFont);
+		createProfile.setOpaque(false);
+		createProfile.setContentAreaFilled(false);
+		createProfile.setBorderPainted(false);
 		createProfile.addActionListener(this);
 		createProfilePanel = new JPanel();
 		createProfilePanel.setBackground(Color.DARK_GRAY);
@@ -186,7 +194,12 @@ public class ConnectAccountGUI extends JPanel implements ActionListener {
 	private JPanel quitPanel(){
 		JPanel quitPanel = new JPanel();
 		quitPanel.setBackground(Color.DARK_GRAY);
-		quitButton = new JButton("Shut down");
+		quitButton = new JButton("<html> <font color='white'>Shut down</font></html>");
+		Font quitFont = new Font("28 Days Later",Font.PLAIN,20);
+		quitButton.setFont(quitFont);
+		quitButton.setOpaque(false);
+		quitButton.setContentAreaFilled(false);
+		quitButton.setBorderPainted(false);
 		quitButton.addActionListener(this);
 		quitPanel.add(quitButton);
 		quitPanel.setBorder(BorderFactory.createEmptyBorder(0, 20, 0, 0));
@@ -195,11 +208,19 @@ public class ConnectAccountGUI extends JPanel implements ActionListener {
 	}
 	
 	private JPanel connect() {
-		connect = new JButton("Connect");
+		connect = new JButton("<html> <font color='white'>Connect</font></html>");
+		Font connectFont = new Font("28 Days Later",Font.PLAIN,20);
+		connect.setFont(connectFont);
+		connect.setOpaque(false);
+		connect.setContentAreaFilled(false);
+		connect.setBorderPainted(false);
 		connect.addActionListener(this);
+		
 		amountChatters = new JComboBox<String>();
-		amountChatters.addItem("Two chatters");
-		amountChatters.addItem("Four chatters");
+		amountChatters.addItem("<html> <font color='black'>two chatters</font></html>");
+		amountChatters.addItem("<html> <font color='black'>four chatters</font></html>");
+		Font amountFont = new Font("28 Days Later",Font.PLAIN,16);
+		amountChatters.setFont(amountFont);
 		amountChatters.addActionListener(this);
 		connectPanel = new JPanel();
 		connectPanel.setBackground(Color.DARK_GRAY);
@@ -254,8 +275,12 @@ public class ConnectAccountGUI extends JPanel implements ActionListener {
 			
 		}
 		
-			if(arg0.getSource() == quitButton){
+		if(arg0.getSource() == quitButton){
 			connecting.dispose();
+		}
+		
+		if (arg0.getSource() == onthoud) {
+			vinkje.setSelected(true);
 		}
 	}
 	
