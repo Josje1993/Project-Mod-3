@@ -114,14 +114,16 @@ public class ChatGUI extends WindowAdapter implements ActionListener{
 		chatBox.setBorder(blackline);
 		chatBox.setEditable(false);
 		JScrollPane chatBoxScrollPane = new JScrollPane(chatBox);
+		chatBoxScrollPane.setBackground(Color.GRAY);
 		chatBoxScrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
-		chatBoxScrollPane.setPreferredSize(new Dimension(250, 250));
+		chatBoxScrollPane.setPreferredSize(new Dimension(249, 249));
 		return chatBoxScrollPane;
 	}
 	
 	private JPanel eastSide() {
 		BorderLayout layOut = new BorderLayout();
 		JPanel eastSidePanel = new JPanel(layOut);
+		eastSidePanel.setBackground(Color.GRAY);
 		eastSidePanel.add(settingsAndLogoutPanel(),BorderLayout.NORTH);
 		if(chatters == 4){
 			eastSidePanel.add(namesChooser(), BorderLayout.CENTER);
@@ -136,6 +138,7 @@ public class ChatGUI extends WindowAdapter implements ActionListener{
 		grid.setColumns(1);
 		grid.setRows(3);
 		JPanel namesChooserPanel = new JPanel(grid);
+		namesChooserPanel.setBackground(Color.GRAY);
 		name1 = new JButton("Name1");
 		name2 = new JButton("Name2");
 		name3 = new JButton("Name3");
@@ -143,8 +146,11 @@ public class ChatGUI extends WindowAdapter implements ActionListener{
 		name2.addActionListener(this);
 		name3.addActionListener(this);
 		JPanel name1Panel = new JPanel();
+		name1Panel.setBackground(Color.GRAY);
 		JPanel name2Panel = new JPanel();
+		name2Panel.setBackground(Color.GRAY);
 		JPanel name3Panel = new JPanel();
+		name3Panel.setBackground(Color.GRAY);
 		name1Panel.add(name1);
 		name2Panel.add(name2);
 		name3Panel.add(name3);
@@ -156,6 +162,7 @@ public class ChatGUI extends WindowAdapter implements ActionListener{
 	
 	private JPanel profileInfo1(){
 		JPanel profileInfoPanel = new JPanel();
+		profileInfoPanel.setBackground(Color.GRAY);
 		nameAndProfile = new JTextArea(14,20);
 		nameAndProfile.setEditable(false);
 		TitledBorder title = BorderFactory.createTitledBorder(blackline, "Profile of name1");
@@ -167,6 +174,7 @@ public class ChatGUI extends WindowAdapter implements ActionListener{
 	
 	private JPanel profileInfo2(){
 		JPanel profileInfoPanel = new JPanel();
+		profileInfoPanel.setBackground(Color.GRAY);
 		nameAndProfile = new JTextArea(14,20);
 		nameAndProfile.setEditable(false);
 		TitledBorder title = BorderFactory.createTitledBorder(blackline, "Profile of name2");
@@ -178,6 +186,7 @@ public class ChatGUI extends WindowAdapter implements ActionListener{
 	
 	private JPanel profileInfo3(){
 		JPanel profileInfoPanel = new JPanel();
+		profileInfoPanel.setBackground(Color.GRAY);
 		nameAndProfile = new JTextArea(14,20);
 		nameAndProfile.setEditable(false);
 		TitledBorder title = BorderFactory.createTitledBorder(blackline, "Profile of name3");
@@ -189,10 +198,12 @@ public class ChatGUI extends WindowAdapter implements ActionListener{
 	
 	private JPanel toSend_ExtentionsAndSendPanel(){
 		JPanel toSend_ExtentionsAndSendPanel = new JPanel();
-		input = new JTextField("",37);
+		toSend_ExtentionsAndSendPanel.setBackground(Color.GRAY);
+		input = new JTextField(null,37);
 		extentions = new JButton("Extentions");
 		extentions.addActionListener(this);
 		send = new JButton("Send");
+		send.addActionListener(this);
 		toSend_ExtentionsAndSendPanel.add(input);
 		toSend_ExtentionsAndSendPanel.add(send);
 		toSend_ExtentionsAndSendPanel.add(extentions);
@@ -201,7 +212,9 @@ public class ChatGUI extends WindowAdapter implements ActionListener{
 	
 	private JPanel settingsAndLogoutPanel(){
 		JPanel settingsAndLogoutPanel = new JPanel(new BorderLayout());
+		settingsAndLogoutPanel.setBackground(Color.GRAY);
 		JPanel borderSettingsLogout = new JPanel();
+		borderSettingsLogout.setBackground(Color.GRAY);
 		settings = new JButton(settingsPic);
 		settings.setOpaque(false);
 		settings.setContentAreaFilled(false);
@@ -220,6 +233,7 @@ public class ChatGUI extends WindowAdapter implements ActionListener{
 	
 	private JPanel switchingPanel() {
 		switchPanel = new JPanel(new CardLayout());
+		switchPanel.setBackground(Color.GRAY);
 		card1 = profileInfo1();
 		card2 = profileInfo2();
 		card3 = profileInfo3();
@@ -290,6 +304,12 @@ public class ChatGUI extends WindowAdapter implements ActionListener{
 				if(ae.getSource() == clear){
 					input.setText("");
 				}
+		}
+		if(ae.getSource() == send){
+			if(input.getText() != null){
+				chatBox.append(input.getText() + "\n");
+				input.setText(null);
+			}
 		}
 	}
 
