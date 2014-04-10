@@ -119,9 +119,11 @@ public class Terms_ConditionsGui extends JPanel implements ActionListener {
 			new ConnectGUI("Nickname");
 			conditions.dispose();
 		}
+		
 		if (e.getSource() == notAgreed) {
 			conditions.dispose();
 		}
+		
 		if (iAgree != null);
 			agreed.setEnabled(true);
 	}
