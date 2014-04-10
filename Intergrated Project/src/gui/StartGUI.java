@@ -42,6 +42,7 @@ public class StartGUI extends JPanel implements ActionListener {
 		starter.add(centerSQ(), BorderLayout.CENTER);
 		starter.add(names(), BorderLayout.SOUTH);
 		starter.setVisible(true);
+		starter.setResizable(false);
 		starter.setSize(400, 300);
 		starter.setLocationRelativeTo(null);
 		starter.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
