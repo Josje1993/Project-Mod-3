@@ -7,7 +7,7 @@ import javax.swing.JFrame;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
-import java.util.Arrays;
+import java.awt.Font;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
@@ -97,10 +97,8 @@ public class ConnectGUI extends JPanel implements ActionListener {
 	}
 	
 	public boolean onlyNumbersconnAddr(String numbers){
-		System.out.println(numbers);
 		int resultint = 0;
 		String[] splitter = numbers.split("\\.");
-		System.out.println(Arrays.toString(splitter));
 		boolean result = false;
 		if(splitter.length == 4){
 			for(int y = 0; y < splitter.length; y++){
@@ -119,7 +117,12 @@ public class ConnectGUI extends JPanel implements ActionListener {
 	}
 	
 	private JPanel createProfile() {
-		createProfile = new JButton("Create Profile");
+		createProfile = new JButton("<html> <font color='white'>maak profiel aan</font></html>");
+		Font profileFont = new Font("28 Days Later",Font.PLAIN,16);
+		createProfile.setFont(profileFont);
+		createProfile.setOpaque(false);
+		createProfile.setContentAreaFilled(false);
+		createProfile.setBorderPainted(false);
 		createProfile.addActionListener(this);
 		createProfilePanel = new JPanel();
 		createProfilePanel.setBackground(Color.DARK_GRAY);
@@ -130,7 +133,12 @@ public class ConnectGUI extends JPanel implements ActionListener {
 	private JPanel quitPanel(){
 		JPanel quitPanel = new JPanel();
 		quitPanel.setBackground(Color.DARK_GRAY);
-		quitButton = new JButton("Shut down");
+		quitButton = new JButton("<html> <font color='white'>Shut down</font></html>");
+		Font quitFont = new Font("28 Days Later",Font.PLAIN,20);
+		quitButton.setFont(quitFont);
+		quitButton.setOpaque(false);
+		quitButton.setContentAreaFilled(false);
+		quitButton.setBorderPainted(false);
 		quitButton.addActionListener(this);
 		quitPanel.add(quitButton);
 		quitPanel.setBorder(BorderFactory.createEmptyBorder(0, 20, 0, 0));
@@ -139,11 +147,18 @@ public class ConnectGUI extends JPanel implements ActionListener {
 	}
 	
 	private JPanel connect() {
-		connect = new JButton("Connect");
+		connect = new JButton("<html> <font color='white'>Connect</font></html>");
+		Font connectFont = new Font("28 Days Later",Font.PLAIN,20);
+		connect.setFont(connectFont);
+		connect.setOpaque(false);
+		connect.setContentAreaFilled(false);
+		connect.setBorderPainted(false);
 		connect.addActionListener(this);
 		amountChatters = new JComboBox<String>();
 		amountChatters.addItem("Two chatters");
 		amountChatters.addItem("Four chatters");
+		Font amountFont = new Font("28 Days Later",Font.PLAIN,16);
+		amountChatters.setFont(amountFont);
 		amountChatters.addActionListener(this);
 		connectPanel = new JPanel();
 		connectPanel.setBackground(Color.DARK_GRAY);

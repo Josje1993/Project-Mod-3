@@ -8,15 +8,15 @@ import javax.swing.JFrame;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.FlowLayout;
+import java.awt.Font;
 import java.awt.GridLayout;
-import java.util.Arrays;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
-import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 import javax.swing.WindowConstants;
 
@@ -36,9 +36,9 @@ public class ConnectAccountGUI extends JPanel implements ActionListener {
 	private JButton createProfile;
 	private JTextField connAddr;
 	private JTextField port;
-	private JTextField passWord;
+	private JPasswordField passWord;
 	private JCheckBox vinkje;
-	private JLabel onthoud;
+	private JButton onthoud;
 	private JButton connect;
 	private JButton quitButton;
 	private JComboBox<String> amountChatters;
@@ -68,7 +68,7 @@ public class ConnectAccountGUI extends JPanel implements ActionListener {
 		connecting.add(flowPanel(), BorderLayout.CENTER);
 		connecting.add(southLayout(),BorderLayout.SOUTH);
 		connecting.setVisible(true);
-		connecting.setSize(400, 300);
+		connecting.setSize(400, 250);
 		connecting.setLocationRelativeTo(null);
 		connecting.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 		return connecting;
@@ -85,11 +85,10 @@ public class ConnectAccountGUI extends JPanel implements ActionListener {
 	
 	private JPanel connectAddr() {
 		connAddr = new JTextField("Connect Address", 10);
-		
 		connAddr.setEditable(true);
 		port = new JTextField("Port Address", 10);
 		connectAddrPanel = new JPanel();
-		connectAddrPanel.setLayout(new GridLayout(2,1));
+		connectAddrPanel.setLayout(new GridLayout(1, 2));
 		connectAddrPanel.setBackground(Color.DARK_GRAY);
 		connectAddrPanel.add(connAddr);
 		connectAddrPanel.add(port);
@@ -98,7 +97,14 @@ public class ConnectAccountGUI extends JPanel implements ActionListener {
 	
 	private JPanel onthoud() {
 		vinkje = new JCheckBox();
-		onthoud = new JLabel("Wachtwoord onthouden?");
+		vinkje.setBackground(Color.DARK_GRAY);
+		onthoud = new JButton("<html> <font color='white'>Wachtwoord Onthouden?</font></html>");
+		Font myFont = new Font("28 Days Later",Font.PLAIN,12);
+		onthoud.setOpaque(false);
+		onthoud.setContentAreaFilled(false);
+		onthoud.setBorderPainted(false);
+		onthoud.addActionListener(this);
+		onthoud.setFont(myFont);
 		onthoudPanel = new JPanel();
 		onthoudPanel.setLayout(new FlowLayout());
 		onthoudPanel.setBackground(Color.DARK_GRAY);
@@ -109,7 +115,7 @@ public class ConnectAccountGUI extends JPanel implements ActionListener {
 	
 	private JPanel pOV() {
 		JPanel pOVPanel = new JPanel();
-		pOVPanel.setLayout(new GridLayout(2,2));
+		pOVPanel.setLayout(new GridLayout(2,1));
 		pOVPanel.setBackground(Color.DARK_GRAY);
 		pOVPanel.add(passWord());
 		pOVPanel.add(onthoud());
@@ -117,7 +123,7 @@ public class ConnectAccountGUI extends JPanel implements ActionListener {
 	}
 	
 	private JPanel passWord() {
-		passWord = new JTextField("Password", 10);
+		passWord = new JPasswordField("Password");
 		passWord.setEditable(true);
 		passwordPanel = new JPanel();
 		passwordPanel.setLayout(new GridLayout(1,1));
@@ -149,10 +155,8 @@ public class ConnectAccountGUI extends JPanel implements ActionListener {
 	}
 	
 	public boolean onlyNumbersconnAddr(String numbers){
-		System.out.println(numbers);
 		int resultint = 0;
 		String[] splitter = numbers.split("\\.");
-		System.out.println(Arrays.toString(splitter));
 		boolean result = false;
 		if(splitter.length == 4){
 			for(int y = 0; y < splitter.length; y++){
@@ -171,7 +175,12 @@ public class ConnectAccountGUI extends JPanel implements ActionListener {
 	}
 	
 	private JPanel createProfile() {
-		createProfile = new JButton("Create Profile");
+		createProfile = new JButton("<html> <font color='white'>verander jouw profiel</font></html>");
+		Font profileFont = new Font("28 Days Later",Font.PLAIN,16);
+		createProfile.setFont(profileFont);
+		createProfile.setOpaque(false);
+		createProfile.setContentAreaFilled(false);
+		createProfile.setBorderPainted(false);
 		createProfile.addActionListener(this);
 		createProfilePanel = new JPanel();
 		createProfilePanel.setBackground(Color.DARK_GRAY);
@@ -182,7 +191,12 @@ public class ConnectAccountGUI extends JPanel implements ActionListener {
 	private JPanel quitPanel(){
 		JPanel quitPanel = new JPanel();
 		quitPanel.setBackground(Color.DARK_GRAY);
-		quitButton = new JButton("Shut down");
+		quitButton = new JButton("<html> <font color='white'>Shut down</font></html>");
+		Font quitFont = new Font("28 Days Later",Font.PLAIN,20);
+		quitButton.setFont(quitFont);
+		quitButton.setOpaque(false);
+		quitButton.setContentAreaFilled(false);
+		quitButton.setBorderPainted(false);
 		quitButton.addActionListener(this);
 		quitPanel.add(quitButton);
 		quitPanel.setBorder(BorderFactory.createEmptyBorder(0, 20, 0, 0));
@@ -191,11 +205,18 @@ public class ConnectAccountGUI extends JPanel implements ActionListener {
 	}
 	
 	private JPanel connect() {
-		connect = new JButton("Connect");
+		connect = new JButton("<html> <font color='white'>Connect</font></html>");
+		Font connectFont = new Font("28 Days Later",Font.PLAIN,20);
+		connect.setFont(connectFont);
+		connect.setOpaque(false);
+		connect.setContentAreaFilled(false);
+		connect.setBorderPainted(false);
 		connect.addActionListener(this);
 		amountChatters = new JComboBox<String>();
 		amountChatters.addItem("Two chatters");
 		amountChatters.addItem("Four chatters");
+		Font amountFont = new Font("28 Days Later",Font.PLAIN,16);
+		amountChatters.setFont(amountFont);
 		amountChatters.addActionListener(this);
 		connectPanel = new JPanel();
 		connectPanel.setBackground(Color.DARK_GRAY);
@@ -249,13 +270,16 @@ public class ConnectAccountGUI extends JPanel implements ActionListener {
 			}	
 			
 		}
-		
-			if(arg0.getSource() == quitButton){
+		if(arg0.getSource() == quitButton){
 			connecting.dispose();
+		}
+		
+		if (arg0.getSource() == onthoud) {
+			vinkje.setSelected(true);
 		}
 	}
 	
 	public static void main (String[] args) {
-		new ConnectAccountGUI("Henk");
+		new ConnectAccountGUI("Nickname");
 	}
 }
