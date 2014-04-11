@@ -21,6 +21,9 @@ import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 import javax.swing.WindowConstants;
 
+import utils.RoundJPasswordField;
+import utils.RoundJTextField;
+
 public class MaakProfielGUI implements ActionListener {
 	
 	
@@ -128,28 +131,28 @@ public class MaakProfielGUI implements ActionListener {
 		JPanel textFieldPanel7 = new JPanel();
 		JPanel textFieldPanel8 = new JPanel();
 		
-		nickname = new JTextField("", 15);
+		nickname = new RoundJTextField("", 15);
 		nickname.setBackground(Color.LIGHT_GRAY);
 		nickname.setForeground(Color.BLACK);
-		password = new JPasswordField("", 15);
+		password = new RoundJPasswordField("", 15);
 		password.setBackground(Color.LIGHT_GRAY);
 		password.setForeground(Color.BLACK);
-		herhaalPassword = new JPasswordField("", 15);
+		herhaalPassword = new RoundJPasswordField("", 15);
 		herhaalPassword.setBackground(Color.LIGHT_GRAY);
 		herhaalPassword.setForeground(Color.BLACK);
-		voornaam = new JTextField("", 15);
+		voornaam = new RoundJTextField("", 15);
 		voornaam.setBackground(Color.LIGHT_GRAY);
 		voornaam.setForeground(Color.BLACK);
-		achternaam = new JTextField("", 15);
+		achternaam = new RoundJTextField("", 15);
 		achternaam.setBackground(Color.LIGHT_GRAY);
 		achternaam.setForeground(Color.BLACK);
-		leeftijd = new JTextField("", 15);
+		leeftijd = new RoundJTextField("", 15);
 		leeftijd.setBackground(Color.LIGHT_GRAY);
 		leeftijd.setForeground(Color.BLACK);
-		interesses = new JTextField("", 15);
+		interesses = new RoundJTextField("", 15);
 		interesses.setBackground(Color.LIGHT_GRAY);
 		interesses.setForeground(Color.BLACK);
-		relatiestatus = new JTextField("", 15);
+		relatiestatus = new RoundJTextField("", 15);
 		relatiestatus.setBackground(Color.LIGHT_GRAY);
 		relatiestatus.setForeground(Color.BLACK);
 		nickname.setEditable(true);
