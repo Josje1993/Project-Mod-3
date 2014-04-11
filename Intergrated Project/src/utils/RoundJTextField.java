@@ -11,6 +11,11 @@ public class RoundJTextField extends JTextField{
 	private static final long serialVersionUID = 665562630564707606L;
 	private Shape shape;
 	
+	public RoundJTextField( String text, int size){
+		super(text, size);
+		setOpaque(false);
+	}
+	
 	public RoundJTextField(int size){
 		super(size);
 		setOpaque(false);
