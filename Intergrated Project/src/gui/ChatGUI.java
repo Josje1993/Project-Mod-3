@@ -81,6 +81,11 @@ public class ChatGUI extends WindowAdapter implements ActionListener{
 	private SettingsGUI settingsGUI;
 	private int checker = 0;
 	private int chatters;
+	private JFrame emoticonOrFilesFrame;
+	private BorderLayout EOFlayout;
+	private JLabel question;
+	private JButton emoticons;
+	private JButton files;
 	private static final Color color1 = new Color(31, 31, 50);
 	private static final Color color2 = new Color(31, 50, 31);
 	private static final Color color3 = new Color(50, 31, 31);
@@ -97,6 +102,7 @@ public class ChatGUI extends WindowAdapter implements ActionListener{
 		importPictures();
 		chatserFrame();
 		makeEmoticonFrame();
+		emoticonOrFiles();
 	}
 	
 	/**
@@ -366,11 +372,12 @@ public class ChatGUI extends WindowAdapter implements ActionListener{
 			quitFrame.dispose();
 		}
 		if(ae.getSource() == extentions){
-			emoticonFrame.setVisible(true);
+			emoticonOrFilesFrame.setVisible(true);
 		}
 		if(emoticonFrame.isVisible()){
 			if(ae.getSource() == close){
 				emoticonFrame.setVisible(false);
+				emoticonOrFilesFrame.setVisible(false);
 			}
 			if(ae.getSource() == choose){
 				for(int x = 0; x < emoticonArray.length; x++){
@@ -392,6 +399,11 @@ public class ChatGUI extends WindowAdapter implements ActionListener{
 					input.setText("");
 				}
 		}
+		
+		if(ae.getSource() == emoticons) {
+			emoticonFrame.setVisible(true);
+		}
+		
 		if(ae.getSource() == send){
 			if(input.getText() != null){
 				chatBox.append(input.getText() + "\n");
@@ -555,6 +567,52 @@ public class ChatGUI extends WindowAdapter implements ActionListener{
 	}
 
 	//--------------------End of Emoticon Frame Methods-------------------------//
+	
+	
+	public void emoticonOrFiles() {
+		emoticonOrFilesFrame = new JFrame();
+		emoticonOrFilesFrame.addWindowListener(listenerEF);
+		emoticonOrFilesFrame.setTitle(TITLE);
+		EOFlayout = new BorderLayout();
+		emoticonOrFilesFrame.setLayout(EOFlayout);
+		emoticonOrFilesFrame.add(questionPanel(), BorderLayout.CENTER);
+		emoticonOrFilesFrame.add(buttonPanel(), BorderLayout.SOUTH);
+		emoticonOrFilesFrame.setVisible(false);
+		emoticonOrFilesFrame.setSize(250,120);
+		emoticonOrFilesFrame.setLocationRelativeTo(null);
+		emoticonOrFilesFrame.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
+	}
+	
+	public JPanel questionPanel() {
+		JPanel questionPanel = new JPanel();
+		questionPanel.setBackground(Color.BLACK);
+		question = new JLabel("<html> <font color='white'>Emoticons of files toevoegen</font></html>");
+		Font qFont = new Font("28 Days Later",Font.PLAIN,16);
+		question.setFont(qFont);
+		questionPanel.add(question);
+		return questionPanel;
+	}
+	
+	public JPanel buttonPanel() {
+		JPanel buttonEF = new JPanel();
+		buttonEF.setBackground(Color.BLACK);
+		emoticons = new JButton("<html> <font color='white'>Emoticons</font></html>");
+		Font EFFont = new Font("28 Days Later",Font.PLAIN,20);
+		emoticons.setFont(EFFont);
+		emoticons.setOpaque(false);
+		emoticons.setContentAreaFilled(false);
+		emoticons.setBorderPainted(false);
+		emoticons.addActionListener(this);
+		files = new JButton("<html> <font color='white'>Files</font></html>");
+		files.setFont(EFFont);
+		files.setOpaque(false);
+		files.setContentAreaFilled(false);
+		files.setBorderPainted(false);
+		files.addActionListener(this);
+		buttonEF.add(emoticons);
+		buttonEF.add(files);
+		return buttonEF;
+	}
 	
 	
 	/**
