@@ -20,6 +20,7 @@ import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 import javax.swing.WindowConstants;
 
+import utils.RoundJPasswordField;
 import utils.RoundJTextField;
 
 /**
@@ -142,7 +143,7 @@ public class ConnectAccountGUI extends JPanel implements ActionListener {
 	}
 	
 	private JPanel passWord() {
-		passWord = new JPasswordField(password);
+		passWord = new RoundJPasswordField(password, 5);
 		passWord.setForeground(Color.WHITE);
 		passWord.setBackground(Color.GRAY);
 		passWord.setEditable(true);
