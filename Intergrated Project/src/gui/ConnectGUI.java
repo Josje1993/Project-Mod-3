@@ -68,7 +68,7 @@ public class ConnectGUI extends JPanel implements ActionListener {
 	private JPanel nickName() {
 		nickName = new JTextField(nickNameString, 10);
 		nickName.setForeground(Color.WHITE);
-		nickName.setBackground(Color.DARK_GRAY);
+		nickName.setBackground(Color.GRAY);
 		nickName.setEditable(true);
 		nickNamePanel = new JPanel();
 		nickNamePanel.setBackground(Color.DARK_GRAY);
@@ -79,11 +79,11 @@ public class ConnectGUI extends JPanel implements ActionListener {
 	private JPanel connectAddr() {
 		connAddr = new JTextField("Connect Address", 10);
 		connAddr.setForeground(Color.WHITE);
-		connAddr.setBackground(Color.DARK_GRAY);
+		connAddr.setBackground(Color.GRAY);
 		connAddr.setEditable(true);
 		port = new JTextField("Port Address", 10);
 		port.setForeground(Color.WHITE);
-		port.setBackground(Color.DARK_GRAY);
+		port.setBackground(Color.GRAY);
 		connectAddrPanel = new JPanel();
 		connectAddrPanel.setBackground(Color.DARK_GRAY);
 		connectAddrPanel.add(connAddr);
