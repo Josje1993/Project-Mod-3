@@ -77,10 +77,13 @@ public class ChatGUI extends WindowAdapter implements ActionListener{
 	private ImageIcon logoutPic;
 	private static final String TITLE = "Chatser";
 	private Border blackline = BorderFactory.createLineBorder(Color.BLACK);
-	private Border roundedBorder = new LineBorder(Color.black, 5, true);
+	private Border roundedBorder = new LineBorder(Color.black, 1, true);
 	private SettingsGUI settingsGUI;
 	private int checker = 0;
 	private int chatters;
+	private static final Color color1 = new Color(31, 31, 50);
+	private static final Color color2 = new Color(31, 50, 31);
+	private static final Color color3 = new Color(50, 31, 31);
 	
 //--------------------------------------------------------------------------//
 	/**
@@ -129,10 +132,9 @@ public class ChatGUI extends WindowAdapter implements ActionListener{
 	 * @return chatBoxScrollPane
 	 */
 	private JScrollPane chatBoxPanel(){
-		chatBox = new RoundJTextArea(25,30);
-		chatBox.setBorder(roundedBorder);
+		chatBox = new JTextArea(25,30);
 		chatBox.setBackground(Color.LIGHT_GRAY);
-		chatBox.setBorder(blackline);
+		chatBox.setBorder(roundedBorder);
 		chatBox.setEditable(false);
 		JScrollPane chatBoxScrollPane = new JScrollPane(chatBox);
 		chatBoxScrollPane.setBackground(Color.GRAY);
@@ -209,9 +211,10 @@ public class ChatGUI extends WindowAdapter implements ActionListener{
 	private JPanel profileInfo1(){
 		JPanel profileInfoPanel = new JPanel();
 		profileInfoPanel.setBackground(Color.GRAY);
-		nameAndProfile = new JTextArea(14,20);
-		nameAndProfile.setBackground(Color.YELLOW);
+		nameAndProfile = new RoundJTextArea(14,20);
+		nameAndProfile.setBackground(color1);
 		nameAndProfile.setEditable(false);
+		nameAndProfile.setForeground(Color.WHITE);
 		TitledBorder title = BorderFactory.createTitledBorder(blackline, "Profile of name1");
 		title.setTitleJustification(TitledBorder.CENTER);
 		nameAndProfile.setBorder(title);
@@ -226,9 +229,10 @@ public class ChatGUI extends WindowAdapter implements ActionListener{
 	private JPanel profileInfo2(){
 		JPanel profileInfoPanel = new JPanel();
 		profileInfoPanel.setBackground(Color.GRAY);
-		nameAndProfile = new JTextArea(14,20);
-		nameAndProfile.setBackground(Color.GREEN);
+		nameAndProfile = new RoundJTextArea(14,20);
+		nameAndProfile.setBackground(color2);
 		nameAndProfile.setEditable(false);
+		nameAndProfile.setForeground(Color.WHITE);
 		TitledBorder title = BorderFactory.createTitledBorder(blackline, "Profile of name2");
 		title.setTitleJustification(TitledBorder.CENTER);
 		nameAndProfile.setBorder(title);
@@ -243,9 +247,10 @@ public class ChatGUI extends WindowAdapter implements ActionListener{
 	private JPanel profileInfo3(){
 		JPanel profileInfoPanel = new JPanel();
 		profileInfoPanel.setBackground(Color.GRAY);
-		nameAndProfile = new JTextArea(14,20);
-		nameAndProfile.setBackground(Color.RED);
+		nameAndProfile = new RoundJTextArea(14,20);
+		nameAndProfile.setBackground(color3);
 		nameAndProfile.setEditable(false);
+		nameAndProfile.setForeground(Color.WHITE);
 		TitledBorder title = BorderFactory.createTitledBorder(blackline, "Profile of name3");
 		title.setTitleJustification(TitledBorder.CENTER);
 		nameAndProfile.setBorder(title);
