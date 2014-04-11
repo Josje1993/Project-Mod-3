@@ -4,6 +4,7 @@ import java.awt.BorderLayout;
 import java.awt.CardLayout;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -22,7 +23,11 @@ import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.WindowConstants;
 import javax.swing.border.Border;
+import javax.swing.border.LineBorder;
 import javax.swing.border.TitledBorder;
+
+import utils.RoundJTextField;
+import utils.RoundJTextArea;
 
 public class ChatGUI extends WindowAdapter implements ActionListener{
 
@@ -72,6 +77,7 @@ public class ChatGUI extends WindowAdapter implements ActionListener{
 	private ImageIcon logoutPic;
 	private static final String TITLE = "Chatser";
 	private Border blackline = BorderFactory.createLineBorder(Color.BLACK);
+	private Border roundedBorder = new LineBorder(Color.black, 5, true);
 	private SettingsGUI settingsGUI;
 	private int checker = 0;
 	private int chatters;
@@ -123,7 +129,9 @@ public class ChatGUI extends WindowAdapter implements ActionListener{
 	 * @return chatBoxScrollPane
 	 */
 	private JScrollPane chatBoxPanel(){
-		chatBox = new JTextArea(25,30);
+		chatBox = new RoundJTextArea(25,30);
+		chatBox.setBorder(roundedBorder);
+		chatBox.setBackground(Color.LIGHT_GRAY);
 		chatBox.setBorder(blackline);
 		chatBox.setEditable(false);
 		JScrollPane chatBoxScrollPane = new JScrollPane(chatBox);
@@ -160,9 +168,22 @@ public class ChatGUI extends WindowAdapter implements ActionListener{
 		grid.setRows(3);
 		JPanel namesChooserPanel = new JPanel(grid);
 		namesChooserPanel.setBackground(Color.GRAY);
-		name1 = new JButton("Name1");
-		name2 = new JButton("Name2");
-		name3 = new JButton("Name3");
+		name1 = new JButton("<html> <font color='black'>Name1</font></html>");
+		Font nameFont = new Font("28 Days Later",Font.PLAIN,18);
+		name1.setFont(nameFont);
+		name1.setOpaque(false);
+		name1.setContentAreaFilled(false);
+		name1.setBorderPainted(false);
+		name2 = new JButton("<html> <font color='black'>Name2</font></html>");
+		name2.setFont(nameFont);
+		name2.setOpaque(false);
+		name2.setContentAreaFilled(false);
+		name2.setBorderPainted(false);
+		name3 = new JButton("<html> <font color='black'>Name3</font></html>");
+		name3.setFont(nameFont);
+		name3.setOpaque(false);
+		name3.setContentAreaFilled(false);
+		name3.setBorderPainted(false);
 		name1.addActionListener(this);
 		name2.addActionListener(this);
 		name3.addActionListener(this);
@@ -189,6 +210,7 @@ public class ChatGUI extends WindowAdapter implements ActionListener{
 		JPanel profileInfoPanel = new JPanel();
 		profileInfoPanel.setBackground(Color.GRAY);
 		nameAndProfile = new JTextArea(14,20);
+		nameAndProfile.setBackground(Color.YELLOW);
 		nameAndProfile.setEditable(false);
 		TitledBorder title = BorderFactory.createTitledBorder(blackline, "Profile of name1");
 		title.setTitleJustification(TitledBorder.CENTER);
@@ -205,6 +227,7 @@ public class ChatGUI extends WindowAdapter implements ActionListener{
 		JPanel profileInfoPanel = new JPanel();
 		profileInfoPanel.setBackground(Color.GRAY);
 		nameAndProfile = new JTextArea(14,20);
+		nameAndProfile.setBackground(Color.GREEN);
 		nameAndProfile.setEditable(false);
 		TitledBorder title = BorderFactory.createTitledBorder(blackline, "Profile of name2");
 		title.setTitleJustification(TitledBorder.CENTER);
@@ -221,6 +244,7 @@ public class ChatGUI extends WindowAdapter implements ActionListener{
 		JPanel profileInfoPanel = new JPanel();
 		profileInfoPanel.setBackground(Color.GRAY);
 		nameAndProfile = new JTextArea(14,20);
+		nameAndProfile.setBackground(Color.RED);
 		nameAndProfile.setEditable(false);
 		TitledBorder title = BorderFactory.createTitledBorder(blackline, "Profile of name3");
 		title.setTitleJustification(TitledBorder.CENTER);
@@ -230,16 +254,28 @@ public class ChatGUI extends WindowAdapter implements ActionListener{
 	}
 	
 	/**
-	 * Makes the panel for the text area and the send and extentions buttons
+	 * Makes the panel for the text field and the send and extentions buttons
 	 * @return toSend_ExtentionsAndSendPanel
 	 */
 	private JPanel toSend_ExtentionsAndSendPanel(){
 		JPanel toSend_ExtentionsAndSendPanel = new JPanel();
 		toSend_ExtentionsAndSendPanel.setBackground(Color.GRAY);
-		input = new JTextField(null,37);
+		input = new RoundJTextField(37);
 		extentions = new JButton("Extentions");
+		input.setBackground(Color.LIGHT_GRAY);
+		extentions = new JButton("<html> <font color='black'>Extentions</font></html>");
+		Font exFont = new Font("28 Days Later",Font.PLAIN,16);
+		extentions.setFont(exFont);
+		extentions.setOpaque(false);
+		extentions.setContentAreaFilled(false);
+		extentions.setBorderPainted(false);
 		extentions.addActionListener(this);
-		send = new JButton("Send");
+		send = new JButton("<html> <font color='black'>Send</font></html>");
+		Font sdFont = new Font("28 Days Later",Font.PLAIN,16);
+		send.setFont(sdFont);
+		send.setOpaque(false);
+		send.setContentAreaFilled(false);
+		send.setBorderPainted(false);
 		send.addActionListener(this);
 		toSend_ExtentionsAndSendPanel.add(input);
 		toSend_ExtentionsAndSendPanel.add(send);
@@ -371,6 +407,8 @@ public class ChatGUI extends WindowAdapter implements ActionListener{
 		quitFrame.add(textPanel(), BorderLayout.NORTH);
 		quitFrame.add(yesPanel(), BorderLayout.WEST);
 		quitFrame.add(noPanel(), BorderLayout.EAST);
+		quitFrame.add(dumb(), BorderLayout.CENTER);
+		quitFrame.add(dumb2(), BorderLayout.SOUTH);
 		quitFrame.setSize(220,110);
 		quitFrame.setVisible(true);
 		quitFrame.setLocationRelativeTo(null);
@@ -378,13 +416,28 @@ public class ChatGUI extends WindowAdapter implements ActionListener{
 		quitFrame.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
 	}
 	
+	public JPanel dumb() {
+		JPanel dumbPanel = new JPanel();
+		dumbPanel.setBackground(Color.DARK_GRAY);
+		return dumbPanel;
+	}
+	
+	public JPanel dumb2() {
+		JPanel dumb2Panel = new JPanel();
+		dumb2Panel.setBackground(Color.DARK_GRAY);
+		return dumb2Panel;
+	}
+	
 	/**
 	 * Makes textPanel for the QuitFrame
 	 * @return textPanel
 	 */
 	public JPanel textPanel(){
-		JLabel textLabel = new JLabel("Weet u zeker dat u wilt afsluiten?");
+		JLabel textLabel = new JLabel("<html> <font color='white'>Weet u zeker dat u wilt afsluiten?</font></html>");
+		Font labelFont = new Font("28 Days Later",Font.PLAIN,14);
+		textLabel.setFont(labelFont);
 		JPanel textPanel = new JPanel();
+		textPanel.setBackground(Color.DARK_GRAY);
 		textPanel.add(textLabel);
 		return textPanel;
 	}
@@ -395,7 +448,13 @@ public class ChatGUI extends WindowAdapter implements ActionListener{
 	 */
 	public JPanel yesPanel(){
 		JPanel yesPanel = new JPanel();
-		yesButton = new JButton("Ja");
+		yesPanel.setBackground(Color.DARK_GRAY);
+		yesButton = new JButton("<html> <font color='white'>Ja</font></html>");
+		Font yesFont = new Font("28 Days Later",Font.PLAIN,20);
+		yesButton.setFont(yesFont);
+		yesButton.setOpaque(false);
+		yesButton.setContentAreaFilled(false);
+		yesButton.setBorderPainted(false);
 		yesButton.addActionListener(this);
 		yesPanel.add(yesButton);
 		yesPanel.setBorder(BorderFactory.createEmptyBorder(0,20,0,0));
@@ -408,7 +467,13 @@ public class ChatGUI extends WindowAdapter implements ActionListener{
 	 */
 	public JPanel noPanel(){
 		JPanel noPanel = new JPanel();
-		noButton = new JButton("Nee");
+		noPanel.setBackground(Color.DARK_GRAY);
+		noButton = new JButton("<html> <font color='white'>No</font></html>");
+		Font noFont = new Font("28 Days Later",Font.PLAIN,20);
+		noButton.setFont(noFont);
+		noButton.setOpaque(false);
+		noButton.setContentAreaFilled(false);
+		noButton.setBorderPainted(false);
 		noButton.addActionListener(this);
 		noPanel.add(noButton);
 		noPanel.setBorder(BorderFactory.createEmptyBorder(0,0,0,20));
@@ -457,11 +522,26 @@ public class ChatGUI extends WindowAdapter implements ActionListener{
 	 */
 	private JPanel chooseAndCancel(){
 		JPanel chooseAndCancelPanel = new JPanel();
-		choose = new JButton("Choose");
+		choose = new JButton("<html> <font color='black'>Choose</font></html>");
+		Font chooseFont = new Font("28 Days Later",Font.PLAIN,20);
+		choose.setFont(chooseFont);
+		choose.setOpaque(false);
+		choose.setContentAreaFilled(false);
+		choose.setBorderPainted(false);
 		choose.addActionListener(this);
-		close = new JButton("Close");
+		close = new JButton("<html> <font color='black'>Close</font></html>");
+		Font closeFont = new Font("28 Days Later",Font.PLAIN,20);
+		close.setFont(closeFont);
+		close.setOpaque(false);
+		close.setContentAreaFilled(false);
+		close.setBorderPainted(false);
 		close.addActionListener(this);
-		clear = new JButton("Clear");
+		clear = new JButton("<html> <font color='black'>Clear</font></html>");
+		Font clFont = new Font("28 Days Later",Font.PLAIN,20);
+		clear.setFont(clFont);
+		clear.setOpaque(false);
+		clear.setContentAreaFilled(false);
+		clear.setBorderPainted(false);
 		clear.addActionListener(this);
 		chooseAndCancelPanel.add(choose);
 		chooseAndCancelPanel.add(close);

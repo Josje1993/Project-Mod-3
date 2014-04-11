@@ -28,8 +28,6 @@ public class ErrorGUI implements ActionListener{
 		JPanel textPanel = new JPanel();
 		textPanel.setBackground(Color.GRAY);
 		JLabel errorLabel = new JLabel(errorMessage);
-		Font labelFont = new Font("28 Days Later",Font.PLAIN,20);
-		errorLabel.setFont(labelFont);
 		textPanel.add(errorLabel);
 		return textPanel;
 	}
