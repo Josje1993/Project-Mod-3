@@ -1,14 +1,9 @@
 package main;
 
-import java.io.IOException;
-import java.net.DatagramPacket;
-import java.net.InetAddress;
-import java.net.InterfaceAddress;
-import java.net.MulticastSocket;
-import java.net.NetworkInterface;
-import java.net.SocketException;
+import java.io.*;
+import java.net.*;
+import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Date;
 
 /**
  * Class that is responsible for sending an initial message when a node joins
@@ -19,12 +14,19 @@ import java.util.Date;
  * 
  */
 public class Messager implements Runnable {
-	byte[] buffer = new byte[300];
+	ArrayList<byte[]> dataToSend;
 	MulticastSocket socket;
 	int multicastPort;
 	InetAddress groupAddress;
 	String IP_Address;
 	String nodeName;
+	File inputFile;
+	File outputFile;
+	FileOutputStream output;
+	FileInputStream input;
+	BufferedReader br;
+	File testfile = new File("test.docx");
+	String TESTFILE = "test.txt";
 	// Closing part of message;
 	static final String CLOSINGMSG = " has left the group @ ";
 	// Opening part of message;
@@ -39,7 +41,7 @@ public class Messager implements Runnable {
 		multicastPort = port;
 		IP_Address = address;
 		nodeName = name;
-		if (nodeName.length() > 20) {
+		if (nodeName.length() > 16) {
 			try {
 				throw new Exception(
 						"Name is too long. The maximum is 20 characters.");
@@ -67,6 +69,51 @@ public class Messager implements Runnable {
 		connect();
 		run();
 		sendInitialMsg();
+	}
+
+	public void fileToBytes(File file) {
+		String fileAppend;
+		if (nodeName.length() < 10 && file.getName().length() < 10) {
+			fileAppend = "FILE" + "0" + nodeName.length() + nodeName + "0"
+					+ file.getName().length() + file.getName()
+					+ (int) file.length();
+		} else if (nodeName.length() > 9 && file.getName().length() > 9) {
+			fileAppend = "FILE" + nodeName.length() + nodeName
+					+ +file.getName().length() + file.getName()
+					+ (int) file.length();
+		} else if (nodeName.length() < 10 && file.getName().length() > 9) {
+			fileAppend = "FILE" + "0" + nodeName.length() + nodeName
+					+ file.getName().length() + file.getName()
+					+ (int) file.length();
+		} else /* (nodeName.length() > 9 && file.getName().length() < 10) */{
+			fileAppend = "FILE" + nodeName.length() + nodeName + "0"
+					+ file.getName().length() + file.getName()
+					+ (int) file.length();
+		}
+		System.out.println(fileAppend);
+		byte[] fileIndicator = fileAppend.getBytes();
+		byte[] bFile = new byte[(int) file.length()];
+		FileInputStream fileInputStream = null;
+		try {
+			// convert file into array of bytes
+			fileInputStream = new FileInputStream(file);
+			fileInputStream.read(bFile);
+			fileInputStream.close();
+			byte[] message = new byte[bFile.length + fileIndicator.length];
+			for (int i = 0; i < message.length - 1; i++) {
+				if (i < fileIndicator.length) {
+					message[i] = fileIndicator[i];
+				} else {
+					message[i] = bFile[i - fileIndicator.length];
+				}
+			}
+			sendMsg(new DatagramPacket(message, message.length, groupAddress,
+					getPort()));
+			System.out.println("Done");
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
 	}
 
 	// --------QUERIES--------------------------------------------------------------
@@ -154,55 +201,146 @@ public class Messager implements Runnable {
 	}
 
 	/**
+	 * Broadcasts the initial message to notify all members of the presence of
+	 * the node in this group the multicastgroup.
+	 */
+	private void sendInitialMsg() {
+		String msg = (nodeName.length() + INITIALMSG.length()) + nodeName
+				+ INITIALMSG + new java.util.Date();
+		sendMsg(new DatagramPacket(msg.getBytes(), msg.length(), groupAddress,
+				getPort()));
+	}
+
+	/**
+	 * Broadcasts a chat message to all members of the multicast group.
+	 * 
+	 * @param message
+	 *            - the message that the node wishes to send.
+	 */
+	public void sendMsg(String message) {
+		String msg;
+		if (nodeName.length() > 9) {
+			msg = nodeName.length() + nodeName + APPENDMSG + message;
+		} else {
+			msg = "0" + nodeName.length() + nodeName + APPENDMSG + message;
+		}
+		sendMsg(new DatagramPacket(msg.getBytes(), msg.length(), groupAddress,
+				getPort()));
+	}
+
+	public void receiveFileByBytes(byte[] data) {
+		int nodeNameLength = Integer.parseInt("" + (char) data[4]
+				+ (char) data[5]);
+		int fileNameLength = Integer.parseInt(""
+				+ (char) data[nodeNameLength + 6]
+				+ (char) data[nodeNameLength + 7]);
+		FileOutputStream output;
+		String fileName = "";
+		String nodeName = "";
+		File tempFolder = new File("tmp");
+		// if the 'tmp' directory does not exist, create it
+		if (!tempFolder.exists()) {
+			tempFolder.mkdir();
+		}
+		// read the name of the sender.
+		for (int i = 6; i < 6 + nodeNameLength; i++) {
+			nodeName += (char) data[i];
+		}
+		// read the fileName of the received file.
+		for (int i = 8 + nodeNameLength; i < 8 + nodeNameLength
+				+ fileNameLength; i++) {
+			fileName += (char) data[i];
+		}
+		// read the length of the data of the file.
+		int fileLength = Integer.parseInt(""
+				+ (char) data[nodeNameLength + fileNameLength + 8]
+				+ (char) data[nodeNameLength + fileNameLength + 9]
+				+ (char) data[nodeNameLength + fileNameLength + 10]
+				+ (char) data[nodeNameLength + fileNameLength + 11]
+				+ (char) data[nodeNameLength + fileNameLength + 12]);
+		// seperate the data of the file from the header.
+		byte[] fileData = new byte[fileLength];
+		for (int i = 0; i < fileData.length; i++) {
+			fileData[i] = data[i + 8 + fileNameLength + nodeNameLength + 5];
+		}
+		System.out
+				.println(nodeName + " has send you a file named: " + fileName + " Size: " + fileLength + " bytes");
+		// create the new file in the 'tmp' directory.
+		try {
+			output = new FileOutputStream(new File("tmp\\" + fileName));
+			output.write(fileData);
+			output.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+
+	private void receivePrivateMessage(String[] temp) {
+		if (temp[3].equals(nodeName) || temp[0].equals(nodeName)) {
+			String privateMessage = "";
+			for (int i = 0; i < temp.length; i++) {
+				if (i > 3) {
+					privateMessage += " " + temp[i];
+				}
+			}
+			if (temp[0].equals(nodeName)) {
+				System.out.println("WHISPERED TO " + temp[3] + ":"
+						+ privateMessage);
+			}
+			if (temp[3].equals(nodeName)) {
+				System.out.println("WHISPERED BY " + temp[0] + ":"
+						+ privateMessage);
+			}
+		}
+	}
+
+	/**
 	 * Checks if there are any incoming packets, and writes the content of these
 	 * packets to the commandline.
 	 */
 	public void receiveMsg() {
+		byte[] buffer = new byte[300000];
+		byte[] fileIndicator = "FILE".getBytes();
 		try {
 			DatagramPacket pack = new DatagramPacket(buffer, buffer.length);
 			socket.receive(pack);
 			if (pack.getData() != null) {
 				String message = "";
-				int senderNameLength = Integer.parseInt(""
-						+ (char) pack.getData()[0] + (char) pack.getData()[1]);
-				for (int i = 2; i < pack.getLength(); i++) {
+				for (int i = 0; i < pack.getLength(); i++) {
 					message += (char) pack.getData()[i];
 				}
+				byte[] messageBytes = pack.getData();
+				// System.out.println(message);
 				String[] temp = message.split(" ");
-				//System.out.println(Arrays.toString(temp));
-				// Check if the message is intended to close the current client;
-				if (message.equals(CLOSECMD)) {
-					close();
-				}
-				// Check if the received message is intended to be private;
-				else if (temp[2].equals(WHISPERCMD)) {
-					if (temp[3].equals(nodeName) || temp[0].equals(nodeName)) {
-						String privateMessage = "";
-						for (int i = 0; i < temp.length; i++) {
-							if (i > 3) {
-								privateMessage += " " + temp[i];
-							}
-						}
-						if (temp[0].equals(nodeName)) {
-							System.out.println("WHISPERED TO "+ temp[3] + ":" + privateMessage);
-						} 
-						if (temp[3].equals(nodeName)) {
-							System.out.println("WHISPERED BY " + nodeName + ":" + privateMessage);
-						}
+				// System.out.println(Arrays.toString(temp));
+				boolean isFile = true;
+				for (int i = 0; i < fileIndicator.length; i++) {
+					if (!(messageBytes[i] == fileIndicator[i])) {
+						isFile = false;
 					}
-				} else {
-					System.out.write(pack.getData(), 2, pack.getLength() - 2);
-					System.out.println();
+				}
+				if (isFile) {
+					receiveFileByBytes(pack.getData());
+				} else if (!isFile) {
+					if (temp[2].equals(CLOSECMD)) {
+						close();
+					} else if (temp[2].equals(WHISPERCMD)) {
+						receivePrivateMessage(temp);
+					} else {
+						System.out.write(pack.getData(), 2,
+								pack.getLength() - 2);
+						System.out.println();
+					}
 				}
 			}
-
 		} catch (IOException e) {
 			System.err.print("An error occurred while receiving a package.");
 		}
 	}
 
 	/**
-	 * Closes the socket that is connected to the multicast group.
+	 * Closes the socket that is connected to the multicast group and notifies
+	 * the members of the multicast group.
 	 */
 	public void close() {
 		String msg = (nodeName.length() + CLOSINGMSG.length()) + nodeName
@@ -216,34 +354,6 @@ public class Messager implements Runnable {
 					.print("Unable to close the connection. Try again later.");
 		}
 
-	}
-
-	/**
-	 * Broadcasts the initial message to notify all members of the presence of
-	 * the node in this group the multicastgroup.
-	 */
-	private void sendInitialMsg() {
-		String msg = (nodeName.length() + INITIALMSG.length()) + nodeName
-				+ INITIALMSG + new java.util.Date();
-		sendMsg(new DatagramPacket(msg.getBytes(), msg.length(), groupAddress,
-				getPort()));
-	}
-
-	/**
-	 * Broadcasts a message to all members of the multicast group.
-	 * 
-	 * @param message
-	 *            - the message that the node wishes to send.
-	 */
-	public void sendMsg(String message) {
-		String msg;
-		if (nodeName.length() > 9) {
-			msg = nodeName.length() + nodeName + APPENDMSG + message;
-		} else {
-			msg = "0" + nodeName.length() + nodeName + APPENDMSG + message;
-		}
-		sendMsg(new DatagramPacket(msg.getBytes(), msg.length(), groupAddress,
-				getPort()), 25);
 	}
 
 	@Override
