@@ -20,6 +20,8 @@ import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 import javax.swing.WindowConstants;
 
+import utils.RoundJTextField;
+
 /**
  * 
  */
@@ -79,7 +81,7 @@ public class ConnectAccountGUI extends JPanel implements ActionListener {
 	}
 	
 	private JPanel nickName() {
-		nickName = new JTextField(nickNameString, 10);
+		nickName = new RoundJTextField(nickNameString, 10);
 		nickName.setForeground(Color.WHITE);
 		nickName.setBackground(Color.GRAY);
 		nickName.setEditable(true);
@@ -90,11 +92,11 @@ public class ConnectAccountGUI extends JPanel implements ActionListener {
 	}
 	
 	private JPanel connectAddr() {
-		connAddr = new JTextField("Connect Address", 10);
+		connAddr = new RoundJTextField("Connect Address", 10);
 		connAddr.setForeground(Color.WHITE);
 		connAddr.setBackground(Color.GRAY);
 		connAddr.setEditable(true);
-		port = new JTextField("Port Address", 10);
+		port = new RoundJTextField("Port Address", 10);
 		port.setForeground(Color.WHITE);
 		port.setBackground(Color.GRAY);
 		connectAddrPanel = new JPanel();
