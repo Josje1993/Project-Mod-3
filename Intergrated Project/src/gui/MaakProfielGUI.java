@@ -273,7 +273,8 @@ public class MaakProfielGUI implements ActionListener {
 			}
 			else{
 				maakProfielFrame.dispose();
-				new ConnectAccountGUI(nickname.getText());
+				String passwordText = String.valueOf(password);
+				new ConnectAccountGUI(nickname.getText(), passwordText);
 			}
 		}
 		if(e.getSource() == geenNieuwProfiel){

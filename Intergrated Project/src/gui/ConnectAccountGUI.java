@@ -36,6 +36,7 @@ public class ConnectAccountGUI extends JPanel implements ActionListener {
 	private JButton createProfile;
 	private JTextField connAddr;
 	private JTextField port;
+	private String password;
 	private JPasswordField passWord;
 	private JCheckBox vinkje;
 	private JButton onthoud;
@@ -56,7 +57,8 @@ public class ConnectAccountGUI extends JPanel implements ActionListener {
 	
 //---------------------------------------------------------------------//
 	
-	public ConnectAccountGUI(String nickNameString) {
+	public ConnectAccountGUI(String nickNameString, String password) {
+		this.password = password;
 		this.nickNameString = nickNameString;
 		connecting();
 	}
@@ -138,7 +140,7 @@ public class ConnectAccountGUI extends JPanel implements ActionListener {
 	}
 	
 	private JPanel passWord() {
-		passWord = new JPasswordField("Password");
+		passWord = new JPasswordField(password);
 		passWord.setForeground(Color.WHITE);
 		passWord.setBackground(Color.DARK_GRAY);
 		passWord.setEditable(true);
@@ -307,6 +309,6 @@ public class ConnectAccountGUI extends JPanel implements ActionListener {
 	}
 	
 	public static void main (String[] args) {
-		new ConnectAccountGUI("Nickname");
+		new ConnectAccountGUI("Nickname", "Wachtwoord");
 	}
 }

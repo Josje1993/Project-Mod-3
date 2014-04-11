@@ -23,7 +23,11 @@ import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.WindowConstants;
 import javax.swing.border.Border;
+import javax.swing.border.LineBorder;
 import javax.swing.border.TitledBorder;
+
+import utils.RoundJTextField;
+import utils.RoundJTextArea;
 
 public class ChatGUI extends WindowAdapter implements ActionListener{
 
@@ -73,6 +77,7 @@ public class ChatGUI extends WindowAdapter implements ActionListener{
 	private ImageIcon logoutPic;
 	private static final String TITLE = "Chatser";
 	private Border blackline = BorderFactory.createLineBorder(Color.BLACK);
+	private Border roundedBorder = new LineBorder(Color.black, 5, true);
 	private SettingsGUI settingsGUI;
 	private int checker = 0;
 	private int chatters;
@@ -124,7 +129,8 @@ public class ChatGUI extends WindowAdapter implements ActionListener{
 	 * @return chatBoxScrollPane
 	 */
 	private JScrollPane chatBoxPanel(){
-		chatBox = new JTextArea(25,30);
+		chatBox = new RoundJTextArea(25,30);
+		chatBox.setBorder(roundedBorder);
 		chatBox.setBackground(Color.LIGHT_GRAY);
 		chatBox.setBorder(blackline);
 		chatBox.setEditable(false);
@@ -248,13 +254,14 @@ public class ChatGUI extends WindowAdapter implements ActionListener{
 	}
 	
 	/**
-	 * Makes the panel for the text area and the send and extentions buttons
+	 * Makes the panel for the text field and the send and extentions buttons
 	 * @return toSend_ExtentionsAndSendPanel
 	 */
 	private JPanel toSend_ExtentionsAndSendPanel(){
 		JPanel toSend_ExtentionsAndSendPanel = new JPanel();
 		toSend_ExtentionsAndSendPanel.setBackground(Color.GRAY);
-		input = new JTextField(null,37);
+		input = new RoundJTextField(37);
+		extentions = new JButton("Extentions");
 		input.setBackground(Color.LIGHT_GRAY);
 		extentions = new JButton("<html> <font color='black'>Extentions</font></html>");
 		Font exFont = new Font("28 Days Later",Font.PLAIN,16);
