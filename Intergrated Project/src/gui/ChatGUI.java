@@ -4,6 +4,7 @@ import java.awt.BorderLayout;
 import java.awt.CardLayout;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -22,12 +23,18 @@ import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.WindowConstants;
 import javax.swing.border.Border;
+import javax.swing.border.LineBorder;
 import javax.swing.border.TitledBorder;
+
+import utils.RoundJTextField;
+import utils.RoundJTextArea;
 
 public class ChatGUI extends WindowAdapter implements ActionListener{
 
 //--------------------------------------------------------------------------//
-	
+	/**
+	 * Initialization and creation of global variables
+	 */
 	private static final String[] emoticonArray = {":-|", ":-[", ":-#", ";-(", ":^D", ":-)", ":-))", ":*-)", ">-<", "*<|:-)", "<:-(", "X-(", ":*)", ">:)", "~:-;", "0:-)", "O:-)", "|-o", "#:-o", "8-]", "8-)", ":'(", "_|:-)", ";-)", ";P", ";-D", "[:-)", ":)", "@}->----", "2B|^2B", ":-P", "B:-)", ":{"};
 	private WindowListener listener = new WindowAdapter(){
 		public void windowClosing(WindowEvent we){
@@ -70,20 +77,38 @@ public class ChatGUI extends WindowAdapter implements ActionListener{
 	private ImageIcon logoutPic;
 	private static final String TITLE = "Chatser";
 	private Border blackline = BorderFactory.createLineBorder(Color.BLACK);
+	private Border roundedBorder = new LineBorder(Color.black, 1, true);
 	private SettingsGUI settingsGUI;
 	private int checker = 0;
 	private int chatters;
+	private JFrame emoticonOrFilesFrame;
+	private BorderLayout EOFlayout;
+	private JLabel question;
+	private JButton emoticons;
+	private JButton files;
+	private static final Color color1 = new Color(31, 31, 50);
+	private static final Color color2 = new Color(31, 50, 31);
+	private static final Color color3 = new Color(50, 31, 31);
 	
 //--------------------------------------------------------------------------//
-	
+	/**
+	 * Constructor, called when class starts
+	 * @param myNickName
+	 * @param chatters
+	 */
 	public ChatGUI(String myNickName, int chatters) {
 		this.myNickName = myNickName;
 		this.chatters = chatters;
 		importPictures();
 		chatserFrame();
 		makeEmoticonFrame();
+		emoticonOrFiles();
 	}
 	
+	/**
+	 * Makes the Chat Frame
+	 * @return chatser
+	 */
 	public JFrame chatserFrame(){
 		chatser = new JFrame();
 		chatser.addWindowListener(listener);
@@ -100,28 +125,38 @@ public class ChatGUI extends WindowAdapter implements ActionListener{
 		return chatser;
 	}
 	
-	public String getNickName(){
-		return this.myNickName;
-	}
-	
+	/**
+	 * Import the pictures used for the quit and settings button
+	 */
 	private void importPictures(){
 		settingsPic = new ImageIcon("settings.png");
 		logoutPic = new ImageIcon("logout.png");
 	}
 	
+	/**
+	 * Makes the panel for the chat log
+	 * @return chatBoxScrollPane
+	 */
 	private JScrollPane chatBoxPanel(){
 		chatBox = new JTextArea(25,30);
-		chatBox.setBorder(blackline);
+		chatBox.setBackground(Color.LIGHT_GRAY);
+		chatBox.setBorder(roundedBorder);
 		chatBox.setEditable(false);
 		JScrollPane chatBoxScrollPane = new JScrollPane(chatBox);
+		chatBoxScrollPane.setBackground(Color.GRAY);
 		chatBoxScrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
-		chatBoxScrollPane.setPreferredSize(new Dimension(250, 250));
+		chatBoxScrollPane.setPreferredSize(new Dimension(249, 249));
 		return chatBoxScrollPane;
 	}
 	
+	/**
+	 * Makes the east side of the main frame
+	 * @return eastSidePanel
+	 */
 	private JPanel eastSide() {
 		BorderLayout layOut = new BorderLayout();
 		JPanel eastSidePanel = new JPanel(layOut);
+		eastSidePanel.setBackground(Color.GRAY);
 		eastSidePanel.add(settingsAndLogoutPanel(),BorderLayout.NORTH);
 		if(chatters == 4){
 			eastSidePanel.add(namesChooser(), BorderLayout.CENTER);
@@ -131,20 +166,41 @@ public class ChatGUI extends WindowAdapter implements ActionListener{
 		return eastSidePanel;
 	}
 	
+	/**
+	 * Makes the panel where the name can be chosen to show the respective profile
+	 * @return namesChooserPanel
+	 */
 	private JPanel namesChooser(){
 		GridLayout grid = new GridLayout();
 		grid.setColumns(1);
 		grid.setRows(3);
 		JPanel namesChooserPanel = new JPanel(grid);
-		name1 = new JButton("Name1");
-		name2 = new JButton("Name2");
-		name3 = new JButton("Name3");
+		namesChooserPanel.setBackground(Color.GRAY);
+		name1 = new JButton("<html> <font color='black'>Name1</font></html>");
+		Font nameFont = new Font("28 Days Later",Font.PLAIN,18);
+		name1.setFont(nameFont);
+		name1.setOpaque(false);
+		name1.setContentAreaFilled(false);
+		name1.setBorderPainted(false);
+		name2 = new JButton("<html> <font color='black'>Name2</font></html>");
+		name2.setFont(nameFont);
+		name2.setOpaque(false);
+		name2.setContentAreaFilled(false);
+		name2.setBorderPainted(false);
+		name3 = new JButton("<html> <font color='black'>Name3</font></html>");
+		name3.setFont(nameFont);
+		name3.setOpaque(false);
+		name3.setContentAreaFilled(false);
+		name3.setBorderPainted(false);
 		name1.addActionListener(this);
 		name2.addActionListener(this);
 		name3.addActionListener(this);
 		JPanel name1Panel = new JPanel();
+		name1Panel.setBackground(Color.GRAY);
 		JPanel name2Panel = new JPanel();
+		name2Panel.setBackground(Color.GRAY);
 		JPanel name3Panel = new JPanel();
+		name3Panel.setBackground(Color.GRAY);
 		name1Panel.add(name1);
 		name2Panel.add(name2);
 		name3Panel.add(name3);
@@ -154,10 +210,17 @@ public class ChatGUI extends WindowAdapter implements ActionListener{
 		return namesChooserPanel;
 	}
 	
+	/**
+	 * Makes the ProfileInfo Panel for the first user
+	 * @return profileInfoPanel
+	 */
 	private JPanel profileInfo1(){
 		JPanel profileInfoPanel = new JPanel();
-		nameAndProfile = new JTextArea(14,20);
+		profileInfoPanel.setBackground(Color.GRAY);
+		nameAndProfile = new RoundJTextArea(14,20);
+		nameAndProfile.setBackground(color1);
 		nameAndProfile.setEditable(false);
+		nameAndProfile.setForeground(Color.WHITE);
 		TitledBorder title = BorderFactory.createTitledBorder(blackline, "Profile of name1");
 		title.setTitleJustification(TitledBorder.CENTER);
 		nameAndProfile.setBorder(title);
@@ -165,10 +228,17 @@ public class ChatGUI extends WindowAdapter implements ActionListener{
 		return profileInfoPanel;
 	}
 	
+	/**
+	 * Makes the ProfileInfo Panel for the second user
+	 * @return profileInfoPanel
+	 */
 	private JPanel profileInfo2(){
 		JPanel profileInfoPanel = new JPanel();
-		nameAndProfile = new JTextArea(14,20);
+		profileInfoPanel.setBackground(Color.GRAY);
+		nameAndProfile = new RoundJTextArea(14,20);
+		nameAndProfile.setBackground(color2);
 		nameAndProfile.setEditable(false);
+		nameAndProfile.setForeground(Color.WHITE);
 		TitledBorder title = BorderFactory.createTitledBorder(blackline, "Profile of name2");
 		title.setTitleJustification(TitledBorder.CENTER);
 		nameAndProfile.setBorder(title);
@@ -176,10 +246,17 @@ public class ChatGUI extends WindowAdapter implements ActionListener{
 		return profileInfoPanel;
 	}
 	
+	/**
+	 * Makes the ProfileInfo Panel for the third user
+	 * @return profileInfoPanel
+	 */
 	private JPanel profileInfo3(){
 		JPanel profileInfoPanel = new JPanel();
-		nameAndProfile = new JTextArea(14,20);
+		profileInfoPanel.setBackground(Color.GRAY);
+		nameAndProfile = new RoundJTextArea(14,20);
+		nameAndProfile.setBackground(color3);
 		nameAndProfile.setEditable(false);
+		nameAndProfile.setForeground(Color.WHITE);
 		TitledBorder title = BorderFactory.createTitledBorder(blackline, "Profile of name3");
 		title.setTitleJustification(TitledBorder.CENTER);
 		nameAndProfile.setBorder(title);
@@ -187,21 +264,45 @@ public class ChatGUI extends WindowAdapter implements ActionListener{
 		return profileInfoPanel;
 	}
 	
+	/**
+	 * Makes the panel for the text field and the send and extentions buttons
+	 * @return toSend_ExtentionsAndSendPanel
+	 */
 	private JPanel toSend_ExtentionsAndSendPanel(){
 		JPanel toSend_ExtentionsAndSendPanel = new JPanel();
-		input = new JTextField("",37);
+		toSend_ExtentionsAndSendPanel.setBackground(Color.GRAY);
+		input = new RoundJTextField(37);
 		extentions = new JButton("Extentions");
+		input.setBackground(Color.LIGHT_GRAY);
+		extentions = new JButton("<html> <font color='black'>Extentions</font></html>");
+		Font exFont = new Font("28 Days Later",Font.PLAIN,16);
+		extentions.setFont(exFont);
+		extentions.setOpaque(false);
+		extentions.setContentAreaFilled(false);
+		extentions.setBorderPainted(false);
 		extentions.addActionListener(this);
-		send = new JButton("Send");
+		send = new JButton("<html> <font color='black'>Send</font></html>");
+		Font sdFont = new Font("28 Days Later",Font.PLAIN,16);
+		send.setFont(sdFont);
+		send.setOpaque(false);
+		send.setContentAreaFilled(false);
+		send.setBorderPainted(false);
+		send.addActionListener(this);
 		toSend_ExtentionsAndSendPanel.add(input);
 		toSend_ExtentionsAndSendPanel.add(send);
 		toSend_ExtentionsAndSendPanel.add(extentions);
 		return toSend_ExtentionsAndSendPanel;
 	}
 	
+	/**
+	 * Makes the panel for the Settings and the LogOut panel
+	 * @return settingsAndLogoutPanel
+	 */
 	private JPanel settingsAndLogoutPanel(){
 		JPanel settingsAndLogoutPanel = new JPanel(new BorderLayout());
+		settingsAndLogoutPanel.setBackground(Color.GRAY);
 		JPanel borderSettingsLogout = new JPanel();
+		borderSettingsLogout.setBackground(Color.GRAY);
 		settings = new JButton(settingsPic);
 		settings.setOpaque(false);
 		settings.setContentAreaFilled(false);
@@ -218,8 +319,13 @@ public class ChatGUI extends WindowAdapter implements ActionListener{
 		return settingsAndLogoutPanel;
 	}
 	
+	/**
+	 * Makes a panel for switching between profiles
+	 * @return switchPanel
+	 */
 	private JPanel switchingPanel() {
 		switchPanel = new JPanel(new CardLayout());
+		switchPanel.setBackground(Color.GRAY);
 		card1 = profileInfo1();
 		card2 = profileInfo2();
 		card3 = profileInfo3();
@@ -229,10 +335,11 @@ public class ChatGUI extends WindowAdapter implements ActionListener{
 		return switchPanel;
 	}
 	
-	public static void main(String[] args){
-		new ChatGUI("noNickName", 4);
-	}
-	
+	/**
+	 * The ActionPerformed Method, to check for actionEvents
+	 * After an ActionEvent follows a correct reaction
+	 * @param ae
+	 */
 	public void actionPerformed(ActionEvent ae) {
 		CardLayout cl = (CardLayout) switchPanel.getLayout();
 		if(ae.getSource() == name1){
@@ -265,11 +372,12 @@ public class ChatGUI extends WindowAdapter implements ActionListener{
 			quitFrame.dispose();
 		}
 		if(ae.getSource() == extentions){
-			emoticonFrame.setVisible(true);
+			emoticonOrFilesFrame.setVisible(true);
 		}
 		if(emoticonFrame.isVisible()){
 			if(ae.getSource() == close){
 				emoticonFrame.setVisible(false);
+				emoticonOrFilesFrame.setVisible(false);
 			}
 			if(ae.getSource() == choose){
 				for(int x = 0; x < emoticonArray.length; x++){
@@ -291,16 +399,33 @@ public class ChatGUI extends WindowAdapter implements ActionListener{
 					input.setText("");
 				}
 		}
+		
+		if(ae.getSource() == emoticons) {
+			emoticonFrame.setVisible(true);
+		}
+		
+		if(ae.getSource() == send){
+			if(input.getText() != null){
+				chatBox.append(input.getText() + "\n");
+				input.setText(null);
+			}
+		}
 	}
 
 	//--------------------Quit Frame Methods-----------------------------------//
 
+	/**
+	 * Makes the quitFrame
+	 * Gets called when QuitButton is pressed
+	 */
 	public void quitFrame(){
 		quitFrame = new JFrame();
 		quitFrame.setLayout(new BorderLayout());
 		quitFrame.add(textPanel(), BorderLayout.NORTH);
 		quitFrame.add(yesPanel(), BorderLayout.WEST);
 		quitFrame.add(noPanel(), BorderLayout.EAST);
+		quitFrame.add(dumb(), BorderLayout.CENTER);
+		quitFrame.add(dumb2(), BorderLayout.SOUTH);
 		quitFrame.setSize(220,110);
 		quitFrame.setVisible(true);
 		quitFrame.setLocationRelativeTo(null);
@@ -308,25 +433,64 @@ public class ChatGUI extends WindowAdapter implements ActionListener{
 		quitFrame.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
 	}
 	
+	public JPanel dumb() {
+		JPanel dumbPanel = new JPanel();
+		dumbPanel.setBackground(Color.DARK_GRAY);
+		return dumbPanel;
+	}
+	
+	public JPanel dumb2() {
+		JPanel dumb2Panel = new JPanel();
+		dumb2Panel.setBackground(Color.DARK_GRAY);
+		return dumb2Panel;
+	}
+	
+	/**
+	 * Makes textPanel for the QuitFrame
+	 * @return textPanel
+	 */
 	public JPanel textPanel(){
-		JLabel textLabel = new JLabel("Weet u zeker dat u wilt afsluiten?");
+		JLabel textLabel = new JLabel("<html> <font color='white'>Weet u zeker dat u wilt afsluiten?</font></html>");
+		Font labelFont = new Font("28 Days Later",Font.PLAIN,14);
+		textLabel.setFont(labelFont);
 		JPanel textPanel = new JPanel();
+		textPanel.setBackground(Color.DARK_GRAY);
 		textPanel.add(textLabel);
 		return textPanel;
 	}
 	
+	/**
+	 * Makes a Panel with a YesButton
+	 * @return yesPanel
+	 */
 	public JPanel yesPanel(){
 		JPanel yesPanel = new JPanel();
-		yesButton = new JButton("Ja");
+		yesPanel.setBackground(Color.DARK_GRAY);
+		yesButton = new JButton("<html> <font color='white'>Ja</font></html>");
+		Font yesFont = new Font("28 Days Later",Font.PLAIN,20);
+		yesButton.setFont(yesFont);
+		yesButton.setOpaque(false);
+		yesButton.setContentAreaFilled(false);
+		yesButton.setBorderPainted(false);
 		yesButton.addActionListener(this);
 		yesPanel.add(yesButton);
 		yesPanel.setBorder(BorderFactory.createEmptyBorder(0,20,0,0));
 		return yesPanel;
 	}
 	
+	/**
+	 * Makes a Panel with a NoButton
+	 * @return noPanel
+	 */
 	public JPanel noPanel(){
 		JPanel noPanel = new JPanel();
-		noButton = new JButton("Nee");
+		noPanel.setBackground(Color.DARK_GRAY);
+		noButton = new JButton("<html> <font color='white'>No</font></html>");
+		Font noFont = new Font("28 Days Later",Font.PLAIN,20);
+		noButton.setFont(noFont);
+		noButton.setOpaque(false);
+		noButton.setContentAreaFilled(false);
+		noButton.setBorderPainted(false);
 		noButton.addActionListener(this);
 		noPanel.add(noButton);
 		noPanel.setBorder(BorderFactory.createEmptyBorder(0,0,0,20));
@@ -336,7 +500,11 @@ public class ChatGUI extends WindowAdapter implements ActionListener{
 	
 	//--------------------Emoticon Frame Methods--------------------------------//
 	
-	private JFrame makeEmoticonFrame(){
+	/**
+	 * Makes the EmoticonFrame
+	 * Gets called when the ExtensionsButton is pressed
+	 */
+	private void makeEmoticonFrame(){
 		emoticonFrame = new JFrame();
 		emoticonFrame.addWindowListener(listenerEF);
 		emoticonFrame.setTitle(TITLE);
@@ -348,9 +516,12 @@ public class ChatGUI extends WindowAdapter implements ActionListener{
 		emoticonFrame.setSize(300,300);
 		emoticonFrame.setLocationRelativeTo(null);
 		emoticonFrame.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
-		return emoticonFrame;
 	}
 	
+	/**
+	 * Makes the emoticonButtons and puts them in a frame
+	 * @return emoticonPanel
+	 */
 	private JPanel emoticonButtonsFrame(){
 		JPanel emoticonPanel = new JPanel();
 		buttons = new JButton[emoticonArray.length];
@@ -362,13 +533,32 @@ public class ChatGUI extends WindowAdapter implements ActionListener{
 		return emoticonPanel;
 	}
 	
+	/**
+	 * Makes a panel for the choose, close and clear button
+	 * @return chooseAndCancelPanel
+	 */
 	private JPanel chooseAndCancel(){
 		JPanel chooseAndCancelPanel = new JPanel();
-		choose = new JButton("Choose");
+		choose = new JButton("<html> <font color='black'>Choose</font></html>");
+		Font chooseFont = new Font("28 Days Later",Font.PLAIN,20);
+		choose.setFont(chooseFont);
+		choose.setOpaque(false);
+		choose.setContentAreaFilled(false);
+		choose.setBorderPainted(false);
 		choose.addActionListener(this);
-		close = new JButton("Close");
+		close = new JButton("<html> <font color='black'>Close</font></html>");
+		Font closeFont = new Font("28 Days Later",Font.PLAIN,20);
+		close.setFont(closeFont);
+		close.setOpaque(false);
+		close.setContentAreaFilled(false);
+		close.setBorderPainted(false);
 		close.addActionListener(this);
-		clear = new JButton("Clear");
+		clear = new JButton("<html> <font color='black'>Clear</font></html>");
+		Font clFont = new Font("28 Days Later",Font.PLAIN,20);
+		clear.setFont(clFont);
+		clear.setOpaque(false);
+		clear.setContentAreaFilled(false);
+		clear.setBorderPainted(false);
 		clear.addActionListener(this);
 		chooseAndCancelPanel.add(choose);
 		chooseAndCancelPanel.add(close);
@@ -378,4 +568,58 @@ public class ChatGUI extends WindowAdapter implements ActionListener{
 
 	//--------------------End of Emoticon Frame Methods-------------------------//
 	
+	
+	public void emoticonOrFiles() {
+		emoticonOrFilesFrame = new JFrame();
+		emoticonOrFilesFrame.addWindowListener(listenerEF);
+		emoticonOrFilesFrame.setTitle(TITLE);
+		EOFlayout = new BorderLayout();
+		emoticonOrFilesFrame.setLayout(EOFlayout);
+		emoticonOrFilesFrame.add(questionPanel(), BorderLayout.CENTER);
+		emoticonOrFilesFrame.add(buttonPanel(), BorderLayout.SOUTH);
+		emoticonOrFilesFrame.setVisible(false);
+		emoticonOrFilesFrame.setSize(250,120);
+		emoticonOrFilesFrame.setLocationRelativeTo(null);
+		emoticonOrFilesFrame.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
+	}
+	
+	public JPanel questionPanel() {
+		JPanel questionPanel = new JPanel();
+		questionPanel.setBackground(Color.BLACK);
+		question = new JLabel("<html> <font color='white'>Emoticons of files toevoegen</font></html>");
+		Font qFont = new Font("28 Days Later",Font.PLAIN,16);
+		question.setFont(qFont);
+		questionPanel.add(question);
+		return questionPanel;
+	}
+	
+	public JPanel buttonPanel() {
+		JPanel buttonEF = new JPanel();
+		buttonEF.setBackground(Color.BLACK);
+		emoticons = new JButton("<html> <font color='white'>Emoticons</font></html>");
+		Font EFFont = new Font("28 Days Later",Font.PLAIN,20);
+		emoticons.setFont(EFFont);
+		emoticons.setOpaque(false);
+		emoticons.setContentAreaFilled(false);
+		emoticons.setBorderPainted(false);
+		emoticons.addActionListener(this);
+		files = new JButton("<html> <font color='white'>Files</font></html>");
+		files.setFont(EFFont);
+		files.setOpaque(false);
+		files.setContentAreaFilled(false);
+		files.setBorderPainted(false);
+		files.addActionListener(this);
+		buttonEF.add(emoticons);
+		buttonEF.add(files);
+		return buttonEF;
+	}
+	
+	
+	/**
+	 * Further Unused Main Method, Starts the GUI on its own.
+	 * @param args
+	 */
+	public static void main(String[] args){
+		new ChatGUI("noNickName", 4);
+	}
 }

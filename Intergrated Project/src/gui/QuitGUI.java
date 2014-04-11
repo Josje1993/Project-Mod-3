@@ -1,6 +1,8 @@
 package gui;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -27,6 +29,8 @@ public class QuitGUI implements ActionListener{
 		quitFrame.add(textPanel(), BorderLayout.NORTH);
 		quitFrame.add(yesPanel(), BorderLayout.WEST);
 		quitFrame.add(noPanel(), BorderLayout.EAST);
+		quitFrame.add(dumb(), BorderLayout.CENTER);
+		quitFrame.add(dumb2(), BorderLayout.SOUTH);
 		quitFrame.setSize(220,110);
 		quitFrame.setVisible(true);
 		quitFrame.setLocationRelativeTo(null);
@@ -34,16 +38,37 @@ public class QuitGUI implements ActionListener{
 		quitFrame.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
 	}
 	
+	public JPanel dumb() {
+		JPanel dumbPanel = new JPanel();
+		dumbPanel.setBackground(Color.DARK_GRAY);
+		return dumbPanel;
+	}
+	
+	public JPanel dumb2() {
+		JPanel dumb2Panel = new JPanel();
+		dumb2Panel.setBackground(Color.DARK_GRAY);
+		return dumb2Panel;
+	}
+	
 	public JPanel textPanel(){
-		JLabel textLabel = new JLabel("Weet u zeker dat u wilt afsluiten?");
+		JLabel textLabel = new JLabel("<html> <font color='white'>Weet u zeker dat u wilt afsluiten?</font></html>");
+		Font labelFont = new Font("28 Days Later",Font.PLAIN,14);
+		textLabel.setFont(labelFont);
 		JPanel textPanel = new JPanel();
+		textPanel.setBackground(Color.DARK_GRAY);
 		textPanel.add(textLabel);
 		return textPanel;
 	}
 	
 	public JPanel yesPanel(){
 		JPanel yesPanel = new JPanel();
-		yesButton = new JButton("Ja");
+		yesPanel.setBackground(Color.DARK_GRAY);
+		yesButton = new JButton("<html> <font color='white'>Ja</font></html>");
+		Font yesFont = new Font("28 Days Later",Font.PLAIN,20);
+		yesButton.setFont(yesFont);
+		yesButton.setOpaque(false);
+		yesButton.setContentAreaFilled(false);
+		yesButton.setBorderPainted(false);
 		yesButton.addActionListener(this);
 		yesPanel.add(yesButton);
 		yesPanel.setBorder(BorderFactory.createEmptyBorder(0,20,0,0));
@@ -52,7 +77,13 @@ public class QuitGUI implements ActionListener{
 	
 	public JPanel noPanel(){
 		JPanel noPanel = new JPanel();
-		noButton = new JButton("Nee");
+		noPanel.setBackground(Color.DARK_GRAY);
+		noButton = new JButton("<html> <font color='white'>No</font></html>");
+		Font noFont = new Font("28 Days Later",Font.PLAIN,20);
+		noButton.setFont(noFont);
+		noButton.setOpaque(false);
+		noButton.setContentAreaFilled(false);
+		noButton.setBorderPainted(false);
 		noButton.addActionListener(this);
 		noPanel.add(noButton);
 		noPanel.setBorder(BorderFactory.createEmptyBorder(0,0,0,20));
@@ -77,4 +108,5 @@ public class QuitGUI implements ActionListener{
 	public boolean getQuitCheck() {
 		return quitCheck;
 	}
+	
 }

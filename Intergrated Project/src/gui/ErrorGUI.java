@@ -1,5 +1,7 @@
 package gui;
 
+import java.awt.Color;
+import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -24,6 +26,7 @@ public class ErrorGUI implements ActionListener{
 	
 	public JPanel textPanel(){
 		JPanel textPanel = new JPanel();
+		textPanel.setBackground(Color.GRAY);
 		JLabel errorLabel = new JLabel(errorMessage);
 		textPanel.add(errorLabel);
 		return textPanel;
@@ -31,7 +34,14 @@ public class ErrorGUI implements ActionListener{
 	
 	public JPanel buttonPanel(){
 		JPanel buttonPanel = new JPanel();
+		buttonPanel.setBackground(Color.GRAY);
 		okButton = new JButton("OK");
+		okButton = new JButton("<html> <font color='white'>Ok</font></html>");
+		Font okFont = new Font("28 Days Later",Font.PLAIN,20);
+		okButton.setFont(okFont);
+		okButton.setOpaque(false);
+		okButton.setContentAreaFilled(false);
+		okButton.setBorderPainted(false);
 		okButton.addActionListener(this);
 		buttonPanel.add(okButton);
 		return buttonPanel;
@@ -56,5 +66,5 @@ public class ErrorGUI implements ActionListener{
 			errorFrame.dispose();
 		}
 	}
-
+	
 }

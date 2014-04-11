@@ -1,5 +1,7 @@
 package gui;
 
+import java.awt.Color;
+import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -22,6 +24,7 @@ public class SettingsGUI extends JPanel implements ActionListener{
 	private JLabel copyrightLabel;
 	private static final String TITLE = "Settings";
 	private boolean statusSetting;
+	private boolean statusSetting2 = false;
 	private JButton okButton;
 	
 	//---------------------------------------------------------------------//
@@ -37,20 +40,26 @@ public class SettingsGUI extends JPanel implements ActionListener{
 		settings.add(version());
 		settings.add(copyRight());
 		settings.setVisible(true);
-		settings.setSize(300,156);
+		settings.setSize(300,170);
 		settings.setLocationRelativeTo(null);
 		settings.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
 	}
 	
 	private JPanel notificationSound() {
 		JPanel notSoundPanel = new JPanel();
+		notSoundPanel.setBackground(Color.GRAY);
 		notificationSoundCheckbox = new JCheckBox();
+		notificationSoundCheckbox.setBackground(Color.GRAY);
 		if(statusSetting){
 			notificationSoundCheckbox.setSelected(true);
+			statusSetting2 = false;
 		}else{
 			notificationSoundCheckbox.setSelected(false);
+			statusSetting2 = true;
 		}
-		notificationLabel = new JButton("Zet notificatie-geluid uit");
+		notificationLabel = new JButton("<html> <font color='white'>Zet notificatie-geluid uit</font></html>");
+		Font notFont = new Font("28 Days Later",Font.PLAIN,16);
+		notificationLabel.setFont(notFont);
 		notificationLabel.setOpaque(false);
 		notificationLabel.setContentAreaFilled(false);
 		notificationLabel.setBorderPainted(false);
@@ -62,21 +71,33 @@ public class SettingsGUI extends JPanel implements ActionListener{
 	
 	private JPanel version(){
 		JPanel versionPanel = new JPanel();
-		versionLabel = new JLabel("Alpha version 0.1");
+		versionPanel.setBackground(Color.GRAY);
+		versionLabel = new JLabel("<html> <font color='white'>Alpha version 0.1</font></html>");
+		Font verFont = new Font("28 Days Later",Font.PLAIN,14);
+		versionLabel.setFont(verFont);
 		versionPanel.add(versionLabel);
 		return versionPanel;
 	}
 	
 	private JPanel copyRight() {
 		JPanel copyRightPanel = new JPanel();
-		copyrightLabel = new JLabel("Chatser\u00a9");
+		copyRightPanel.setBackground(Color.GRAY);
+		copyrightLabel = new JLabel("<html> <font color='white'>Chatser\u00a9</font></html>");
+		Font copFont = new Font("28 Days Later",Font.PLAIN,14);
+		copyrightLabel.setFont(copFont);
 		copyRightPanel.add(copyrightLabel);
 		return copyRightPanel;
 	}
 	
 	private JPanel okButton() {
 		JPanel okButtonPanel = new JPanel();
-		okButton = new JButton("Save and Apply Settings");
+		okButtonPanel.setBackground(Color.GRAY);
+		okButton = new JButton("<html> <font color='white'>Save and Apply Settings</font></html>");
+		Font okFont = new Font("28 Days Later",Font.PLAIN,16);
+		okButton.setFont(okFont);
+		okButton.setOpaque(false);
+		okButton.setContentAreaFilled(false);
+		okButton.setBorderPainted(false);
 		okButton.addActionListener(this);
 		okButtonPanel.add(okButton);
 		return okButtonPanel;
@@ -92,7 +113,15 @@ public class SettingsGUI extends JPanel implements ActionListener{
 			settings.dispose();
 		}
 		if (ae.getSource() == notificationLabel) {
-			notificationSoundCheckbox.setSelected(true);
+			if(statusSetting2){
+				notificationSoundCheckbox.setSelected(true);
+				statusSetting2 = false;
+			}
+			else{
+				notificationSoundCheckbox.setSelected(false);
+				statusSetting2 = true;
+			}
+			
 		}
 	}
 	

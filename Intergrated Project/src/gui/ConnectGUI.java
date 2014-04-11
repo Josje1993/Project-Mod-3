@@ -7,7 +7,7 @@ import javax.swing.JFrame;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
-import java.util.Arrays;
+import java.awt.Font;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
@@ -15,6 +15,8 @@ import javax.swing.JComboBox;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.WindowConstants;
+
+import utils.RoundJTextField;
 
 /**
  * 
@@ -59,14 +61,16 @@ public class ConnectGUI extends JPanel implements ActionListener {
 		connecting.add(connectAddr(), BorderLayout.CENTER);
 		connecting.add(southLayout(),BorderLayout.SOUTH);
 		connecting.setVisible(true);
-		connecting.setSize(400, 180);
+		connecting.setSize(400, 190);
 		connecting.setLocationRelativeTo(null);
 		connecting.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 		return connecting;
 	}
 	
 	private JPanel nickName() {
-		nickName = new JTextField(nickNameString, 10);
+		nickName = new RoundJTextField(nickNameString, 10);
+		nickName.setForeground(Color.WHITE);
+		nickName.setBackground(Color.GRAY);
 		nickName.setEditable(true);
 		nickNamePanel = new JPanel();
 		nickNamePanel.setBackground(Color.DARK_GRAY);
@@ -75,9 +79,13 @@ public class ConnectGUI extends JPanel implements ActionListener {
 	}
 	
 	private JPanel connectAddr() {
-		connAddr = new JTextField("Connect Address", 10);
+		connAddr = new RoundJTextField("Connect Address", 10);
+		connAddr.setForeground(Color.WHITE);
+		connAddr.setBackground(Color.GRAY);
 		connAddr.setEditable(true);
-		port = new JTextField("Port Address", 10);
+		port = new RoundJTextField("Port Address", 10);
+		port.setForeground(Color.WHITE);
+		port.setBackground(Color.GRAY);
 		connectAddrPanel = new JPanel();
 		connectAddrPanel.setBackground(Color.DARK_GRAY);
 		connectAddrPanel.add(connAddr);
@@ -97,14 +105,12 @@ public class ConnectGUI extends JPanel implements ActionListener {
 	}
 	
 	public boolean onlyNumbersconnAddr(String numbers){
-		System.out.println(numbers);
 		int resultint = 0;
 		String[] splitter = numbers.split("\\.");
-		System.out.println(Arrays.toString(splitter));
 		boolean result = false;
 		if(splitter.length == 4){
 			for(int y = 0; y < splitter.length; y++){
-				for(int x = 0; x < 255; x++){
+				for(int x = 0; x < 256; x++){
 					String stringx = Integer.toString(x);
 					if(splitter[y].equals(stringx)){
 						resultint++;
@@ -119,7 +125,12 @@ public class ConnectGUI extends JPanel implements ActionListener {
 	}
 	
 	private JPanel createProfile() {
-		createProfile = new JButton("Create Profile");
+		createProfile = new JButton("<html> <font color='white'>maak profiel aan</font></html>");
+		Font profileFont = new Font("28 Days Later",Font.PLAIN,16);
+		createProfile.setFont(profileFont);
+		createProfile.setOpaque(false);
+		createProfile.setContentAreaFilled(false);
+		createProfile.setBorderPainted(false);
 		createProfile.addActionListener(this);
 		createProfilePanel = new JPanel();
 		createProfilePanel.setBackground(Color.DARK_GRAY);
@@ -130,7 +141,12 @@ public class ConnectGUI extends JPanel implements ActionListener {
 	private JPanel quitPanel(){
 		JPanel quitPanel = new JPanel();
 		quitPanel.setBackground(Color.DARK_GRAY);
-		quitButton = new JButton("Shut down");
+		quitButton = new JButton("<html> <font color='white'>Shut down</font></html>");
+		Font quitFont = new Font("28 Days Later",Font.PLAIN,20);
+		quitButton.setFont(quitFont);
+		quitButton.setOpaque(false);
+		quitButton.setContentAreaFilled(false);
+		quitButton.setBorderPainted(false);
 		quitButton.addActionListener(this);
 		quitPanel.add(quitButton);
 		quitPanel.setBorder(BorderFactory.createEmptyBorder(0, 20, 0, 0));
@@ -139,11 +155,20 @@ public class ConnectGUI extends JPanel implements ActionListener {
 	}
 	
 	private JPanel connect() {
-		connect = new JButton("Connect");
+		connect = new JButton("<html> <font color='white'>Connect</font></html>");
+		Font connectFont = new Font("28 Days Later",Font.PLAIN,20);
+		connect.setFont(connectFont);
+		connect.setOpaque(false);
+		connect.setContentAreaFilled(false);
+		connect.setBorderPainted(false);
 		connect.addActionListener(this);
 		amountChatters = new JComboBox<String>();
+		amountChatters.setForeground(Color.WHITE);
+		amountChatters.setBackground(Color.DARK_GRAY);
 		amountChatters.addItem("Two chatters");
 		amountChatters.addItem("Four chatters");
+		Font amountFont = new Font("28 Days Later",Font.PLAIN,16);
+		amountChatters.setFont(amountFont);
 		amountChatters.addActionListener(this);
 		connectPanel = new JPanel();
 		connectPanel.setBackground(Color.DARK_GRAY);
