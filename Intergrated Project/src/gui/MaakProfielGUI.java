@@ -9,6 +9,8 @@ import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
+import java.io.PrintWriter;
+import java.util.Arrays;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
@@ -29,15 +31,19 @@ public class MaakProfielGUI implements ActionListener {
 		}	
 	};
 	
-	JButton maakProfielButton;
-	JButton geenNieuwProfiel;
-	JFrame maakProfielFrame;
-	JTextField voornaam;
-	JTextField achternaam;
-	JTextField leeftijd;
-	JTextField nickname;
-	JPasswordField password;
-	JPasswordField herhaalPassword;
+	private JButton maakProfielButton;
+	private JButton geenNieuwProfiel;
+	private JFrame maakProfielFrame;
+	private JTextField voornaam;
+	private JTextField achternaam;
+	private JTextField leeftijd;
+	private JTextField nickname;
+	private JPasswordField password;
+	private JPasswordField herhaalPassword;
+	private JTextField interesses;
+	private JTextField relatiestatus;
+	private String[] profileInformation = new String[8];
+	private String passwordString;
 
 	public MaakProfielGUI(){
 		maakProfielFrame();
@@ -140,10 +146,10 @@ public class MaakProfielGUI implements ActionListener {
 		leeftijd = new JTextField("", 15);
 		leeftijd.setBackground(Color.LIGHT_GRAY);
 		leeftijd.setForeground(Color.BLACK);
-		JTextField interesses = new JTextField(" ", 15);
+		interesses = new JTextField("", 15);
 		interesses.setBackground(Color.LIGHT_GRAY);
 		interesses.setForeground(Color.BLACK);
-		JTextField relatiestatus = new JTextField(" ", 15);
+		relatiestatus = new JTextField("", 15);
 		relatiestatus.setBackground(Color.LIGHT_GRAY);
 		relatiestatus.setForeground(Color.BLACK);
 		nickname.setEditable(true);
@@ -256,6 +262,34 @@ public class MaakProfielGUI implements ActionListener {
 		return result;
 	}
 
+	private void writeProfileToFile(){
+		profileInformation[0] = nickname.getText();
+		profileInformation[1] = voornaam.getText();
+		profileInformation[2] = achternaam.getText();
+		profileInformation[3] = leeftijd.getText();
+		passwordString = new String(password.getPassword());
+		profileInformation[4] = passwordString;
+		profileInformation[5] = interesses.getText();
+		profileInformation[6] = relatiestatus.getText();
+		profileInformation[7] = "\n";
+		
+		try
+		{
+		    PrintWriter pr = new PrintWriter("ProfileInformation");    
+
+		    for (int i=0; i<profileInformation.length ; i++)
+		    {
+		        pr.println(profileInformation[i]);
+		    }
+		    pr.close();
+		}
+		catch (Exception e)
+		{
+		    e.printStackTrace();
+		    System.out.println("No such file exists.");
+		}
+	}
+	
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if(e.getSource() == maakProfielButton){
@@ -268,18 +302,22 @@ public class MaakProfielGUI implements ActionListener {
 			else if(!onlyNumbers(leeftijd.getText())){
 				new ErrorGUI("Voer geldige leeftijd in", 230);
 			}
-			else if(!password.equals(herhaalPassword)){
+			else if(!Arrays.equals(password.getPassword(),herhaalPassword.getPassword())){
 				new ErrorGUI("Wachtwoorden zijn ongelijk", 240);
 			}
 			else{
 				maakProfielFrame.dispose();
-				String passwordText = String.valueOf(password);
-				new ConnectAccountGUI(nickname.getText(), passwordText);
+				writeProfileToFile();
+				new ConnectAccountGUI(nickname.getText(), passwordString);
 			}
 		}
 		if(e.getSource() == geenNieuwProfiel){
 			maakProfielFrame.dispose();
 			new ConnectGUI("Nickname");
 		}
+	}
+	
+	public static void main(String[] args){
+		new MaakProfielGUI();
 	}
 }
