@@ -238,7 +238,7 @@ public class MaakProfielGUI implements ActionListener {
 	public JFrame maakProfielFrame(){
 		maakProfielFrame = new JFrame("Maak nieuw Profiel");
 		maakProfielFrame.addWindowListener(listener);
-		maakProfielFrame.setSize(360,350);
+		maakProfielFrame.setSize(360,360);
 		maakProfielFrame.setVisible(true);
 		maakProfielFrame.setResizable(false);
 		maakProfielFrame.setLocationRelativeTo(null);
