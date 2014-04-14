@@ -24,7 +24,7 @@ import javax.swing.WindowConstants;
 import utils.RoundJPasswordField;
 import utils.RoundJTextField;
 
-public class MaakProfielGUI implements ActionListener {
+public class MaakProfielGUIUpgrade implements ActionListener {
 	
 	
 	WindowListener listener = new WindowAdapter(){
@@ -41,20 +41,31 @@ public class MaakProfielGUI implements ActionListener {
 	private JTextField achternaam;
 	private JTextField leeftijd;
 	private JTextField nickname;
+	private JPasswordField oudPassword;
 	private JPasswordField password;
 	private JPasswordField herhaalPassword;
 	private JTextField interesses;
 	private JTextField relatiestatus;
 	private String[] profileInformation = new String[8];
 	private String passwordString;
+	private String nickName;
+	private String thisPasswordString;
 
-	public MaakProfielGUI(){
+	public MaakProfielGUIUpgrade(){
+		this.nickName = "";
+		this.thisPasswordString = "";
+		maakProfielFrame();
+	}
+	
+	public MaakProfielGUIUpgrade(String nickName, String password){
+		this.nickName = nickName;
+		this.thisPasswordString = password;
 		maakProfielFrame();
 	}
 	
 	public JPanel labelPanel(){
 		GridLayout grid = new GridLayout();
-		grid.setRows(8);
+		grid.setRows(9);
 		grid.setColumns(1);
 		JPanel labelPanel = new JPanel(grid);
 		labelPanel.setBackground(Color.DARK_GRAY);
@@ -75,6 +86,8 @@ public class MaakProfielGUI implements ActionListener {
 		labelPanel8.setBackground(Color.GRAY);
 		JPanel labelPanel9 = new JPanel();
 		labelPanel9.setBackground(Color.GRAY);
+		JPanel labelPanel10 = new JPanel();
+		labelPanel10.setBackground(Color.GRAY);
 		
 		JLabel nicknameLabel = new JLabel("<html> <font color='black'>Nickname*: </font></html>");
 		Font labelsFont = new Font("Bauhaus 93",Font.PLAIN,14);
@@ -93,6 +106,8 @@ public class MaakProfielGUI implements ActionListener {
 		passwordLabel.setFont(labelsFont);
 		JLabel herhaalPasswordLabel = new JLabel("<html> <font color='black'>Herhaal wachtwoord*: </font></html>");
 		herhaalPasswordLabel.setFont(labelsFont);
+		JLabel oudPasswordLabel = new JLabel("<html> <font color = 'black'>Oud wachtwoord*: </font></html>");
+		oudPasswordLabel.setFont(labelsFont);
 		
 		labelPanel1.add(voornaamLabel);
 		labelPanel2.add(achternaamLabel);
@@ -102,8 +117,10 @@ public class MaakProfielGUI implements ActionListener {
 		labelPanel6.add(nicknameLabel);
 		labelPanel8.add(passwordLabel);
 		labelPanel9.add(herhaalPasswordLabel);
+		labelPanel10.add(oudPasswordLabel);
 		
 		labelPanel.add(labelPanel6);
+		labelPanel.add(labelPanel10);
 		labelPanel.add(labelPanel8);
 		labelPanel.add(labelPanel9);
 		labelPanel.add(labelPanel1);
@@ -112,13 +129,12 @@ public class MaakProfielGUI implements ActionListener {
 		labelPanel.add(labelPanel4);
 		labelPanel.add(labelPanel5);
 		
-		
 		return labelPanel;
 	}
 	
 	public JPanel textFieldPanel(){
 		GridLayout grid = new GridLayout();
-		grid.setRows(8);
+		grid.setRows(9);
 		grid.setColumns(1);
 		JPanel textFieldPanel = new JPanel(grid);
 		
@@ -130,10 +146,16 @@ public class MaakProfielGUI implements ActionListener {
 		JPanel textFieldPanel6 = new JPanel();
 		JPanel textFieldPanel7 = new JPanel();
 		JPanel textFieldPanel8 = new JPanel();
+		JPanel textFieldPanel9 = new JPanel();
 		
 		nickname = new RoundJTextField("", 15);
 		nickname.setBackground(Color.LIGHT_GRAY);
 		nickname.setForeground(Color.BLACK);
+		nickname.setText(nickName);
+		oudPassword = new RoundJPasswordField("", 15);
+		oudPassword.setBackground(Color.LIGHT_GRAY);
+		oudPassword.setForeground(Color.BLACK);
+		oudPassword.setText(thisPasswordString);
 		password = new RoundJPasswordField("", 15);
 		password.setBackground(Color.LIGHT_GRAY);
 		password.setForeground(Color.BLACK);
@@ -178,8 +200,11 @@ public class MaakProfielGUI implements ActionListener {
 		textFieldPanel7.setBackground(Color.GRAY);
 		textFieldPanel8.add(herhaalPassword);
 		textFieldPanel8.setBackground(Color.GRAY);
+		textFieldPanel9.add(oudPassword);
+		textFieldPanel9.setBackground(Color.GRAY);
 		
 		textFieldPanel.add(textFieldPanel6);
+		textFieldPanel.add(textFieldPanel9);
 		textFieldPanel.add(textFieldPanel7);
 		textFieldPanel.add(textFieldPanel8);
 		textFieldPanel.add(textFieldPanel1);
@@ -205,7 +230,6 @@ public class MaakProfielGUI implements ActionListener {
 		maakProfielButton.setOpaque(false);
 		maakProfielButton.setContentAreaFilled(false);
 		maakProfielButton.setBorderPainted(false);
-		//maakProfielButton.setEnabled(false);
 		maakProfielButton.addActionListener(this);
 		geenNieuwProfiel.addActionListener(this);
 		JPanel maakProfielButtonPanel = new JPanel();
@@ -238,7 +262,7 @@ public class MaakProfielGUI implements ActionListener {
 	public JFrame maakProfielFrame(){
 		maakProfielFrame = new JFrame("Maak nieuw Profiel");
 		maakProfielFrame.addWindowListener(listener);
-		maakProfielFrame.setSize(360,360);
+		maakProfielFrame.setSize(360,400);
 		maakProfielFrame.setVisible(true);
 		maakProfielFrame.setResizable(false);
 		maakProfielFrame.setLocationRelativeTo(null);
@@ -278,7 +302,7 @@ public class MaakProfielGUI implements ActionListener {
 		
 		try
 		{
-		    PrintWriter pr = new PrintWriter("ProfileInformation");    
+		    PrintWriter pr = new PrintWriter(nickname.getText() + ".txt");    
 
 		    for (int i=0; i<profileInformation.length ; i++)
 		    {
@@ -311,16 +335,21 @@ public class MaakProfielGUI implements ActionListener {
 			else{
 				maakProfielFrame.dispose();
 				writeProfileToFile();
-				new ConnectAccountGUI(nickname.getText(), passwordString);
+				new RegisteredConnectGUI(nickname.getText(), passwordString);
 			}
 		}
 		if(e.getSource() == geenNieuwProfiel){
-			maakProfielFrame.dispose();
-			new InlogGUI();
+			if(nickname.getText().equals("") && password.getPassword().length == 0){
+				maakProfielFrame.dispose();
+				new InlogGUI();
+			}else{
+				new RegisteredConnectGUI(nickName, thisPasswordString);
+				maakProfielFrame.dispose();
+			}
 		}
 	}
 	
 	public static void main(String[] args){
-		new MaakProfielGUI();
+		new MaakProfielGUIUpgrade("nickname", "password");
 	}
 }
