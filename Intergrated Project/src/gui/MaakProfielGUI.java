@@ -316,7 +316,7 @@ public class MaakProfielGUI implements ActionListener {
 		}
 		if(e.getSource() == geenNieuwProfiel){
 			maakProfielFrame.dispose();
-			new ConnectGUI("Nickname");
+			new InlogGUI();
 		}
 	}
 	
