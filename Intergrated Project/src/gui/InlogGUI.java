@@ -2,6 +2,7 @@ package gui;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -53,16 +54,22 @@ public class InlogGUI implements ActionListener{
 	}
 	
 	private JPanel inlogpasswordFields(){
+		Font labelFont = new Font("28 Days Later", Font.PLAIN, 12);
 		GridLayout gridlayout = new GridLayout();
 		gridlayout.setColumns(1);
 		gridlayout.setRows(2);
 		usernamepasswordPanel = new JPanel(gridlayout);
+		usernamepasswordPanel.setBackground(Color.DARK_GRAY);
 		usernamePanel = new JPanel();
 		passwordPanel = new JPanel();
+		usernamePanel.setBackground(Color.DARK_GRAY);
+		passwordPanel.setBackground(Color.DARK_GRAY);
 		userName = new RoundJTextField(10);
 		password = new RoundJPasswordField(10);
-		userNameLabel = new JLabel("Username");
-		passwordLabel = new JLabel("Password");
+		userNameLabel = new JLabel("<html> <font color= 'white'> Username </font></html>");
+		passwordLabel = new JLabel("<html> <font color= 'white'> Password </font></html>");
+		userNameLabel.setFont(labelFont);
+		passwordLabel.setFont(labelFont);
 		userName.setEditable(true);
 		password.setEditable(true);
 		usernamePanel.add(userNameLabel);
@@ -75,18 +82,35 @@ public class InlogGUI implements ActionListener{
 	}
 	
 	private JPanel buttonPanel(){
-		 buttonPanel = new JPanel();
-		 inlog = new JButton("Log in");
-		 inlog.addActionListener(this);
-		 register = new JButton("Registreer");
-		 register.addActionListener(this);
-		 anoniem = new JButton("Anoniem Inloggen");
-		 anoniem.addActionListener(this);
-		 buttonPanel.add(inlog);
-		 buttonPanel.add(register);
-		 buttonPanel.add(anoniem);
+		Font buttonFont = new Font("28 Days Later", Font.PLAIN, 16);
+		buttonPanel = new JPanel();
+		buttonPanel.setBackground(Color.DARK_GRAY);
+		inlog = new JButton("Log in");
+		inlog.addActionListener(this);
+		register = new JButton("Registreer");
+		register.addActionListener(this);
+		anoniem = new JButton("Anoniem Inloggen");
+		anoniem.addActionListener(this);
+		inlog.setFont(buttonFont);
+		register.setFont(buttonFont);
+		anoniem.setFont(buttonFont);
+		inlog.setOpaque(false);
+		inlog.setContentAreaFilled(false);
+		inlog.setBorderPainted(false);
+		register.setOpaque(false);
+		register.setContentAreaFilled(false);
+		register.setBorderPainted(false);
+		anoniem.setOpaque(false);
+		anoniem.setContentAreaFilled(false);
+		anoniem.setBorderPainted(false);
+		inlog.setForeground(Color.WHITE);
+		register.setForeground(Color.WHITE);
+		anoniem.setForeground(Color.WHITE);
+		buttonPanel.add(inlog);
+		buttonPanel.add(register);
+		buttonPanel.add(anoniem);
 		 
-		 return buttonPanel;
+		return buttonPanel;
 	}
 	
 	public static void main(String[] args){
