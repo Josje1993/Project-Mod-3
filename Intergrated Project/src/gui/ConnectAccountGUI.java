@@ -27,9 +27,6 @@ public class ConnectAccountGUI extends JPanel implements ActionListener {
 	
 //--------------------------------------------------------------------//
 	
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = -928496846447179820L;
 	private JTextField nickName;
 	private String nickNameString;
