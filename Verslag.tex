@@ -63,16 +63,17 @@ Thomas is verantwoordelijk voor de alle documenten dat ingeleverd moeten worden.
 \newpage
 
 \section{Netwerk Ontwerp}
+Voor het netwerk moet er een multi-hop structuur de berichten van de gebruikers overbrengen naar andere gebruikers. Dit wil zeggen dat een bericht gedecentraliseerd verstuurt wordt van de ene naar de andere gebruiker. Zo kan het zijn dat een bericht van de ene gebruiker naar de ander gestuurd wordt via een derde gebruiker die zelf het bericht niet krijgt. In de volgende subsecties zullen de verschillende onderdelen besproken van de gehanteerde methode. 
 
-
-\subsection{ADHOC Implementatie}
-
+\subsection{AD-HOC Implementatie}
+Een mobiel ad-hoc netwerk heeft zoals eerder verondersteld een gedecentraliseerde infrastructuur. zo'n ad-hoc netwerk wordt ook wel MANET genoemd. Een MANET heeft dus niet een vaste infrastructuur en het moet zich in de loop van de tijd configureren en anticiperen op het vertrek van gebruikers. Doormiddel van multi-hop  word de gebruiker waaraan het bericht gericht is vanuit verschillende kanten bericht doordat de multi-hop verschillende routes naar de gebruikers kan nemen. Op deze manier kunnen bepaalde routes verloren gaan zonder dat het bericht verloren gaat mits op zijn minst \'e\'en route wel aankomt bij de gebruiker. Het grootste voordeel van het ad-hoc netwerk is dat het niet afhankelijk is van een server die alle gegevens binnenkrijgt en dat dan weer naar de (juiste) gebruiker(s) verstuurt. Hierdoor kan er altijd gecommuniceert worden met de andere gebruikers mits er uiteraard een verbinding is met een internetwerk.
 
 \subsection{Ondersteuning Dataverkeer}
+De chatapplicatie ondersteunt gewone tekst berichten en alle te bedenken bestaandsformaten. van word.docx tot file.mkv bestanden kunnen van de ene gebruiker naar de ander worden verzonden. Het limiet voor de gekozen grootte van berichten is vastgesteld op 50 MB. Het limiet is groot genoeg om allerlei extensies te verzenden. Voor beeldmateriaal van bijvoorbeeld een mkv-bestand is het limiet niet heel veel. Dit is besloten, omdat het niet wenselijk is om een bedrijf zoals brein onderzoek doen naar de Chatser-applicatie\small\textcopyright.
 
 
 \subsection{UDP Headers}
-
+Met de gemaakt applicatie is het de bedoeling om met UDP pakketten de data te versturen. Hiervan het van belang om de UDP-headers goed te implementeren. Ook moet een checksum implementatie gemaakt worden die nagaat in welke volgorde de pakketten moeten worden gesorteerd en op het moment dat de checksum niet klopt moet het pakket gemarkeerd worden. Als aan deze condities voldaan wordt dan is het aanmaken van UDP-headers gelukt, zoals ook het doel van de zesde challenge was. 
 
 \subsection{Multi Socket Klassen}
 
@@ -84,7 +85,7 @@ Thomas is verantwoordelijk voor de alle documenten dat ingeleverd moeten worden.
 
 
 \subsection{Beveiliging}
-
+De berichten worden encrypt en decrypt doormiddel van AES encryptie. Verder is het voor de wachtwoorden van belang dat deze veilig opgeslagen worden. De wachtwoorden mogen dus niet gewoon als plaintekst worden opgeslagen in een database zoals bevoorbeeld www.integratieoverheid.nl, verschillende datingsites, Vodafone en LinkedIn schijnen dit ook te doen. Wij hebben ervoor gekozen om de wachtwoorden samen met de gebruikersnaam te hashen en op te slaan. Eens als een gebruiker wil inloggen zal zijn gebruikersnaam plus het wachtwoord gehasht worden en vergeleken met de hashes die in de database staan. Omdat een goede hash algoritme een kleine kans op collisions heeft zal er nooit een hash hetzelfde zijn met andere plaintekst invoer.
 
 \subsection{Verwacht Gedrag}
 
@@ -99,6 +100,7 @@ Thomas is verantwoordelijk voor de alle documenten dat ingeleverd moeten worden.
 
 
 \subsection{State Charts}
+Er is gekozen om een state chart te maken van de staten van het systeem binnen de gui. Door dit te doen kan er ook worden aangegeven wat de staten binnen het netwerk zijn.
 %State Diagrams&
 
 \newpage
@@ -177,6 +179,7 @@ De create profile window heeft vijf tekstvelden die ingevuld kunnen worden. De v
 In deze section zullen de resultaten van het netwerk ontwerp en van het software ontwerp besproken worden. Voor het netwerk ontwep gedeelte zal het afhandelen van de backend gedeelte centraal komen te staan en voor het grafische ontwerp zal het belangrijk zijn om naar de user interfaces te kijken die uiteindelijk gemaakt zijn na de gemaakte schetsen. 
 
 \subsection{Netwerk Ontwerp}
+Het netwerk dat ge\"implementeerd is kan berichten versturen tussen twee gebruikers en tussen vier gebruikers. Tijdens het mogelijk maken van het versturen van bestanden met verschillende extentieswas het nodig om via invoer de bestandsnaam op te geven om het te kunnen versturen naar de anderen. De anderen moeten dan naar de map gaan waar het in zou moeten komen te staan en daar zal het bestand gevonden kunnen worden. In de eindversie kunnen de bestanden aangeklikt worden en worden deze geopend.
 
 \subsection{Grafisch Ontwerp}
 De gemaakte chat windows lijken veel op de schets dat gemaakt is. Er was geen schets gemaakt voor de twee gebruikers variant maar het enige verschil is dat voor de twee gebruikers versie dat de knoppen met namen er niet op staan. De twee versies zien er uiteindelijk als volgt uit:
@@ -199,10 +202,15 @@ De gemaakte chat windows lijken veel op de schets dat gemaakt is. Er was geen sc
 %Hier de create profile window%
 \\
 
+\noindent Er zijn wat extra windows bijgekomen. Dit zijn de startscherm, de terms and conditions scherm,  een connect account scherm en een inlog scherm. Ook zijn er een directory scherm een emoticon scherm en een keuze scherm erbij gekomen. Bovendien is er een veranderbare error! scherm toegevoegd.
+%overige schermen%
+
+
 \noindent Zoals de user interfaces laten zien zijn de resultaten in vele gevallen hetzelfde als de ontwerpen. De veranderde interfaces hebben een enkele toevoeging gekregen om het netwerk ontwerp te ondersteunen.
 \newpage
 
 \section{Conclusie}
+Met het resultaat zijn het netwerk ontwerp en het grafische ontwerp bij elkaar gekomen.  het ad-hoc netwerk samen met de multi-hop en de chatGUI zijn het hart van de applicatie.  Ook is de applicatie goed beveiligd door de berichten goed te versleutelen en moeten de gebruikers die als henzelf willen chatten door een profiel zich moeten authenticeren doormiddel van een wachtwoord die gecheckt word door het te hashen. Er is maar een applicatie dit het doet zoal geen ander het doet en dat is de Chatser-apllicatie\small\textcopyright.
 
 \newpage
 
