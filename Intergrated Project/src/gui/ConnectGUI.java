@@ -57,8 +57,9 @@ public class ConnectGUI extends JPanel implements ActionListener {
 		connecting.setTitle(TITLE);
 		layout = new BorderLayout();
 		connecting.setLayout(layout);
-		connecting.add(layOut(), BorderLayout.NORTH);
-		connecting.add(connectAddr(), BorderLayout.CENTER);
+		//connecting.add(layOut(), BorderLayout.NORTH);
+		connecting.add(connectAddr(), BorderLayout.NORTH);
+		connecting.add(chatterChooser(),BorderLayout.CENTER);
 		connecting.add(southLayout(),BorderLayout.SOUTH);
 		connecting.setVisible(true);
 		connecting.setSize(400, 190);
@@ -162,6 +163,17 @@ public class ConnectGUI extends JPanel implements ActionListener {
 		connect.setContentAreaFilled(false);
 		connect.setBorderPainted(false);
 		connect.addActionListener(this);
+		connectPanel = new JPanel();
+		connectPanel.setBackground(Color.DARK_GRAY);
+		connectPanel.add(connect);
+		//connectPanel.add(amountChatters);
+		connectPanel.add(quitPanel());
+		return connectPanel;
+	}
+	
+	private JPanel chatterChooser(){
+		JPanel chatterChooserPanel = new JPanel();
+		chatterChooserPanel.setBackground(Color.DARK_GRAY);
 		amountChatters = new JComboBox<String>();
 		amountChatters.setForeground(Color.WHITE);
 		amountChatters.setBackground(Color.DARK_GRAY);
@@ -170,12 +182,8 @@ public class ConnectGUI extends JPanel implements ActionListener {
 		Font amountFont = new Font("28 Days Later",Font.PLAIN,16);
 		amountChatters.setFont(amountFont);
 		amountChatters.addActionListener(this);
-		connectPanel = new JPanel();
-		connectPanel.setBackground(Color.DARK_GRAY);
-		connectPanel.add(connect);
-		connectPanel.add(amountChatters);
-		connectPanel.add(quitPanel());
-		return connectPanel;
+		chatterChooserPanel.add(amountChatters);
+		return chatterChooserPanel;
 	}
 	
 	private JPanel southLayout() {
@@ -200,12 +208,12 @@ public class ConnectGUI extends JPanel implements ActionListener {
 			connecting.dispose();
 		}
 		if(arg0.getSource() == connect){
-			if((nickName.getText().equals("Nickname") || nickName.getText().equals(""))&&(connAddr.getText().equals("Connect Address") || connAddr.getText().equals("")||port.getText().equals(""))){
-				new ErrorGUI("Nickname en connect address incorrect", 260);
+			if((/*nickName.getText().equals("Nickname") || nickName.getText().equals(""))&&*/(connAddr.getText().equals("Connect Address") || connAddr.getText().equals("")||port.getText().equals("")))){
+				new ErrorGUI("Connect Address en PortNumber incorrect", 260);
 			}
-			else if(nickName.getText().equals("Nickname") || nickName.getText().equals("")){
-				new ErrorGUI("Voer nickname in of maak nieuw profiel aan", 280);
-			}
+//			else if(nickName.getText().equals("Nickname") || nickName.getText().equals("")){
+//				new ErrorGUI("Voer nickname in of maak nieuw profiel aan", 280);
+//			}
 			else if(connAddr.getText().equals("Connect Address") || connAddr.getText().equals("") || !onlyNumbersconnAddr(connAddr.getText())){
 				new ErrorGUI("Incorrect connect Address", 200);
 			}
@@ -226,5 +234,9 @@ public class ConnectGUI extends JPanel implements ActionListener {
 			if(arg0.getSource() == quitButton){
 			connecting.dispose();
 		}
+	}
+	
+	public static void main(String[] args){
+		new ConnectGUI("Hallo");
 	}
 }
