@@ -24,7 +24,7 @@ import javax.swing.WindowConstants;
 import utils.RoundJPasswordField;
 import utils.RoundJTextField;
 
-public class MaakProfielGUIUpgrade implements ActionListener {
+public class EditProfileGUI implements ActionListener {
 	
 	
 	WindowListener listener = new WindowAdapter(){
@@ -51,13 +51,13 @@ public class MaakProfielGUIUpgrade implements ActionListener {
 	private String nickName;
 	private String thisPasswordString;
 
-	public MaakProfielGUIUpgrade(){
+	public EditProfileGUI(){
 		this.nickName = "";
 		this.thisPasswordString = "";
 		maakProfielFrame();
 	}
 	
-	public MaakProfielGUIUpgrade(String nickName, String password){
+	public EditProfileGUI(String nickName, String password){
 		this.nickName = nickName;
 		this.thisPasswordString = password;
 		maakProfielFrame();
@@ -155,7 +155,6 @@ public class MaakProfielGUIUpgrade implements ActionListener {
 		oudPassword = new RoundJPasswordField("", 15);
 		oudPassword.setBackground(Color.LIGHT_GRAY);
 		oudPassword.setForeground(Color.BLACK);
-		oudPassword.setText(thisPasswordString);
 		password = new RoundJPasswordField("", 15);
 		password.setBackground(Color.LIGHT_GRAY);
 		password.setForeground(Color.BLACK);
@@ -260,7 +259,7 @@ public class MaakProfielGUIUpgrade implements ActionListener {
 	}
 
 	public JFrame maakProfielFrame(){
-		maakProfielFrame = new JFrame("Maak nieuw Profiel");
+		maakProfielFrame = new JFrame("Edit Profiel");
 		maakProfielFrame.addWindowListener(listener);
 		maakProfielFrame.setSize(360,400);
 		maakProfielFrame.setVisible(true);
@@ -350,6 +349,6 @@ public class MaakProfielGUIUpgrade implements ActionListener {
 	}
 	
 	public static void main(String[] args){
-		new MaakProfielGUIUpgrade("nickname", "password");
+		new EditProfileGUI("nickname", "password");
 	}
 }
