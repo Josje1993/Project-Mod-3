@@ -147,7 +147,7 @@ public class Terms_ConditionsGui extends JPanel implements ActionListener {
 		}
 		
 		if (e.getSource() == agreed) {
-			new ConnectGUI("Nickname");
+			new InlogGUI();
 			conditions.dispose();
 		}
 		
