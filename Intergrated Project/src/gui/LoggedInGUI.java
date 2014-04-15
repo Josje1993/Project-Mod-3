@@ -7,6 +7,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
@@ -14,36 +15,38 @@ import javax.swing.WindowConstants;
 
 import utils.RoundJTextField;
 
-public class RegisteredConnectGUI implements ActionListener{
+public class LoggedInGUI implements ActionListener{
 
+//-----------------------------------------------------------------------//	
+	
 	private String nickname;
 	private String password;
 	private JFrame connectedFrame;
 	private JPanel connectPortPanel;
 	private JPanel connectButtons;
 	private JPanel editProfile;
-	private JPanel emptyPanel;
 	private BorderLayout layout;
 	private JButton connect;
 	private JButton shutDown;
 	private JButton editProfileButton;
 	private JTextField connectAddress;
 	private JTextField portnumber;
+	private JComboBox<String> amountChatters;
 	private String TITLE;
 	private static final Font myButtonFont = new Font("28 Days Later", Font.PLAIN,16);
+
+//-----------------------------------------------------------------------//	
 	
-	public RegisteredConnectGUI(String nickname){
+	public LoggedInGUI(String nickname){
 		this.nickname = nickname;
 		this.password = new String("");
 		TITLE = new String("Welcome " + nickname);
 		connectedFrame();
 	}
 	
-	public RegisteredConnectGUI(String nickname, String password){
+	public LoggedInGUI(String nickname, String password){
 		this.nickname = nickname;
 		this.password = password;
-		System.out.println(this.nickname);
-		System.out.println(this.password);
 		TITLE = new String("Welcome " + nickname);
 		connectedFrame();
 	}
@@ -55,10 +58,11 @@ public class RegisteredConnectGUI implements ActionListener{
 		connectedFrame.setLayout(layout);
 		if(!password.equals("")){
 			connectedFrame.add(editProfile(), BorderLayout.CENTER);
+			connectedFrame.add(chatterChooser(), BorderLayout.WEST);
 			connectedFrame.setSize(300,150);
 		}else{
-			connectedFrame.setSize(300, 120);
-			connectedFrame.add(emptyPanel(), BorderLayout.CENTER);
+			connectedFrame.setSize(300, 150);
+			connectedFrame.add(chatterChooser(), BorderLayout.CENTER);
 		}
 		connectedFrame.add(connectAddr(), BorderLayout.NORTH);
 		connectedFrame.add(connectButtons(), BorderLayout.SOUTH);
@@ -71,11 +75,11 @@ public class RegisteredConnectGUI implements ActionListener{
 	private JPanel connectAddr(){
 		connectPortPanel = new JPanel();
 		connectPortPanel.setBackground(Color.DARK_GRAY);
-		connectAddress = new RoundJTextField("   Connect Address", 10);
+		connectAddress = new RoundJTextField("Connect Address", 10);
 		connectAddress.setForeground(Color.WHITE);
 		connectAddress.setBackground(Color.GRAY);
 		connectAddress.setEditable(true);
-		portnumber = new RoundJTextField("   Port Number", 10);
+		portnumber = new RoundJTextField("Port Number", 10);
 		portnumber.setForeground(Color.WHITE);
 		portnumber.setBackground(Color.GRAY);
 		portnumber.setEditable(true);
@@ -118,17 +122,57 @@ public class RegisteredConnectGUI implements ActionListener{
 		return editProfile;
 	}
 	
-	private JPanel emptyPanel(){
-		emptyPanel = new JPanel();
-		emptyPanel.setBackground(Color.DARK_GRAY);
-		return emptyPanel;
+	private JPanel chatterChooser(){
+		JPanel chatterChooserPanel = new JPanel();
+		chatterChooserPanel.setBackground(Color.DARK_GRAY);
+		amountChatters = new JComboBox<String>();
+		amountChatters.setForeground(Color.WHITE);
+		amountChatters.setBackground(Color.DARK_GRAY);
+		amountChatters.addItem("Two chatters");
+		amountChatters.addItem("Four chatters");
+		Font amountFont = new Font("28 Days Later",Font.PLAIN,16);
+		amountChatters.setFont(amountFont);
+		amountChatters.addActionListener(this);
+		chatterChooserPanel.add(amountChatters);
+		return chatterChooserPanel;
 	}
 	
 	public static void main(String[] args){
-		new RegisteredConnectGUI("Henk", "ni");
-		//new RegisteredConnectGUI("Piet");
+		//new RegisteredConnectGUI("Henk", "ni");
+		new LoggedInGUI("Piet");
 	}
 
+	public boolean onlyNumbersAbove1023(String numbers){
+		boolean result = false;
+		for(int x = 0; x < 6000; x++){
+			String stringx = Integer.toString(x);
+			if(numbers.equals(stringx) && x >= 1024){
+				result = true;
+			}
+		}
+		return result;
+	}
+	
+	public boolean onlyNumbersconnAddr(String numbers){
+		int resultint = 0;
+		String[] splitter = numbers.split("\\.");
+		boolean result = false;
+		if(splitter.length == 4){
+			for(int y = 0; y < splitter.length; y++){
+				for(int x = 0; x < 256; x++){
+					String stringx = Integer.toString(x);
+					if(splitter[y].equals(stringx)){
+						resultint++;
+						if(resultint == 4){
+							result = true;
+						}
+					}
+				}
+			}
+		}
+		return result;
+	}
+	
 	@Override
 	public void actionPerformed(ActionEvent ae) {
 		if(ae.getSource() == shutDown){
@@ -138,8 +182,24 @@ public class RegisteredConnectGUI implements ActionListener{
 		if(ae.getSource() == editProfileButton){
 			System.out.println(nickname);
 			System.out.println(password);
-			new MaakProfielGUIUpgrade(nickname, password);
+			new EditProfileGUI(nickname, password);
 			connectedFrame.dispose();
+		}
+		if(ae.getSource() == connect){
+			if(connectAddress.getText().equals("Connect Address") || connectAddress.getText().equals("") || !onlyNumbersconnAddr(connectAddress.getText())){
+				new ErrorGUI("Incorrect connect Address", 200);
+			}
+			else if(!onlyNumbersAbove1023(portnumber.getText())){
+				new ErrorGUI("Voer geldige portnummer in", 230);
+			}
+			else if(amountChatters.getSelectedItem().equals("Four chatters")){
+				connectedFrame.dispose();
+				new ChatGUI(nickname, 4);
+			}
+			else if(amountChatters.getSelectedItem().equals("Two chatters")){
+				connectedFrame.dispose();
+				new ChatGUI(nickname, 2);
+			}	
 		}
 	}
 }
