@@ -9,6 +9,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
+import java.io.File;
 import java.io.PrintWriter;
 import java.util.Arrays;
 
@@ -332,9 +333,14 @@ public class EditProfileGUI implements ActionListener {
 				new ErrorGUI("Wachtwoorden zijn ongelijk", 240);
 			}
 			else{
-				maakProfielFrame.dispose();
-				writeProfileToFile();
-				new RegisteredConnectGUI(nickname.getText(), passwordString);
+				File file = new File(nickname.getText() + ".txt");
+				if(file.exists() && !file.isDirectory()){
+					new ErrorGUI("Nickname al in gebruik", 220);
+				}else{
+					maakProfielFrame.dispose();
+					writeProfileToFile();
+					new LoggedInGUI(nickname.getText(), passwordString);
+				}
 			}
 		}
 		if(e.getSource() == geenNieuwProfiel){
@@ -342,7 +348,7 @@ public class EditProfileGUI implements ActionListener {
 				maakProfielFrame.dispose();
 				new InlogGUI();
 			}else{
-				new RegisteredConnectGUI(nickName, thisPasswordString);
+				new LoggedInGUI(nickName, thisPasswordString);
 				maakProfielFrame.dispose();
 			}
 		}
