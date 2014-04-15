@@ -31,6 +31,7 @@ public class StartGUI extends JPanel implements ActionListener {
 	private JPanel centerPanel;
 	private JPanel namePanel;
 	private BorderLayout layout;
+	
 //-----------------------------------------------------------------------//
 	
 
