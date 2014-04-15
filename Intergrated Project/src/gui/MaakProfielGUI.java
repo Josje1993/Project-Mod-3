@@ -9,6 +9,8 @@ import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
+import java.io.BufferedOutputStream;
+import java.io.FileOutputStream;
 import java.io.PrintWriter;
 import java.util.Arrays;
 
@@ -25,7 +27,8 @@ import java.io.File;
 
 import utils.RoundJPasswordField;
 import utils.RoundJTextField;
-import security.AESencrp;
+import security.HASHencrp;
+import security.HASHencrp.Algorithm;
 
 public class MaakProfielGUI implements ActionListener {
 	
@@ -49,8 +52,6 @@ public class MaakProfielGUI implements ActionListener {
 	private JTextField interesses;
 	private JTextField relatiestatus;
 	private String[] profileInformation = new String[6];
-	private String passwordString;
-	private String passwordencrp;
 	
 	public MaakProfielGUI(){
 		maakProfielFrame();
@@ -276,13 +277,13 @@ public class MaakProfielGUI implements ActionListener {
 		profileInformation[3] = leeftijd.getText();
 		profileInformation[4] = interesses.getText();
 		profileInformation[5] = relatiestatus.getText();
-		
+		savePassword();
 		try
 		{
 			  PrintWriter pr = new PrintWriter(nickname.getText() + ".txt");
 				  for (int i=0; i<profileInformation.length ; i++)
 			  {
-				  pr.println(profileInformation[i]);
+					  pr.println(profileInformation[i]);
 			  }
 			  pr.close();  
 		}
@@ -295,10 +296,29 @@ public class MaakProfielGUI implements ActionListener {
 	
 	private void savePassword(){
 		String passwordString = new String(password.getPassword());
-		try {
-			passwordencrp = AESencrp.encrypt(passwordString);
-			
-		} catch (Exception e) {
+		String nicknamepasswordString = new String(passwordString + nickname.getText());
+		byte[] nicknamepasswordByte = nicknamepasswordString.getBytes();
+		try{
+			String newLineString = "\n";
+			byte[] newLine = newLineString.getBytes();
+			byte[] nicknamepasswordHash = HASHencrp.getHash(Algorithm.SHA_256, nicknamepasswordByte);
+			File file = new File("definitelyNotPasswords.txt");
+			if(!file.exists()){
+				file.createNewFile();
+				FileOutputStream fos = new FileOutputStream(file.getName(), true);
+				BufferedOutputStream bos = new BufferedOutputStream(fos);
+				bos.write(nicknamepasswordHash);
+				bos.write(newLine);
+				bos.close();
+			}else{
+				FileOutputStream fos = new FileOutputStream(file.getName(), true);
+				BufferedOutputStream bos = new BufferedOutputStream(fos);
+				bos.write(nicknamepasswordHash);
+				bos.write(newLine);
+				bos.close();
+			}
+		}
+		catch(Exception e){
 			e.printStackTrace();
 		}
 	}
