@@ -9,7 +9,9 @@ import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
+import java.io.BufferedOutputStream;
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.PrintWriter;
 import java.util.Arrays;
 
@@ -22,6 +24,8 @@ import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 import javax.swing.WindowConstants;
 
+import security.HASHencrp;
+import security.HASHencrp.Algorithm;
 import utils.RoundJPasswordField;
 import utils.RoundJTextField;
 
@@ -47,7 +51,7 @@ public class EditProfileGUI implements ActionListener {
 	private JPasswordField herhaalPassword;
 	private JTextField interesses;
 	private JTextField relatiestatus;
-	private String[] profileInformation = new String[8];
+	private String[] profileInformation = new String[6];
 	private String passwordString;
 	private String nickName;
 	private String thisPasswordString;
@@ -294,12 +298,9 @@ public class EditProfileGUI implements ActionListener {
 		profileInformation[1] = voornaam.getText();
 		profileInformation[2] = achternaam.getText();
 		profileInformation[3] = leeftijd.getText();
-		passwordString = new String(password.getPassword());
-		profileInformation[4] = passwordString;
-		profileInformation[5] = interesses.getText();
-		profileInformation[6] = relatiestatus.getText();
-		profileInformation[7] = "\n";
-		
+		profileInformation[4] = interesses.getText();
+		profileInformation[5] = relatiestatus.getText();
+		savePassword();
 		try
 		{
 		    PrintWriter pr = new PrintWriter(nickname.getText() + ".txt");    
@@ -314,6 +315,35 @@ public class EditProfileGUI implements ActionListener {
 		{
 		    e.printStackTrace();
 		    System.out.println("No such file exists.");
+		}
+	}
+	
+	private void savePassword(){
+		String passwordString = new String(password.getPassword());
+		String nicknamepasswordString = new String(passwordString + nickname.getText());
+		byte[] nicknamepasswordByte = nicknamepasswordString.getBytes();
+		try{
+			String newLineString = "\n";
+			byte[] newLine = newLineString.getBytes();
+			byte[] nicknamepasswordHash = HASHencrp.getHash(Algorithm.SHA_256, nicknamepasswordByte);
+			File file = new File("definitelyNotPasswords.txt");
+			if(!file.exists()){
+				file.createNewFile();
+				FileOutputStream fos = new FileOutputStream(file.getName(), true);
+				BufferedOutputStream bos = new BufferedOutputStream(fos);
+				bos.write(nicknamepasswordHash);
+				bos.write(newLine);
+				bos.close();
+			}else{
+				FileOutputStream fos = new FileOutputStream(file.getName(), true);
+				BufferedOutputStream bos = new BufferedOutputStream(fos);
+				bos.write(nicknamepasswordHash);
+				bos.write(newLine);
+				bos.close();
+			}
+		}
+		catch(Exception e){
+			e.printStackTrace();
 		}
 	}
 	
