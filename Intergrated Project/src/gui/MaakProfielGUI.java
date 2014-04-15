@@ -21,8 +21,11 @@ import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 import javax.swing.WindowConstants;
 
+import java.io.File;
+
 import utils.RoundJPasswordField;
 import utils.RoundJTextField;
+import security.AESencrp;
 
 public class MaakProfielGUI implements ActionListener {
 	
@@ -30,7 +33,7 @@ public class MaakProfielGUI implements ActionListener {
 	WindowListener listener = new WindowAdapter(){
 		public void windowClosing(WindowEvent we){
 			maakProfielFrame.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
-			new ConnectGUI("Nickname");
+			new InlogGUI();
 		}	
 	};
 	
@@ -45,9 +48,10 @@ public class MaakProfielGUI implements ActionListener {
 	private JPasswordField herhaalPassword;
 	private JTextField interesses;
 	private JTextField relatiestatus;
-	private String[] profileInformation = new String[8];
+	private String[] profileInformation = new String[6];
 	private String passwordString;
-
+	private String passwordencrp;
+	
 	public MaakProfielGUI(){
 		maakProfielFrame();
 	}
@@ -270,26 +274,32 @@ public class MaakProfielGUI implements ActionListener {
 		profileInformation[1] = voornaam.getText();
 		profileInformation[2] = achternaam.getText();
 		profileInformation[3] = leeftijd.getText();
-		passwordString = new String(password.getPassword());
-		profileInformation[4] = passwordString;
-		profileInformation[5] = interesses.getText();
-		profileInformation[6] = relatiestatus.getText();
-		profileInformation[7] = "\n";
+		profileInformation[4] = interesses.getText();
+		profileInformation[5] = relatiestatus.getText();
 		
 		try
 		{
-		    PrintWriter pr = new PrintWriter("ProfileInformation");    
-
-		    for (int i=0; i<profileInformation.length ; i++)
-		    {
-		        pr.println(profileInformation[i]);
-		    }
-		    pr.close();
+			  PrintWriter pr = new PrintWriter(nickname.getText() + ".txt");
+				  for (int i=0; i<profileInformation.length ; i++)
+			  {
+				  pr.println(profileInformation[i]);
+			  }
+			  pr.close();  
 		}
 		catch (Exception e)
 		{
 		    e.printStackTrace();
 		    System.out.println("No such file exists.");
+		}
+	}
+	
+	private void savePassword(){
+		String passwordString = new String(password.getPassword());
+		try {
+			passwordencrp = AESencrp.encrypt(passwordString);
+			
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
 	}
 	
@@ -309,9 +319,14 @@ public class MaakProfielGUI implements ActionListener {
 				new ErrorGUI("Wachtwoorden zijn ongelijk", 240);
 			}
 			else{
-				maakProfielFrame.dispose();
-				writeProfileToFile();
-				new ConnectAccountGUI(nickname.getText(), passwordString);
+				File file = new File(nickname.getText() + ".txt");
+				if(file.exists() && !file.isDirectory()){
+					new ErrorGUI("Nickname al in gebruik", 220);
+				}else{
+					maakProfielFrame.dispose();
+					writeProfileToFile();
+					new InlogGUI();
+				}
 			}
 		}
 		if(e.getSource() == geenNieuwProfiel){
