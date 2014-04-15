@@ -366,7 +366,7 @@ public class ChatGUI extends WindowAdapter implements ActionListener{
 		if(ae.getSource() == yesButton){
 			chatser.dispose();
 			quitFrame.dispose();
-			new ConnectGUI(myNickName);
+			new InlogGUI();
 		}
 		if(ae.getSource() == noButton){
 			quitFrame.dispose();
