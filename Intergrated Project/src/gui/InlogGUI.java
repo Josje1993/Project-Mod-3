@@ -6,6 +6,11 @@ import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.LineNumberReader;
+import java.security.NoSuchAlgorithmException;
+import java.util.Scanner;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -13,6 +18,8 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.WindowConstants;
 
+import security.HASHencrp;
+import security.HASHencrp.Algorithm;
 import utils.RoundJTextField;
 import utils.RoundJPasswordField;
 
@@ -35,6 +42,7 @@ public class InlogGUI implements ActionListener{
 	private GridLayout panelLayout;
 	private String passwordString;
 	private final static String TITLE = "Log in";
+	private final static String file_name = "definitelyNotPasswords.txt";
 	
 //-----------------------------------------------------------------------//
 	
@@ -170,9 +178,45 @@ public class InlogGUI implements ActionListener{
 			}else if(!userName.getText().equals("") && password.getPassword().length == 0){
 				new ErrorGUI("Voer een password in", 200);
 			}else{
-				passwordString = new String(password.getPassword());
-				new LoggedInGUI(userName.getText(), passwordString);
-				inlogFrame.dispose();
+				File file = new File(userName.getText() + ".txt");
+				
+				if(file.exists() && !file.isDirectory()){
+					File passwordFile = new File(file_name);
+					File testfile = new File("Gerwin.txt");
+					passwordString = new String(password.getPassword());
+					String nicknamepasswordString = new String(passwordString + userName.getText());
+					byte[] nicknamepasswordByte = nicknamepasswordString.getBytes();
+					try {
+						byte[] hashedPassword = HASHencrp.getHash(Algorithm.SHA_256, nicknamepasswordByte);
+						String testPassword = new String(hashedPassword);
+						System.out.println(testPassword);
+						Scanner scanner = new Scanner(passwordFile);
+						int numCheck = 0;
+						boolean checker = false;
+						System.out.println(scanner.hasNext());
+						while(scanner.hasNextLine()){
+							String nextLine = scanner.nextLine();
+							System.out.println(nextLine);
+							numCheck++;
+							if(nextLine.equals(testPassword)){
+								System.out.println("Found It" + numCheck);
+								
+//								new LoggedInGUI(userName.getText(), passwordString);
+//								inlogFrame.dispose();
+							}else{
+								checker = true;
+							}
+						}
+						if(checker){
+							new ErrorGUI("Wachtwoord incorrect", 220);
+						}
+						
+					} catch (NoSuchAlgorithmException | FileNotFoundException e) {
+						e.printStackTrace();
+					}
+				}else{
+					new ErrorGUI("Username bestaat niet", 250);
+				}
 			}
 			
 		}
