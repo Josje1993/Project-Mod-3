@@ -20,11 +20,12 @@
 \newpage
 
 \section{Introductie}
-In dit artikel wordt het integrated project besproken.\\ Met het integrated project is het de bedoeling om een chatapplicatie te ontwerpen dat het Ad hoc netwerk setup implementeert. Het onderwerp chatapplicaties is interessant, omdat in de afgelopen tijd Whatsapp vaak in het nieuws kwam na de overname door Facebook. Whatsapp zou veel gebruikers hebben verloren aan een andere chatapplicatie genaam "Telegram". Whatsapp verloor zoveel gebruikers, omdat deze gebruikers bang waren om hun privacy te verliezen. Daarom is het van belang dat er een chatapplicatie komt die gebruik maakt van (as)symmetrische sleutels, om de privacy van zijn gebruikers te waarborgen. In dit artikel word de gemaakte chatapplicatie gepresenteerd die extensief gebruik zal maken van de bekende beveiligingsmethoden.\\
+In dit artikel wordt het integrated project besproken.\\ Met het integrated project is het de bedoeling om een chatapplicatie te ontwerpen dat het Ad hoc netwerk setup implementeert. Het onderwerp chatapplicaties is interessant, omdat in de afgelopen tijd Whatsapp vaak in het nieuws kwam na de overname door Facebook. Whatsapp zou veel gebruikers hebben verloren aan een andere chatapplicatie genaamd "Telegram". Whatsapp verloor zoveel gebruikers, omdat deze gebruikers bang waren om hun privacy te verliezen. Daarom is het van belang dat er een chatapplicatie komt die gebruik maakt van (as)symmetrische sleutels, om de privacy van zijn gebruikers te waarborgen. In dit artikel word de gemaakte chatapplicatie gepresenteerd die extensief gebruik zal maken van de bekende beveiligingsmethoden.\\
 Dit artikel wordt opgebouwd met het welbekende IMRAD-structuur, dit wil zeggen dat eerste de ge\"implementeerde ontwerp keuzes en methoden aan bod komen en daarna de de resultaten worden gepresenteerd en daaraan een korte conclusie gegeven wordt. Wij zullen ons eerst kort introduceren aan de hand van onze functie binnen het project. Vervolgens zal het ontwerp van onze chatapplicatie aanbod komen met onze keuzes als het gaat om het interne netwerk systeem, daarna zal er over gegaan worden naar het grafische ontwerp aanbod komen. De resultaten van beiden ontwerpen zullen besproken en zal er een korte conclusie getrokken worden. 
 \newpage
 
 \section{Functies binnen het team}
+\label{taken}
 \textbf{Gerwin} \\
 \emph{Lead Designer Network Systems} \\
 Gerwin zorgt ervoor dat het netwerk gedeelte van het project structuur krijgt en dat de rest van het team hiermee aan de slag kan zonder alles uit te moeten zoeken.
@@ -66,10 +67,10 @@ Thomas is verantwoordelijk voor de alle documenten dat ingeleverd moeten worden.
 Voor het netwerk moet er een multi-hop structuur de berichten van de gebruikers overbrengen naar andere gebruikers. Dit wil zeggen dat een bericht gedecentraliseerd verstuurt wordt van de ene naar de andere gebruiker. Zo kan het zijn dat een bericht van de ene gebruiker naar de ander gestuurd wordt via een derde gebruiker die zelf het bericht niet krijgt. In de volgende subsecties zullen de verschillende onderdelen besproken van de gehanteerde methode. 
 
 \subsection{AD-HOC Implementatie}
-Een mobiel ad-hoc netwerk heeft zoals eerder verondersteld een gedecentraliseerde infrastructuur. zo'n ad-hoc netwerk wordt ook wel MANET genoemd. Een MANET heeft dus niet een vaste infrastructuur en het moet zich in de loop van de tijd configureren en anticiperen op het vertrek van gebruikers. Doormiddel van multi-hop  word de gebruiker waaraan het bericht gericht is vanuit verschillende kanten bericht doordat de multi-hop verschillende routes naar de gebruikers kan nemen. Op deze manier kunnen bepaalde routes verloren gaan zonder dat het bericht verloren gaat mits op zijn minst \'e\'en route wel aankomt bij de gebruiker. Het grootste voordeel van het ad-hoc netwerk is dat het niet afhankelijk is van een server die alle gegevens binnenkrijgt en dat dan weer naar de (juiste) gebruiker(s) verstuurt. Hierdoor kan er altijd gecommuniceert worden met de andere gebruikers mits er uiteraard een verbinding is met een internetwerk.
+Een mobiel ad-hoc netwerk heeft zoals eerder verondersteld een gedecentraliseerde infrastructuur. zo'n ad-hoc netwerk wordt ook wel MANET genoemd. Een MANET heeft dus niet een vaste infrastructuur en het moet zich in de loop van de tijd configureren en anticiperen op het vertrek van gebruikers. Door middel van multi-hop  word de gebruiker waaraan het bericht gericht is vanuit verschillende kanten bericht doordat de multi-hop verschillende routes naar de gebruikers kan nemen. Op deze manier kunnen bepaalde routes verloren gaan zonder dat het bericht verloren gaat mits op zijn minst \'e\'en route wel aankomt bij de gebruiker. Het grootste voordeel van het ad-hoc netwerk is dat het niet afhankelijk is van een server die alle gegevens binnenkrijgt en dat dan weer naar de (juiste) gebruiker(s) verstuurt. Hierdoor kan er altijd gecommuniceerd worden met de andere gebruikers mits er uiteraard een verbinding is met een internetwerk.
 
 \subsection{Ondersteuning Dataverkeer}
-De chatapplicatie ondersteunt gewone tekst berichten en alle te bedenken bestaandsformaten. van word.docx tot file.mkv bestanden kunnen van de ene gebruiker naar de ander worden verzonden. Het limiet voor de gekozen grootte van berichten is vastgesteld op 50 MB. Het limiet is groot genoeg om allerlei extensies te verzenden. Voor beeldmateriaal van bijvoorbeeld een mkv-bestand is het limiet niet heel veel. Dit is besloten, omdat het niet wenselijk is om een bedrijf zoals brein onderzoek doen naar de Chatser-applicatie\small\textcopyright.
+De chatapplicatie ondersteunt gewone tekst berichten en alle te bedenken bestandsformaten. van word.docx tot file.mkv bestanden kunnen van de ene gebruiker naar de ander worden verzonden. Het limiet voor de gekozen grootte van berichten is vastgesteld op 50 MB. Het limiet is groot genoeg om allerlei extensies te verzenden. Voor beeldmateriaal van bijvoorbeeld een mkv-bestand is het limiet niet heel veel. Dit is besloten, omdat het niet wenselijk is om een bedrijf zoals brein onderzoek doen naar de Chatser-applicatie\small\textcopyright.
 
 
 \subsection{UDP Headers}
@@ -85,7 +86,7 @@ Met de gemaakt applicatie is het de bedoeling om met UDP pakketten de data te ve
 
 
 \subsection{Beveiliging}
-De berichten worden encrypt en decrypt doormiddel van AES encryptie. Verder is het voor de wachtwoorden van belang dat deze veilig opgeslagen worden. De wachtwoorden mogen dus niet gewoon als plaintekst worden opgeslagen in een database zoals bevoorbeeld www.integratieoverheid.nl, verschillende datingsites, Vodafone en LinkedIn schijnen dit ook te doen. Wij hebben ervoor gekozen om de wachtwoorden samen met de gebruikersnaam te hashen en op te slaan. Eens als een gebruiker wil inloggen zal zijn gebruikersnaam plus het wachtwoord gehasht worden en vergeleken met de hashes die in de database staan. Omdat een goede hash algoritme een kleine kans op collisions heeft zal er nooit een hash hetzelfde zijn met andere plaintekst invoer.
+De berichten worden encrypt en decrypt door middel van AES encryptie. Verder is het voor de wachtwoorden van belang dat deze veilig opgeslagen worden. De wachtwoorden mogen dus niet gewoon als plaintekst worden opgeslagen in een database zoals bevoorbeeld www.integratieoverheid.nl, verschillende datingsites, Vodafone en LinkedIn schijnen dit ook te doen. Wij hebben ervoor gekozen om de wachtwoorden samen met de gebruikersnaam te hashen en op te slaan. Eens als een gebruiker wil inloggen zal zijn gebruikersnaam plus het wachtwoord gehasht worden en vergeleken met de hashes die in de database staan. Omdat een goede hash algoritme een kleine kans op collisions heeft zal er nooit een hash hetzelfde zijn met andere plaintekst invoer.
 
 \subsection{Verwacht Gedrag}
 
@@ -100,17 +101,17 @@ De berichten worden encrypt en decrypt doormiddel van AES encryptie. Verder is h
 
 
 \subsection{State Charts}
-Er is gekozen om een state chart te maken van de staten van het systeem binnen de gui. Door dit te doen kan er ook worden aangegeven wat de staten binnen het netwerk zijn.
+Er is gekozen om een state chart te maken van de staten van het systeem binnen de GUI. Door dit te doen kan er ook worden aangegeven wat de staten binnen het netwerk zijn.
 %State Diagrams&
 
 \newpage
 
-\section{Grafische Ontwerp}
+\section{Grafisch Ontwerp}
 \label{aangegeven}
 Voor het grafisch ontwerp is er gekozen om meerdere user interfaces te maken met elk hun eigen thema(in section 5.1 Schetsen wordt hier dieper op in gegaan). Voor een user interface is het van belang dat er meerdere windows gemaakt worden, er mag niet vanuit worden gegaan dat de gebruikers van de chatapplicatie het begrijpen en daarom moet de user interface hen bij de hand nemen.  Er is gekozen om losstaande Graphical User Interfaces te ontwerpen met allebei meerdere windows. De ChatGUI waar op pagina~\pageref{ChatGUI} verder op in wordt gegaan bevat drie aparte windows en de ConnectGUI waar op pagina ~\pageref{ConnectGUI} verder op in wordt gegaan bevat twee aparte windows. De ConnectGUI zal gebruikt worden voor de gebruikers om hun gegevens op te geven en stelt ze in staat om een profiel aan te maken en te verbinden met de andere chatters. De ConnectGUI zal de gebruikers overdragen aan de ChatGUI die de rest van de sessie afhandelt totdat er afgesloten wordt.
 
 \subsection{Schetsen}
-De eerste versie van de ChatGUI lijkt nagenoeg op de uiteindelijk gekozen versie van de ChatGUI. Er ontbreken echter wat features in de eerste versie, zoals profiel ondersteuning, een instellingen knop en een  logout knop. Deze zijn er in de breinstorm bijgekomen in de uiteindelijke versie dat uit de doeken wordt gedaan op pagina~\pageref{Chat Window}. \\
+De eerste versie van de ChatGUI lijkt nagenoeg op de uiteindelijk gekozen versie van de ChatGUI. Er ontbreken echter wat features in de eerste versie, zoals profiel ondersteuning, een instellingen knop en een  logout knop. Deze zijn er in de brainstorm bijgekomen in de uiteindelijke versie dat uit de doeken wordt gedaan op pagina~\pageref{Chat Window}. \\
 De eerste versie van de ChatGUI ziet er dan als volgt uit:
 %Hier ChGv1%
 \\
@@ -176,10 +177,10 @@ De create profile window heeft vijf tekstvelden die ingevuld kunnen worden. De v
 \newpage
 
 \section{Resultaten}
-In deze section zullen de resultaten van het netwerk ontwerp en van het software ontwerp besproken worden. Voor het netwerk ontwep gedeelte zal het afhandelen van de backend gedeelte centraal komen te staan en voor het grafische ontwerp zal het belangrijk zijn om naar de user interfaces te kijken die uiteindelijk gemaakt zijn na de gemaakte schetsen. 
+In deze section zullen de resultaten van het netwerk ontwerp en van het software ontwerp besproken worden. Voor het netwerk ontwerp gedeelte zal het afhandelen van de backend gedeelte centraal komen te staan en voor het grafische ontwerp zal het belangrijk zijn om naar de user interfaces te kijken die uiteindelijk gemaakt zijn na de gemaakte schetsen. 
 
 \subsection{Netwerk Ontwerp}
-Het netwerk dat ge\"implementeerd is kan berichten versturen tussen twee gebruikers en tussen vier gebruikers. Tijdens het mogelijk maken van het versturen van bestanden met verschillende extentieswas het nodig om via invoer de bestandsnaam op te geven om het te kunnen versturen naar de anderen. De anderen moeten dan naar de map gaan waar het in zou moeten komen te staan en daar zal het bestand gevonden kunnen worden. In de eindversie kunnen de bestanden aangeklikt worden en worden deze geopend.
+Het netwerk dat ge\"implementeerd is kan berichten versturen tussen twee gebruikers en tussen vier gebruikers. Tijdens het mogelijk maken van het versturen van bestanden met verschillende extensies was het nodig om via invoer de bestandsnaam op te geven om het te kunnen versturen naar de anderen. De anderen moeten dan naar de map gaan waar het in zou moeten komen te staan en daar zal het bestand gevonden kunnen worden. In de eindversie kunnen de bestanden aangeklikt worden en worden deze geopend.
 
 \subsection{Grafisch Ontwerp}
 De gemaakte chat windows lijken veel op de schets dat gemaakt is. Er was geen schets gemaakt voor de twee gebruikers variant maar het enige verschil is dat voor de twee gebruikers versie dat de knoppen met namen er niet op staan. De twee versies zien er uiteindelijk als volgt uit:
@@ -210,11 +211,12 @@ De gemaakte chat windows lijken veel op de schets dat gemaakt is. Er was geen sc
 \newpage
 
 \section{Conclusie}
-Met het resultaat zijn het netwerk ontwerp en het grafische ontwerp bij elkaar gekomen.  het ad-hoc netwerk samen met de multi-hop en de chatGUI zijn het hart van de applicatie.  Ook is de applicatie goed beveiligd door de berichten goed te versleutelen en moeten de gebruikers die als henzelf willen chatten door een profiel zich moeten authenticeren doormiddel van een wachtwoord die gecheckt word door het te hashen. Er is maar een applicatie dit het doet zoal geen ander het doet en dat is de Chatser-apllicatie\small\textcopyright.
+Met het resultaat zijn het netwerk ontwerp en het grafische ontwerp bij elkaar gekomen.  het ad-hoc netwerk samen met de multi-hop en de chatGUI zijn het hart van de applicatie.  Ook is de applicatie goed beveiligd door de berichten goed te versleutelen en moeten de gebruikers die als henzelf willen chatten door een profiel zich kunnen verifi\"eren door middel van een wachtwoord die gecheckt word door het te hashen. Er is maar een applicatie dit het doet zoal geen ander het doet en dat is de Chatser-applicatie\small\textcopyright.
 
 \newpage
 
 \section{Nawoord}
+Wij als gehele groep hebben dit project als zeer plezant ervaren. Tijdens het project hebben wij zoals op pagina ~\pageref{taken} de taken verdeelt. Hierdoor was het team in staat om elk teamlid een aparte taak te geven om effectief te werk te kunnen gaan. Het resultaat van het project is zoals het voor ogen was binnen de groep. Een goed werkend systeem waarmee alle bestandsformaten kunnen  worden verstuurd onder een mooie voorkant, wat de GUI moet zijn. De hoop is dat de GUI voor een goede gebruikerservaring gaat zorgen voor een geavanceerde chatapplicatie. Het achterliggende idee is dat er geen andere applicatie zo'n goede gebruikerservaring zal bieden zoals de Chatser-applicatie\small.\textcopyright!
 
 \newpage
 
