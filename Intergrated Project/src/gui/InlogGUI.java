@@ -18,11 +18,11 @@ import utils.RoundJPasswordField;
 
 public class InlogGUI implements ActionListener{
 	
+//-----------------------------------------------------------------------//
+	
 	private RoundJTextField userName;
 	private RoundJPasswordField password;
 	private JFrame inlogFrame;
-	private JPanel usernamePanel;
-	private JPanel passwordPanel;
 	private JPanel usernamepasswordPanel;
 	private JPanel buttonPanel;
 	private JButton inlog;
@@ -31,8 +31,12 @@ public class InlogGUI implements ActionListener{
 	private JLabel userNameLabel;
 	private JLabel passwordLabel;
 	private BorderLayout layout;
+	private GridLayout gridlayout;
+	private GridLayout panelLayout;
 	private String passwordString;
 	private final static String TITLE = "Log in";
+	
+//-----------------------------------------------------------------------//
 	
 	public InlogGUI(){
 		makeInlogFrame();
@@ -54,31 +58,60 @@ public class InlogGUI implements ActionListener{
 	}
 	
 	private JPanel inlogpasswordFields(){
-		Font labelFont = new Font("28 Days Later", Font.PLAIN, 12);
-		GridLayout gridlayout = new GridLayout();
-		gridlayout.setColumns(1);
-		gridlayout.setRows(2);
+		opmaakInlogPassword();
+		maakLayouts();
 		usernamepasswordPanel = new JPanel(gridlayout);
 		usernamepasswordPanel.setBackground(Color.DARK_GRAY);
-		usernamePanel = new JPanel();
-		passwordPanel = new JPanel();
-		usernamePanel.setBackground(Color.DARK_GRAY);
-		passwordPanel.setBackground(Color.DARK_GRAY);
-		userName = new RoundJTextField(10);
-		password = new RoundJPasswordField(10);
+		
+		JPanel inlogLabelPanel = new JPanel();
+		inlogLabelPanel.setBackground(Color.DARK_GRAY);
+		inlogLabelPanel.add(userNameLabel);
+		JPanel passwordLabelPanel = new JPanel();
+		passwordLabelPanel.setBackground(Color.DARK_GRAY);
+		passwordLabelPanel.add(passwordLabel);
+		
+		JPanel inlogFieldPanel = new JPanel();
+		inlogFieldPanel.setBackground(Color.DARK_GRAY);
+		inlogFieldPanel.add(userName);
+		JPanel passwordFieldPanel = new JPanel();
+		passwordFieldPanel.setBackground(Color.DARK_GRAY);
+		passwordFieldPanel.add(password);
+		
+		JPanel labelPanel = new JPanel(panelLayout);
+		labelPanel.setBackground(Color.DARK_GRAY);
+		labelPanel.add(inlogLabelPanel);
+		labelPanel.add(passwordLabelPanel);
+		
+		JPanel fieldsPanel = new JPanel(panelLayout);
+		fieldsPanel.setBackground(Color.DARK_GRAY);
+		fieldsPanel.add(inlogFieldPanel);
+		fieldsPanel.add(passwordFieldPanel);
+		
+		usernamepasswordPanel.add(labelPanel);
+		usernamepasswordPanel.add(fieldsPanel);
+		
+		return usernamepasswordPanel;
+	}
+	
+	private void opmaakInlogPassword(){
+		Font labelFont = new Font("28 Days Later", Font.PLAIN, 12);
+		userName = new RoundJTextField(15);
+		password = new RoundJPasswordField(15);
 		userNameLabel = new JLabel("<html> <font color= 'white'> Username </font></html>");
-		passwordLabel = new JLabel("<html> <font color= 'white'> Password </font></html>");
+		passwordLabel = new JLabel("<html> <font color= 'white'> Password(optional) </font></html>");
 		userNameLabel.setFont(labelFont);
 		passwordLabel.setFont(labelFont);
 		userName.setEditable(true);
 		password.setEditable(true);
-		usernamePanel.add(userNameLabel);
-		usernamePanel.add(userName);
-		passwordPanel.add(passwordLabel);
-		passwordPanel.add(password);
-		usernamepasswordPanel.add(usernamePanel);
-		usernamepasswordPanel.add(passwordPanel);
-		return usernamepasswordPanel;
+	}
+	
+	private void maakLayouts(){
+		gridlayout = new GridLayout();
+		gridlayout.setColumns(2);
+		gridlayout.setRows(1);
+		panelLayout = new GridLayout();
+		panelLayout.setColumns(1);
+		panelLayout.setRows(2);
 	}
 	
 	private JPanel buttonPanel(){
@@ -125,7 +158,7 @@ public class InlogGUI implements ActionListener{
 			}else if(!userName.getText().equals("") && password.getPassword().length != 0){
 				new ErrorGUI("Geen wachtwoord nodig", 200);
 			}else{
-				new RegisteredConnectGUI(userName.getText());
+				new LoggedInGUI(userName.getText());
 				inlogFrame.dispose();
 			}
 		}
@@ -138,15 +171,13 @@ public class InlogGUI implements ActionListener{
 				new ErrorGUI("Voer een password in", 200);
 			}else{
 				passwordString = new String(password.getPassword());
-				System.out.println(userName.getText());
-				System.out.println(passwordString);
-				new RegisteredConnectGUI(userName.getText(), passwordString);
+				new LoggedInGUI(userName.getText(), passwordString);
 				inlogFrame.dispose();
 			}
 			
 		}
 		if(ae.getSource() == register){
-			new MaakProfielGUIUpgrade();
+			new MaakProfielGUI();
 			inlogFrame.dispose();
 		}
 		
