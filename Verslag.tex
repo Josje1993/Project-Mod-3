@@ -114,7 +114,7 @@ Voor het grafisch ontwerp is er gekozen om meerdere user interfaces te maken met
 De eerste versie van de ChatGUI lijkt nagenoeg op de uiteindelijk gekozen versie van de ChatGUI. Er ontbreken echter wat features in de eerste versie, zoals profiel ondersteuning, een instellingen knop en een  logout knop. Deze zijn er in de brainstorm bijgekomen in de uiteindelijke versie dat uit de doeken wordt gedaan op pagina~\pageref{Chat Window}. \\
 De eerste versie van de ChatGUI ziet er dan als volgt uit:
 %Hier ChGDv1%
-\begin{figure}[h]
+\begin{figure}[ht]
 \begin{center}
 \includegraphics[width =90mm]{ChGDv1}
 \caption{De eerste versie van de ChatGUI}
@@ -126,7 +126,7 @@ De eerste versie van de ChatGUI ziet er dan als volgt uit:
 
 \noindent De tweede versie van de ChatGUI is in tegenstelling van de eerste versie en van de uiteindelijke versie niet strak maar legt de nadruk op rondingen en heeft een speels ontwerp:
 %Hier ChGDv2%
-\begin{figure}[h]
+\begin{figure}[ht]
 \begin{center}
 \includegraphics[width = 90mm]{ChGDv2}
 \caption{De tweede versie van de ChatGUI}
@@ -139,7 +139,7 @@ De eerste versie van de ChatGUI ziet er dan als volgt uit:
 \noindent De derde versie van de ChatGUI is ook onze uiteindelijk gekozen ontwerp voor de chat window, logout window en de settings window. Er zal op pagina~\pageref{ChatGUI} verder ingegaan worden op de redenen voor het kiezen van dit ontwerp. Het ontwerp dat we geschetst hebben ziet er dan ook als volg uit:
 \label{ChGv3Chat}
 %Hier ChGv3%
-\begin{figure}[h]
+\begin{figure}[ht]
 \begin{center}
 \includegraphics[width = 150mm]{ChGDv3}
 \caption{De derde versie van de ChatGUI}
@@ -151,7 +151,7 @@ De eerste versie van de ChatGUI ziet er dan als volgt uit:
 
 \noindent De eerste ConnectGUI is heel basaal en bevat enkel een tekstveld en een "connect"-knop en ondersteunt om die reden weinig functionaliteiten:
 %Hier CGv1%
-\begin{figure}[h]
+\begin{figure}[ht]
 \begin{center}
 \includegraphics[width = 60mm]{CGDv1}
 \caption{De eerste versie van de ConnectGUI}
@@ -163,7 +163,7 @@ De eerste versie van de ChatGUI ziet er dan als volgt uit:
 
 \noindent De tweede ConnectGUI voegt \'e\'en fuctionaliteit toe aan het eerste ontwerp en dat is de functie om je alias op te geven en het ontwerp is net iets anders gestructureerd:
 %Hier CGv2%
-\begin{figure}[h]
+\begin{figure}[ht]
 \begin{center}
 \includegraphics[width = 60mm]{CGDv2}
 \caption{De tweede versie van de ConnectGUI}
@@ -175,7 +175,7 @@ De eerste versie van de ChatGUI ziet er dan als volgt uit:
 
 \noindent De derde ConnectGUI voegt op zijn beurt weer een functionaliteit toe aan het tweede ontwerp en dat is een "Maak profiel aan" knop. Deze knop navigeert naar een ander window, de create profile window waar op pagina~\pageref{CPW} verder op in wordt gegaan:
 %Hier CGv3%
-\begin{figure}[h]
+\begin{figure}[ht]
 \begin{center}
 \includegraphics[width = 110mm]{CGDv3}
 \caption{De derde versie van de ConnectGUI}
@@ -233,7 +233,7 @@ Het netwerk dat ge\"implementeerd is kan berichten versturen tussen twee gebruik
 \subsection{Grafisch Ontwerp}
 De gemaakte chat windows lijken veel op de schets dat gemaakt is. Er was geen schets gemaakt voor de twee gebruikers variant maar het enige verschil is dat voor de twee gebruikers versie dat de knoppen met namen er niet op staan. De twee versies zien er uiteindelijk als volgt uit:
 %Hier de chat windows%
-\begin{figure}
+\begin{figure}[ht]
 \begin{center}
 \includegraphics[width = 60mm]{chatser2}
 \caption{De uiteindelijke versie van de ChatGUI voor 2 personen}
@@ -241,18 +241,16 @@ De gemaakte chat windows lijken veel op de schets dat gemaakt is. Er was geen sc
 \end{center}
 \end{figure}
 
-\begin{figure}
+\begin{figure}[ht]
 \begin{center}
 \includegraphics[width = 60mm]{chatser}
 \caption{De uiteindelijke versie van de ChatGUI voor 4 personen}
 \label{figure008}
 \end{center}
 \end{figure}
-\\
-
 \noindent De settings window heeft tijdens de ontwikkelfase de software versie gekregen, dit stond in eerste instantie niet in het ontwerp, maar het was een mooie toevoeging. De settings window ziet er dan ook als volgt uit:
 %Hier de settings window%
-\begin{figure}[h]
+\begin{figure}[ht]
 \begin{center}
 \includegraphics[width = 60mm]{chatsersettingsaan}
 \caption{De uiteindelijke versie van de SettingGUI}
@@ -263,7 +261,7 @@ De gemaakte chat windows lijken veel op de schets dat gemaakt is. Er was geen sc
 
 \noindent De logout window is na implementatie hetzelfde als de schets dat gemaakt is, dit omdat het een eenvoudig ontwerp had:
 %Hier de logout window%
-\begin{figure}[h]
+\begin{figure}[ht]
 \begin{center}
 \includegraphics[width = 60mm]{chatserafsluiten}
 \caption{De uiteindelijke versie van de logout window}
@@ -274,9 +272,9 @@ De gemaakte chat windows lijken veel op de schets dat gemaakt is. Er was geen sc
 
 \noindent De connect window heeft tijdens de ontwikkelfase een keuze blok erbij gekregen waarin kan worden met hoeveel gebruikers er gechat wil worden, als gevolg hiervan wordt de gebruiker altijd naar de goede chat window genavigeerd:
 %Hier de connect window%
-\begin{figure}[h]
+\begin{figure}[ht]
 \begin{center}
-\includegraphics[width = 60mm]{connect met profiel}
+\includegraphics[width = 60mm]{connection_met_profiel}
 \caption{De uiteindelijke versie van de connect window}
 \label{figure011}
 \end{center}
@@ -285,7 +283,7 @@ De gemaakte chat windows lijken veel op de schets dat gemaakt is. Er was geen sc
 
 \noindent De create profile window heeft een paar wijzigingen ten opzichte van het ontwerp. De tekstvelden zijn even groot en dus ook de interesses veld is van gelijke grootte als de andere velden. Ook is er een paneelnaam toegevoegd zodat de window er wat gelikter uit kwam te zien. Ook Zijn er knoppen toegevoegd aan de onderkant om terug te navigeren naar de connect window. De ene knop slaat de gegevens op en de ander niet, mocht de gebruiker toch geen profiel willen:
 %Hier de create profile window%
-\begin{figure}[h]
+\begin{figure}[ht]
 \begin{center}
 \includegraphics[width = 60mm]{MaakProfielGUI}
 \caption{De uiteindelijke versie van de create profile window}
@@ -296,7 +294,7 @@ De gemaakte chat windows lijken veel op de schets dat gemaakt is. Er was geen sc
 
 \noindent Er zijn wat extra windows bijgekomen. Dit zijn de startscherm, de terms and conditions scherm,  een connect account scherm en een inlog scherm. Ook zijn er een directory scherm een emoticon scherm en een keuze scherm erbij gekomen. Bovendien is er een veranderbare error! scherm toegevoegd.
 %overige schermen%
-\begin{figure}[h]
+\begin{figure}[ht]
 \begin{center}
 \includegraphics[width = 60mm]{chatser_emoticons}
 \caption{De uiteindelijke versie van de emoticon window}
@@ -304,7 +302,7 @@ De gemaakte chat windows lijken veel op de schets dat gemaakt is. Er was geen sc
 \end{center}
 \end{figure}
 
-\begin{figure}[h]
+\begin{figure}[ht]
 \begin{center}
 \includegraphics[width = 60mm]{chatser_extentions}
 \caption{De uiteindelijke versie van de extentions window}
@@ -312,7 +310,7 @@ De gemaakte chat windows lijken veel op de schets dat gemaakt is. Er was geen sc
 \end{center}
 \end{figure}
 
-\begin{figure}[h]
+\begin{figure}[ht]
 \begin{center}
 \includegraphics[width = 60mm]{StartGUI}
 \caption{De uiteindelijke versie van de start window}
@@ -320,7 +318,7 @@ De gemaakte chat windows lijken veel op de schets dat gemaakt is. Er was geen sc
 \end{center}
 \end{figure}
 
-\begin{figure}[h]
+\begin{figure}[ht]
 \begin{center}
 \includegraphics[width = 60mm]{Terms_Conditions1}
 \caption{De uiteindelijke versie van terms and conditions window}
