@@ -1,0 +1,26 @@
+\select@language {dutch}
+\contentsline {section}{\numberline {1}Introductie}{2}
+\contentsline {section}{\numberline {2}Functies binnen het team}{3}
+\contentsline {section}{\numberline {3}verantwoordelijkheden}{4}
+\contentsline {section}{\numberline {4}Netwerk Ontwerp}{5}
+\contentsline {subsection}{\numberline {4.1}AD-HOC Implementatie}{5}
+\contentsline {subsection}{\numberline {4.2}Ondersteuning Dataverkeer}{5}
+\contentsline {subsection}{\numberline {4.3}UDP Headers}{6}
+\contentsline {subsection}{\numberline {4.4}Multi Socket Klassen}{6}
+\contentsline {subsection}{\numberline {4.5}ALIVE}{6}
+\contentsline {subsection}{\numberline {4.6}Link Betrouwbaarheid En Packet Verlies}{6}
+\contentsline {subsection}{\numberline {4.7}Beveiliging}{6}
+\contentsline {subsection}{\numberline {4.8}Verwacht Gedrag}{6}
+\contentsline {subsection}{\numberline {4.9}Test Setup}{6}
+\contentsline {subsection}{\numberline {4.10}Test Scenario}{6}
+\contentsline {subsection}{\numberline {4.11}System Performance}{6}
+\contentsline {subsection}{\numberline {4.12}State Charts}{6}
+\contentsline {section}{\numberline {5}Grafisch Ontwerp}{7}
+\contentsline {subsection}{\numberline {5.1}Schetsen}{7}
+\contentsline {subsection}{\numberline {5.2}ChatGUI versie 3(ChGv3)}{8}
+\contentsline {subsection}{\numberline {5.3}ConnectGUI versie 3(CGv3)}{9}
+\contentsline {section}{\numberline {6}Resultaten}{10}
+\contentsline {subsection}{\numberline {6.1}Netwerk Ontwerp}{10}
+\contentsline {subsection}{\numberline {6.2}Grafisch Ontwerp}{10}
+\contentsline {section}{\numberline {7}Conclusie}{12}
+\contentsline {section}{\numberline {8}Nawoord}{13}
