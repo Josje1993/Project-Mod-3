@@ -10,7 +10,9 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
 import java.io.BufferedOutputStream;
+import java.io.BufferedWriter;
 import java.io.FileOutputStream;
+import java.io.FileWriter;
 import java.io.PrintWriter;
 import java.util.Arrays;
 
@@ -277,7 +279,7 @@ public class MaakProfielGUI implements ActionListener {
 		profileInformation[3] = leeftijd.getText();
 		profileInformation[4] = interesses.getText();
 		profileInformation[5] = relatiestatus.getText();
-		savePassword();
+		savePassword2();
 		try
 		{
 			  PrintWriter pr = new PrintWriter(nickname.getText() + ".txt");
@@ -291,6 +293,36 @@ public class MaakProfielGUI implements ActionListener {
 		{
 		    e.printStackTrace();
 		    System.out.println("No such file exists.");
+		}
+	}
+	
+	private void savePassword2(){
+		String passwordString = new String(password.getPassword());
+		String nicknamepasswordString = new String(passwordString + nickname.getText());
+		byte[] nicknamepasswordByte = nicknamepasswordString.getBytes();
+		try{
+			String newLineString = "\n";
+			byte[] newLine = newLineString.getBytes();
+			byte[] nicknamepasswordHash = HASHencrp.getHash(Algorithm.SHA_256, nicknamepasswordByte);
+			String testString = new String(nicknamepasswordHash);
+			File file = new File("definitelyNotPasswords.txt");
+			if(!file.exists()){
+				file.createNewFile();
+				FileWriter fos = new FileWriter(file.getName(), true);
+				BufferedWriter bos = new BufferedWriter(fos);
+				bos.write(testString);
+				bos.newLine();
+				bos.close();
+			}else{
+				FileWriter fos = new FileWriter(file.getName(), true);
+				BufferedWriter bos = new BufferedWriter(fos);
+				bos.write(testString);
+				bos.newLine();
+				bos.close();
+			}
+		}
+		catch(Exception e){
+			e.printStackTrace();
 		}
 	}
 	
