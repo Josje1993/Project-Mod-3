@@ -8,7 +8,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.LineNumberReader;
 import java.security.NoSuchAlgorithmException;
 import java.util.Scanner;
 
@@ -161,11 +160,17 @@ public class InlogGUI implements ActionListener{
 	@Override
 	public void actionPerformed(ActionEvent ae) {
 		if(ae.getSource() == anoniem){
+			File fileCheck = new File(userName.getText() + ".txt");
+			boolean check = false;
+			if(fileCheck.exists()){
+				new ErrorGUI("Username al ingebruik", 220);
+				check = true;
+			}
 			if(userName.getText().equals("")){
 				new ErrorGUI("Voer een username in", 200);
 			}else if(!userName.getText().equals("") && password.getPassword().length != 0){
 				new ErrorGUI("Geen wachtwoord nodig", 200);
-			}else{
+			}else if(!check){
 				new LoggedInGUI(userName.getText());
 				inlogFrame.dispose();
 			}
@@ -182,31 +187,25 @@ public class InlogGUI implements ActionListener{
 				
 				if(file.exists() && !file.isDirectory()){
 					File passwordFile = new File(file_name);
-					File testfile = new File("Gerwin.txt");
 					passwordString = new String(password.getPassword());
 					String nicknamepasswordString = new String(passwordString + userName.getText());
 					byte[] nicknamepasswordByte = nicknamepasswordString.getBytes();
 					try {
 						byte[] hashedPassword = HASHencrp.getHash(Algorithm.SHA_256, nicknamepasswordByte);
 						String testPassword = new String(hashedPassword);
-						System.out.println(testPassword);
+						byte[] testPasswordByte = testPassword.getBytes();
 						Scanner scanner = new Scanner(passwordFile);
-						int numCheck = 0;
-						boolean checker = false;
-						System.out.println(scanner.hasNext());
+						boolean checker = true;
 						while(scanner.hasNextLine()){
 							String nextLine = scanner.nextLine();
-							System.out.println(nextLine);
-							numCheck++;
-							if(nextLine.equals(testPassword)){
-								System.out.println("Found It" + numCheck);
-								
-//								new LoggedInGUI(userName.getText(), passwordString);
-//								inlogFrame.dispose();
-							}else{
-								checker = true;
+							byte[] nextLinebyte = nextLine.getBytes();
+							if(equalsByte(nextLinebyte, testPasswordByte)){
+								checker = false;
+								new LoggedInGUI(userName.getText(), passwordString);
+								inlogFrame.dispose();
 							}
 						}
+						scanner.close();
 						if(checker){
 							new ErrorGUI("Wachtwoord incorrect", 220);
 						}
@@ -225,5 +224,23 @@ public class InlogGUI implements ActionListener{
 			inlogFrame.dispose();
 		}
 		
+	}
+	
+	private static boolean equalsByte(byte[] b1, byte[] b2){
+		if(b1 == null && b2 == null){
+			return true;
+		}
+		if(b1 == null || b2 == null){
+			return false;
+		}
+		if(b1.length != b2.length){
+			return false;
+		}
+		for(int i = 0; i < b1.length; i++){
+			if(b1[i] != b2[i]){
+				return false;
+			}
+		}
+		return true;
 	}
 }
