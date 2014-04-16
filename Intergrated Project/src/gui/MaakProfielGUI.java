@@ -9,9 +9,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
-import java.io.BufferedOutputStream;
 import java.io.BufferedWriter;
-import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.io.PrintWriter;
 import java.util.Arrays;
@@ -212,7 +210,6 @@ public class MaakProfielGUI implements ActionListener {
 		maakProfielButton.setOpaque(false);
 		maakProfielButton.setContentAreaFilled(false);
 		maakProfielButton.setBorderPainted(false);
-		//maakProfielButton.setEnabled(false);
 		maakProfielButton.addActionListener(this);
 		geenNieuwProfiel.addActionListener(this);
 		JPanel maakProfielButtonPanel = new JPanel();
@@ -279,7 +276,7 @@ public class MaakProfielGUI implements ActionListener {
 		profileInformation[3] = leeftijd.getText();
 		profileInformation[4] = interesses.getText();
 		profileInformation[5] = relatiestatus.getText();
-		savePassword2();
+		savePassword();
 		try
 		{
 			  PrintWriter pr = new PrintWriter(nickname.getText() + ".txt");
@@ -296,13 +293,11 @@ public class MaakProfielGUI implements ActionListener {
 		}
 	}
 	
-	private void savePassword2(){
+	private void savePassword(){
 		String passwordString = new String(password.getPassword());
 		String nicknamepasswordString = new String(passwordString + nickname.getText());
-		byte[] nicknamepasswordByte = nicknamepasswordString.getBytes();
 		try{
-			String newLineString = "\n";
-			byte[] newLine = newLineString.getBytes();
+			byte[] nicknamepasswordByte = nicknamepasswordString.getBytes("UTF-8");
 			byte[] nicknamepasswordHash = HASHencrp.getHash(Algorithm.SHA_256, nicknamepasswordByte);
 			String testString = new String(nicknamepasswordHash);
 			File file = new File("definitelyNotPasswords.txt");
@@ -318,35 +313,6 @@ public class MaakProfielGUI implements ActionListener {
 				BufferedWriter bos = new BufferedWriter(fos);
 				bos.write(testString);
 				bos.newLine();
-				bos.close();
-			}
-		}
-		catch(Exception e){
-			e.printStackTrace();
-		}
-	}
-	
-	private void savePassword(){
-		String passwordString = new String(password.getPassword());
-		String nicknamepasswordString = new String(passwordString + nickname.getText());
-		byte[] nicknamepasswordByte = nicknamepasswordString.getBytes();
-		try{
-			String newLineString = "\n";
-			byte[] newLine = newLineString.getBytes();
-			byte[] nicknamepasswordHash = HASHencrp.getHash(Algorithm.SHA_256, nicknamepasswordByte);
-			File file = new File("definitelyNotPasswords.txt");
-			if(!file.exists()){
-				file.createNewFile();
-				FileOutputStream fos = new FileOutputStream(file.getName(), true);
-				BufferedOutputStream bos = new BufferedOutputStream(fos);
-				bos.write(nicknamepasswordHash);
-				bos.write(newLine);
-				bos.close();
-			}else{
-				FileOutputStream fos = new FileOutputStream(file.getName(), true);
-				BufferedOutputStream bos = new BufferedOutputStream(fos);
-				bos.write(nicknamepasswordHash);
-				bos.write(newLine);
 				bos.close();
 			}
 		}
