@@ -135,7 +135,8 @@ public class HASHencrp {
             int bufSize = 1024;
             byte[] buffer = new byte[bufSize];
             int n = in.read(buffer, 0, bufSize);
-            int count = 0;
+            @SuppressWarnings("unused")
+			int count = 0;
             while (n != -1) {
                 count += n;
                 digest.update(buffer, 0, n);
@@ -172,7 +173,8 @@ public class HASHencrp {
         int bufSize = 1024;
         byte[] buffer = new byte[bufSize];
         int n = stream.read(buffer, 0, bufSize);
-        int count = 0;
+        @SuppressWarnings("unused")
+		int count = 0;
         while (n != -1) {
             count += n;
             digest.update(buffer, 0, n);
@@ -182,7 +184,8 @@ public class HASHencrp {
     }
     
     public static void main(String[] args){
-    	HASHencrp hash = new HASHencrp();
+    	@SuppressWarnings("unused")
+		HASHencrp hash = new HASHencrp();
     	
     }
 }
