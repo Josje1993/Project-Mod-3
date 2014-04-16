@@ -123,11 +123,11 @@ Er is gekozen om een state chart te maken van de staten van het systeem binnen d
 
 \section{Grafisch Ontwerp}
 \label{aangegeven}
-Voor het grafisch ontwerp is er gekozen om meerdere user interfaces te maken met elk hun eigen thema(in section 5.1 Schetsen wordt hier dieper op in gegaan). Voor een user interface is het van belang dat er meerdere windows gemaakt worden, er mag niet vanuit worden gegaan dat de gebruikers van de chatapplicatie het begrijpen en daarom moet de user interface hen bij de hand nemen.  Er is gekozen om losstaande Graphical User Interfaces te ontwerpen met allebei meerdere windows. De ChatGUI waar op pagina~\pageref{ChatGUI} verder op in wordt gegaan bevat drie aparte windows en de ConnectGUI waar op pagina ~\pageref{ConnectGUI} verder op in wordt gegaan bevat twee aparte windows. De ConnectGUI zal gebruikt worden voor de gebruikers om hun gegevens op te geven en stelt ze in staat om een profiel aan te maken en te verbinden met de andere chatters. De ConnectGUI zal de gebruikers overdragen aan de ChatGUI die de rest van de sessie afhandelt totdat er afgesloten wordt.
+Voor het grafisch ontwerp is er gekozen om meerdere user interfaces te maken met elk hun eigen thema(in section 5.1 Schetsen wordt hier dieper op in gegaan). Voor een user interface is het van belang dat er meerdere windows gemaakt worden, er mag niet vanuit worden gegaan dat de gebruikers van de chatapplicatie het begrijpen en daarom moet de user interface hen bij de hand nemen.  Er is gekozen om losstaande Graphical User Interfaces te ontwerpen met allebei meerdere windows. De ChatGUI waar op pagina~\pageref{ChatGUI} verder op in wordt gegaan bevat drie aparte windows en de ConnectGUI waar op pagina~\pageref{ConnectGUI} verder op in wordt gegaan bevat twee aparte windows. De ConnectGUI zal gebruikt worden voor de gebruikers om hun gegevens op te geven en stelt ze in staat om een profiel aan te maken en te verbinden met de andere chatters. De ConnectGUI zal de gebruikers overdragen aan de ChatGUI die de rest van de sessie afhandelt totdat er afgesloten wordt.
 
 \subsection{Schetsen}
 De eerste versie van de ChatGUI lijkt nagenoeg op de uiteindelijk gekozen versie van de ChatGUI. Er ontbreken echter wat features in de eerste versie, zoals profiel ondersteuning, een instellingen knop en een  logout knop. Deze zijn er in de brainstorm bijgekomen in de uiteindelijke versie dat uit de doeken wordt gedaan op pagina~\pageref{Chat Window}. \\
-De eerste versie van de ChatGUI zoals te zien is in figuur 1 is een statisch ontwerp dat in eerste instantie alle requirements voor een ChatGUI bevat.
+De eerste versie van de ChatGUI zoals te zien is in figuur~\ref{figure001} is een statisch ontwerp dat in eerste instantie alle requirements voor een ChatGUI bevat.
 %Hier ChGDv1%
 \begin{figure}[ht]
 \begin{center}
@@ -138,7 +138,7 @@ De eerste versie van de ChatGUI zoals te zien is in figuur 1 is een statisch ont
 \end{figure}
 \\
 
-\noindent De tweede versie van de ChatGUI is in tegenstelling van de eerste versie en van de uiteindelijke versie niet strak maar legt de nadruk op rondingen en heeft een speels ontwerp zoals te zien is in figuur 2.
+\noindent De tweede versie van de ChatGUI is in tegenstelling van de eerste versie en van de uiteindelijke versie niet strak maar legt de nadruk op rondingen en heeft een speels ontwerp zoals te zien is in figuur~\ref{figure002}.
 %Hier ChGDv2%
 \begin{figure}[ht]
 \begin{center}
@@ -149,7 +149,7 @@ De eerste versie van de ChatGUI zoals te zien is in figuur 1 is een statisch ont
 \end{figure}
 \\
 
-\noindent De derde versie van de ChatGUI is ook onze uiteindelijk gekozen ontwerp voor de chat window, logout window en de settings window. Er zal op pagina~\pageref{ChatGUI} verder ingegaan worden op de redenen voor het kiezen van dit ontwerp. Het ontwerp dat we geschetst hebben ziet is te vinden in figuur 3 op volgende pagina.
+\noindent De derde versie van de ChatGUI is ook onze uiteindelijk gekozen ontwerp voor de chat window, logout window en de settings window. Er zal op pagina~\pageref{ChatGUI} verder ingegaan worden op de redenen voor het kiezen van dit ontwerp. Het ontwerp dat we geschetst hebben ziet is te vinden in figuur~\ref{figure003} op volgende pagina.
 \label{ChGv3Chat}
 %Hier ChGv3%
 \begin{figure}[ht]
@@ -161,7 +161,7 @@ De eerste versie van de ChatGUI zoals te zien is in figuur 1 is een statisch ont
 \end{figure}
 \\
 
-\noindent De eerste ConnectGUI is heel basaal en bevat enkel een tekstveld en een "connect"-knop en ondersteunt om die reden weinig functionaliteiten zoals te zien is in figuur 4 op de volgende pagina.
+\noindent De eerste ConnectGUI is heel basaal en bevat enkel een tekstveld en een "connect"-knop en ondersteunt om die reden weinig functionaliteiten zoals te zien is in figuur~\ref{figure004} op de volgende pagina.
 %Hier CGv1%
 \begin{figure}[ht]
 \begin{center}
@@ -172,7 +172,7 @@ De eerste versie van de ChatGUI zoals te zien is in figuur 1 is een statisch ont
 \end{figure}
 \\
 
-\noindent De tweede ConnectGUI voegt \'e\'en functionaliteit toe aan het eerste ontwerp en dat is de functie om je alias op te geven en het ontwerp is net iets anders gestructureerd zoals te zien is in figuur 5 op de volgende pagina.
+\noindent De tweede ConnectGUI voegt \'e\'en functionaliteit toe aan het eerste ontwerp en dat is de functie om je alias op te geven en het ontwerp is net iets anders gestructureerd zoals te zien is in figuur~\ref{figure005} op de volgende pagina.
 %Hier CGv2%
 \begin{figure}[ht]
 \begin{center}
@@ -183,7 +183,7 @@ De eerste versie van de ChatGUI zoals te zien is in figuur 1 is een statisch ont
 \end{figure}
 \\
 
-\noindent De derde ConnectGUI voegt op zijn beurt weer een functionaliteit toe aan het tweede ontwerp en dat is een "Maak profiel aan" knop. Deze knop navigeert naar een ander window, de create profile window waar op pagina~\pageref{CPW} verder op in wordt gegaan. In figuur 6 op de volgende pagina kunnen de requirements worden afgelezen.
+\noindent De derde ConnectGUI voegt op zijn beurt weer een functionaliteit toe aan het tweede ontwerp en dat is een "Maak profiel aan" knop. Deze knop navigeert naar een ander window, de create profile window waar op pagina~\pageref{CPW} verder op in wordt gegaan. In figuur~\ref{figure006} op de volgende pagina kunnen de requirements worden afgelezen.
 %Hier CGv3%
 \begin{figure}[ht]
 \begin{center}
@@ -240,7 +240,7 @@ In deze section zullen de resultaten van het netwerk ontwerp en van het software
 Het netwerk dat ge\"implementeerd is kan berichten versturen tussen twee gebruikers en tussen vier gebruikers. Tijdens het mogelijk maken van het versturen van bestanden met verschillende extensies was het nodig om via invoer de bestandsnaam op te geven om het te kunnen versturen naar de anderen. De anderen moeten dan naar de map gaan waar het in zou moeten komen te staan en daar zal het bestand gevonden kunnen worden. In de eindversie kunnen de bestanden aangeklikt worden en worden deze geopend.
 
 \subsection{Grafisch Ontwerp}
-De gemaakte chat windows lijken veel op de schets dat gemaakt is. Er was geen schets gemaakt voor de twee gebruikers variant maar het enige verschil is dat voor de twee gebruikers versie dat de knoppen met namen er niet op staan. De twee versies zijn uiteindelijk eruit komen te zien zoals in figuur 7 en figuur 8 te zien is.
+De gemaakte chat windows lijken veel op de schets dat gemaakt is. Er was geen schets gemaakt voor de twee gebruikers variant maar het enige verschil is dat voor de twee gebruikers versie dat de knoppen met namen er niet op staan. De twee versies zijn uiteindelijk eruit komen te zien zoals in figuur~\ref{figure007} en figuur~\ref{figure008} te zien is.
 %Hier de chat windows%
 \begin{figure}[ht]
 \begin{center}
@@ -257,7 +257,7 @@ De gemaakte chat windows lijken veel op de schets dat gemaakt is. Er was geen sc
 \label{figure008}
 \end{center}
 \end{figure}
-\noindent De settings window heeft tijdens de ontwikkelfase de software versie gekregen, dit stond in eerste instantie niet in het ontwerp, maar het was een mooie toevoeging. Deze settings window is te vinden in figuur 9.
+\noindent De settings window heeft tijdens de ontwikkelfase de software versie gekregen, dit stond in eerste instantie niet in het ontwerp, maar het was een mooie toevoeging. Deze settings window is te vinden in figuur~\ref{figure009}.
 %Hier de settings window%
 \begin{figure}[ht]
 \begin{center}
@@ -268,7 +268,7 @@ De gemaakte chat windows lijken veel op de schets dat gemaakt is. Er was geen sc
 \end{figure}
 \\
 
-\noindent De logout window is na implementatie hetzelfde als de schets dat gemaakt is zoals in figuur 10 te zien is op de volgende pagina, dit omdat het een eenvoudig ontwerp had.
+\noindent De logout window is na implementatie hetzelfde als de schets dat gemaakt is zoals in figuur~\ref{figure010} te zien is op de volgende pagina, dit omdat het een eenvoudig ontwerp had.
 %Hier de logout window%
 \begin{figure}[ht]
 \begin{center}
@@ -279,7 +279,7 @@ De gemaakte chat windows lijken veel op de schets dat gemaakt is. Er was geen sc
 \end{figure}
 \\
 \newpage
-\noindent De connect window heeft tijdens de ontwikkelfase een keuze blok erbij gekregen waarin kan worden met hoeveel gebruikers er gechat wil worden, als gevolg hiervan wordt de gebruiker altijd naar de goede chat window genavigeerd zoals in figuur 11 te zien is.
+\noindent De connect window heeft tijdens de ontwikkelfase een keuze blok erbij gekregen waarin kan worden met hoeveel gebruikers er gechat wil worden, als gevolg hiervan wordt de gebruiker altijd naar de goede chat window genavigeerd zoals in figuur~\ref{figure011} te zien is.
 %Hier de connect window%
 \begin{figure}[ht]
 \begin{center}
@@ -290,7 +290,7 @@ De gemaakte chat windows lijken veel op de schets dat gemaakt is. Er was geen sc
 \end{figure}
 \\
 
-\noindent De create profile window heeft een paar wijzigingen ten opzichte van het ontwerp. De tekstvelden zijn even groot en dus ook de interesses veld is van gelijke grootte als de andere velden. Ook is er een paneelnaam toegevoegd zodat de window er wat gelikter uit kwam te zien. Ook Zijn er knoppen toegevoegd aan de onderkant om terug te navigeren naar de connect window. De ene knop slaat de gegevens op en de ander niet, mocht de gebruiker toch geen profiel willen. Dit is de vinden in figuur 12 op de volgende pagina.
+\noindent De create profile window heeft een paar wijzigingen ten opzichte van het ontwerp. De tekstvelden zijn even groot en dus ook de interesses veld is van gelijke grootte als de andere velden. Ook is er een paneelnaam toegevoegd zodat de window er wat gelikter uit kwam te zien. Ook Zijn er knoppen toegevoegd aan de onderkant om terug te navigeren naar de connect window. De ene knop slaat de gegevens op en de ander niet, mocht de gebruiker toch geen profiel willen. Dit is de vinden in figuur~\ref{figure012} op de volgende pagina.
 %Hier de create profile window%
 \begin{figure}[ht]
 \begin{center}
@@ -304,42 +304,42 @@ De gemaakte chat windows lijken veel op de schets dat gemaakt is. Er was geen sc
 \noindent Er zijn wat extra windows bijgekomen. Dit zijn de startscherm, de terms and conditions scherm,  een connect account scherm en een inlog scherm. Ook zijn er een directory scherm een emoticon scherm en een keuze scherm erbij gekomen. Bovendien is er een veranderbare error! scherm toegevoegd.
 \\
 
-In figuur 13 worden ze emoticons weergegeven die zijn toegevoegd aan de applicatie om de gebruiker ondersteuning van emoticons te bieden die een uitdrukking van de gebruiker kan versterken.
+\noindent In figuur~\ref{figure013} worden ze emoticons weergegeven die zijn toegevoegd aan de applicatie om de gebruiker ondersteuning van emoticons te bieden die een uitdrukking van de gebruiker kan versterken.
 %overige schermen%
 \begin{figure}[ht]
 \begin{center}
-\includegraphics[width = 60mm]{chatser_emoticons}
+\includegraphics[width = 90mm]{chatser_emoticons}
 \caption{De uiteindelijke versie van de emoticon window}
 \label{figure013}
 \end{center}
 \end{figure}
 \\
 
-In figuur 14 worden de extensies weergegeven. Deze extensies moeten het mogelijk maken om files te sturen voor de Chatser-applicatie\small\textcopyright.
-\begin{figure}[h]
+\noindent In figuur~\ref{figure014} worden de extensies weergegeven. Deze extensies moeten het mogelijk maken om files te sturen voor de Chatser-applicatie\small\textcopyright.
+\begin{figure}[!h]
 \begin{center}
-\includegraphics[width = 60mm]{chatser_extentions}
+\includegraphics[width = 90mm]{chatser_extentions}
 \caption{De uiteindelijke versie van de extentions window}
 \label{figure014}
 \end{center}
 \end{figure}
 \\
 
-In figuur 15 wordt de StartGUI weergegeven. Dit scherm is het eerste scherm dat gebruiker te zien krijgt als de applicatie opgestart wordt.
-\begin{figure}[h]
+\noindent In figuur~\ref{figure015} wordt de StartGUI weergegeven. Dit scherm is het eerste scherm dat gebruiker te zien krijgt als de applicatie opgestart wordt.
+\begin{figure}[!h]
 \begin{center}
-\includegraphics[width = 60mm]{StartGUI}
+\includegraphics[width = 90mm]{StartGUI}
 \caption{De uiteindelijke versie van de start window}
 \label{figure015}
 \end{center}
 \end{figure}
 \\
 
-In figuur 16 wordt het terms and conditions scherm weergegeven, dit is het tweede scherm dat de gebruiker te zien krijgt. De gebruiker moet eerst instemmen met de voorwaarden om verder te kunnen naar het inlogscherm. \newpage
+\noindent In figuur~\ref{figure016} wordt het terms and conditions scherm weergegeven, dit is het tweede scherm dat de gebruiker te zien krijgt. De gebruiker moet eerst instemmen met de voorwaarden om verder te kunnen naar het inlogscherm. \newpage
 
-\begin{figure}[h]
+\begin{figure}[!h]
 \begin{center}
-\includegraphics[width = 60mm]{Terms_Conditions1}
+\includegraphics[width = 90mm]{Terms_Conditions1}
 \caption{De uiteindelijke versie van terms and conditions window}
 \label{figure016}
 \end{center}
@@ -353,7 +353,7 @@ Met het resultaat zijn het netwerk ontwerp en het grafische ontwerp bij elkaar g
 \newpage
 
 \section{Nawoord}
-Wij als gehele groep hebben dit project als zeer plezant ervaren. Tijdens het project hebben wij zoals op pagina ~\pageref{taken} de taken verdeelt. Hierdoor was het team in staat om elk teamlid een aparte taak te geven om effectief te werk te kunnen gaan. Het resultaat van het project is zoals het voor ogen was binnen de groep. Een goed werkend systeem waarmee alle bestandsformaten kunnen  worden verstuurd onder een mooie voorkant, wat de GUI moet zijn. De hoop is dat de GUI voor een goede gebruikerservaring gaat zorgen voor een geavanceerde chatapplicatie. Het achterliggende idee is dat er geen andere applicatie zo'n goede gebruikerservaring zal bieden zoals de Chatser-applicatie\small.\textcopyright!
+Wij als gehele groep hebben dit project als zeer plezant ervaren. Tijdens het project hebben wij zoals op pagina~\pageref{taken} de taken verdeelt. Hierdoor was het team in staat om elk teamlid een aparte taak te geven om effectief te werk te kunnen gaan. Het resultaat van het project is zoals het voor ogen was binnen de groep. Een goed werkend systeem waarmee alle bestandsformaten kunnen  worden verstuurd onder een mooie voorkant, wat de GUI moet zijn. De hoop is dat de GUI voor een goede gebruikerservaring gaat zorgen voor een geavanceerde chatapplicatie. Het achterliggende idee is dat er geen andere applicatie zo'n goede gebruikerservaring zal bieden zoals de Chatser-applicatie\small.\textcopyright!
 
 \newpage
 
