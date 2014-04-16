@@ -3,6 +3,7 @@
 
 \usepackage{amsmath}
 \usepackage{graphicx} 
+\usepackage{lscape}
 
 
 
@@ -105,6 +106,20 @@ Er is gekozen om een state chart te maken van de staten van het systeem binnen d
 %State Diagrams&
 
 \newpage
+\begin{landscape}
+\pagebreak[4]
+\global\pdfpageattr\expandafter{\the\pdfpageattr/Rotate 90}
+\begin{figure}[ht]
+\begin{center}
+\includegraphics[width =230mm]{State_chart_GUI}
+\caption{De state magine diagram van de graphic user interface}
+\label{figure017}
+\end{center}
+\end{figure}
+\end{landscape}
+\newpage
+\pagebreak[4]
+\global\pdfpageattr\expandafter{\the\pdfpageattr/Rotate 0}
 
 \section{Grafisch Ontwerp}
 \label{aangegeven}
@@ -121,7 +136,6 @@ De eerste versie van de ChatGUI ziet er dan als volgt uit:
 \label{figure001}
 \end{center}
 \end{figure}
-%\picskip{0}
 \\
 
 \noindent De tweede versie van de ChatGUI is in tegenstelling van de eerste versie en van de uiteindelijke versie niet strak maar legt de nadruk op rondingen en heeft een speels ontwerp:
@@ -133,7 +147,6 @@ De eerste versie van de ChatGUI ziet er dan als volgt uit:
 \label{figure002}
 \end{center}
 \end{figure}
-%\picskip{0}
 \\
 
 \noindent De derde versie van de ChatGUI is ook onze uiteindelijk gekozen ontwerp voor de chat window, logout window en de settings window. Er zal op pagina~\pageref{ChatGUI} verder ingegaan worden op de redenen voor het kiezen van dit ontwerp. Het ontwerp dat we geschetst hebben ziet er dan ook als volg uit:
@@ -146,7 +159,6 @@ De eerste versie van de ChatGUI ziet er dan als volgt uit:
 \label{figure003}
 \end{center}
 \end{figure}
-%\picskip{0}
 \\
 
 \noindent De eerste ConnectGUI is heel basaal en bevat enkel een tekstveld en een "connect"-knop en ondersteunt om die reden weinig functionaliteiten:
@@ -158,7 +170,6 @@ De eerste versie van de ChatGUI ziet er dan als volgt uit:
 \label{figure004}
 \end{center}
 \end{figure}
-%\picskip{0}
 \\
 
 \noindent De tweede ConnectGUI voegt \'e\'en fuctionaliteit toe aan het eerste ontwerp en dat is de functie om je alias op te geven en het ontwerp is net iets anders gestructureerd:
@@ -170,7 +181,6 @@ De eerste versie van de ChatGUI ziet er dan als volgt uit:
 \label{figure005}
 \end{center}
 \end{figure}
-%\picskip{0}
 \\
 
 \noindent De derde ConnectGUI voegt op zijn beurt weer een functionaliteit toe aan het tweede ontwerp en dat is een "Maak profiel aan" knop. Deze knop navigeert naar een ander window, de create profile window waar op pagina~\pageref{CPW} verder op in wordt gegaan:
@@ -182,7 +192,6 @@ De eerste versie van de ChatGUI ziet er dan als volgt uit:
 \label{figure006}
 \end{center}
 \end{figure}
-%\picskip{0}
 
 \subsection{ChatGUI versie 3(ChGv3)}
 \label{ChatGUI}
