@@ -9,11 +9,14 @@ import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
-import java.io.BufferedOutputStream;
+import java.io.BufferedWriter;
 import java.io.File;
-import java.io.FileOutputStream;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
 import java.io.PrintWriter;
+import java.security.NoSuchAlgorithmException;
 import java.util.Arrays;
+import java.util.Scanner;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
@@ -35,7 +38,7 @@ public class EditProfileGUI implements ActionListener {
 	WindowListener listener = new WindowAdapter(){
 		public void windowClosing(WindowEvent we){
 			maakProfielFrame.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
-			new ConnectGUI("Nickname");
+			new LoggedInGUI("Nickname");
 		}	
 	};
 	
@@ -181,7 +184,7 @@ public class EditProfileGUI implements ActionListener {
 		relatiestatus = new RoundJTextField("", 15);
 		relatiestatus.setBackground(Color.LIGHT_GRAY);
 		relatiestatus.setForeground(Color.BLACK);
-		nickname.setEditable(true);
+		nickname.setEditable(false);
 		voornaam.setEditable(true);
 		achternaam.setEditable(true);
 		leeftijd.setEditable(true);
@@ -300,7 +303,7 @@ public class EditProfileGUI implements ActionListener {
 		profileInformation[3] = leeftijd.getText();
 		profileInformation[4] = interesses.getText();
 		profileInformation[5] = relatiestatus.getText();
-		savePassword();
+		//savePassword();
 		try
 		{
 		    PrintWriter pr = new PrintWriter(nickname.getText() + ".txt");    
@@ -318,27 +321,28 @@ public class EditProfileGUI implements ActionListener {
 		}
 	}
 	
+	@SuppressWarnings("unused")
 	private void savePassword(){
 		String passwordString = new String(password.getPassword());
 		String nicknamepasswordString = new String(passwordString + nickname.getText());
-		byte[] nicknamepasswordByte = nicknamepasswordString.getBytes();
+		
 		try{
-			String newLineString = "\n";
-			byte[] newLine = newLineString.getBytes();
+			byte[] nicknamepasswordByte = nicknamepasswordString.getBytes("UTF-8");
 			byte[] nicknamepasswordHash = HASHencrp.getHash(Algorithm.SHA_256, nicknamepasswordByte);
+			String testString = new String(nicknamepasswordHash);
 			File file = new File("definitelyNotPasswords.txt");
 			if(!file.exists()){
 				file.createNewFile();
-				FileOutputStream fos = new FileOutputStream(file.getName(), true);
-				BufferedOutputStream bos = new BufferedOutputStream(fos);
-				bos.write(nicknamepasswordHash);
-				bos.write(newLine);
+				FileWriter fos = new FileWriter(file.getName(), true);
+				BufferedWriter bos = new BufferedWriter(fos);
+				bos.write(testString);
+				bos.newLine();
 				bos.close();
 			}else{
-				FileOutputStream fos = new FileOutputStream(file.getName(), true);
-				BufferedOutputStream bos = new BufferedOutputStream(fos);
-				bos.write(nicknamepasswordHash);
-				bos.write(newLine);
+				FileWriter fos = new FileWriter(file.getName(), true);
+				BufferedWriter bos = new BufferedWriter(fos);
+				bos.write(testString);
+				bos.newLine();
 				bos.close();
 			}
 		}
@@ -363,13 +367,40 @@ public class EditProfileGUI implements ActionListener {
 				new ErrorGUI("Wachtwoorden zijn ongelijk", 240);
 			}
 			else{
+				
 				File file = new File(nickname.getText() + ".txt");
-				if(file.exists() && !file.isDirectory()){
-					new ErrorGUI("Nickname al in gebruik", 220);
+				if(!file.exists() && !file.isDirectory()){
+					new ErrorGUI("Profiel bestaat niet", 220);
 				}else{
-					maakProfielFrame.dispose();
-					writeProfileToFile();
-					new LoggedInGUI(nickname.getText(), passwordString);
+					File passwordFile = new File("definitelyNotPasswords.txt");
+					passwordString = new String(oudPassword.getPassword());
+					String nicknamepasswordString = new String(passwordString + nickname.getText());
+					byte[] nicknamepasswordByte = nicknamepasswordString.getBytes();
+					try{
+						byte[] hashedPassword = HASHencrp.getHash(Algorithm.SHA_256, nicknamepasswordByte);
+						String testPassword = new String(hashedPassword);
+						byte[] testPasswordByte = testPassword.getBytes();
+						Scanner scanner = new Scanner(passwordFile);
+						boolean checker = true;
+						while(scanner.hasNextLine()){
+							String nextLine = scanner.nextLine();
+							byte[] nextLineByte = nextLine.getBytes();
+							if(equalsByte(nextLineByte, testPasswordByte)){
+								nextLine = testPassword;
+								checker = false;
+								writeProfileToFile();
+								new LoggedInGUI(nickname.getText(), passwordString);
+								maakProfielFrame.dispose();
+							}
+						}
+						scanner.close();
+						if(checker){
+							new ErrorGUI("Oude Wachtwoord incorrect", 220);
+						}
+					}
+					catch(NoSuchAlgorithmException | FileNotFoundException ex){
+						ex.printStackTrace();
+					}
 				}
 			}
 		}
@@ -382,6 +413,25 @@ public class EditProfileGUI implements ActionListener {
 				maakProfielFrame.dispose();
 			}
 		}
+	}
+	
+	
+	private static boolean equalsByte(byte[] b1, byte[] b2){
+		if(b1 == null && b2 == null){
+			return true;
+		}
+		if(b1 == null || b2 == null){
+			return false;
+		}
+		if(b1.length != b2.length){
+			return false;
+		}
+		for(int i = 0; i < b1.length; i++){
+			if(b1[i] != b2[i]){
+				return false;
+			}
+		}
+		return true;
 	}
 	
 	public static void main(String[] args){
