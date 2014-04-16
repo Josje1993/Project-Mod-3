@@ -71,7 +71,7 @@ Voor het netwerk moet er een multi-hop structuur de berichten van de gebruikers 
 Een mobiel ad-hoc netwerk heeft zoals eerder verondersteld een gedecentraliseerde infrastructuur. zo'n ad-hoc netwerk wordt ook wel MANET genoemd. Een MANET heeft dus niet een vaste infrastructuur en het moet zich in de loop van de tijd configureren en anticiperen op het vertrek van gebruikers. Door middel van multi-hop  word de gebruiker waaraan het bericht gericht is vanuit verschillende kanten bericht doordat de multi-hop verschillende routes naar de gebruikers kan nemen. Op deze manier kunnen bepaalde routes verloren gaan zonder dat het bericht verloren gaat mits op zijn minst \'e\'en route wel aankomt bij de gebruiker. Het grootste voordeel van het ad-hoc netwerk is dat het niet afhankelijk is van een server die alle gegevens binnenkrijgt en dat dan weer naar de (juiste) gebruiker(s) verstuurt. Hierdoor kan er altijd gecommuniceerd worden met de andere gebruikers mits er uiteraard een verbinding is met een internetwerk.
 
 \subsection{Ondersteuning Dataverkeer}
-De chatapplicatie ondersteunt gewone tekst berichten en alle te bedenken bestandsformaten. van word.docx tot file.mkv bestanden kunnen van de ene gebruiker naar de ander worden verzonden. Het limiet voor de gekozen grootte van berichten is vastgesteld op 50 MB. Het limiet is groot genoeg om allerlei extensies te verzenden. Voor beeldmateriaal van bijvoorbeeld een mkv-bestand is het limiet niet heel veel. Dit is besloten, omdat het niet wenselijk is om een bedrijf zoals brein onderzoek doen naar de Chatser-applicatie\small\textcopyright.
+De chatapplicatie ondersteunt gewone tekst berichten en alle te bedenken bestandsformaten. van word.docx tot file.mkv bestanden kunnen van de ene gebruiker naar de ander worden verzonden. Het limiet voor de gekozen grootte van berichten is vastgesteld op 11 MB\footnote{Dit kan verandert worden}. Het limiet is groot genoeg om allerlei extensies te verzenden. Voor beeldmateriaal van bijvoorbeeld een mkv-bestand is het limiet niet heel veel. Dit is besloten, omdat het niet wenselijk is om een bedrijf zoals brein onderzoek doen naar de Chatser-applicatie\small\textcopyright.
 
 
 \subsection{UDP Headers}
@@ -81,7 +81,7 @@ Met de gemaakt applicatie is het de bedoeling om met UDP pakketten de data te ve
 
 
 \subsection{ALIVE}
-
+De methode om na te gaan of een gebruiker ALIVE is 
 
 \subsection{Link Betrouwbaarheid En Packet Verlies}
 
@@ -90,19 +90,25 @@ Met de gemaakt applicatie is het de bedoeling om met UDP pakketten de data te ve
 De berichten worden encrypt en decrypt door middel van AES encryptie. Verder is het voor de wachtwoorden van belang dat deze veilig opgeslagen worden. De wachtwoorden mogen dus niet gewoon als plaintekst worden opgeslagen in een database zoals bevoorbeeld www.integratieoverheid.nl, verschillende datingsites, Vodafone en LinkedIn schijnen dit ook te doen. Wij hebben ervoor gekozen om de wachtwoorden samen met de gebruikersnaam te hashen en op te slaan. Eens als een gebruiker wil inloggen zal zijn gebruikersnaam plus het wachtwoord gehasht worden en vergeleken met de hashes die in de database staan. Omdat een goede hash algoritme een kleine kans op collisions heeft zal er nooit een hash hetzelfde zijn met andere plaintekst invoer.
 
 \subsection{Verwacht Gedrag}
-
+Het verwachte gedrag van het systeem is dat het systeem vlekkeloos draait als de gebruiker via de schermen uiteindelijk in de ChatGUI terechtkomt. Wat er van het systeem verwacht wordt is dat het zonder enig probleem berichten kan versturen naar anderen, ook moet het invoegen van emoticons en bestanden goed verlopen en zonder enig probleem verstuurt zijn. De bestanden moeten in de goede map terechtkomen en door de ontvanger bekeken kunnen worden. Ook moet het mogelijk zijn om het profiel van de anderen te kunnen bekijken wanneer er met ze wordt gechat. Ook ligt het in de lijn der verwachting dat de gebruikers altijd terug komen naar de ConnectGUI als zij willen afsluiten voordat het programma zal worden  afgesloten. Ook moet er op het moment dat een gebruiker de chat verlaat de anderen op de hoogte zijn van het verlaten van de gebruiker zonder dat het programma vastloopt.
 
 \subsection{Test Setup}
+De opzet van de test is om vier testaccounts aan te maken met een wachtwoord, naam en profiel. De testaccount moeten dan door de InlogGUI kunnen komen door het goede wachtwoord en nickname in te voeren. Ook moet er getest worden of het testaccount niet door de InlogGUI komt als deze twee gegevens niet kloppen. Nadat de gegevens kloppen en de gebruikers bij de ConnectGUI komen moeten zij hun gegevens kunnen veranderen en het wachtwoord kunnen veranderen. Als de veranderingen worden doorgevoerd en er weer getracht word om in te loggen met de nieuwe gegevens dan moet de gebruiker door de InlogGUI heen moeten komen. \\
 
+\noindent Als de gebruikers bij de ConnectGUI aankomen en willen verbinden dan moeten de ingevoerde gegevens kloppen. Deze gegevens zijn de connect adressen en de poortnummers. Als deze niet goed ingevoerd zijn dan moet er een foutmelding gegeven worden. Op het moment dat alle gegevens kloppen dan kan de gebruiker kiezen met hoeveel anderen hij of zij wil gaan chatten. \\
+
+\noindent In de ChatGUI is er rechtsboven een knop die de gebruikers de mogelijkheid geeft om de chat te verlaten en weer terug te keren naar de ConnectGUI. Deze GUI stelt de  gebruiker in staat om weer het wachtwoord enzovoorts te veranderen. Dit stelt de testers in staat om steeds weer te blijven testen.
 
 \subsection{Test Scenario}
+De stappen die gedaan moeten worden om het systeem te testen zijn ten eerste door de StartGUI te navigeren en door de TermAndConditionsGUI te navigeren. Dit doet men door achtereenvolgend door op start te klinken en daarna de voorwaarden te accepteren en op next te klikken. Er kan ook uit het programma gegaan worden door op respectievelijk op quit en cancel te drukken in de StartGUI en de TermsAndConditionsGUI. Vervolgens moet er een account aangemaakt worden door in de InlogGUI op registreer te klikken en je gegevens in te voeren. door op maak profiel te klikken zal er dan weer doorgegaan worden naar de InlogGUI en hier kunnen de net aangemaakt gegevens opgegeven worden en naar de ConnectGUI genavigeerd worden door in te loggen. Hier kunnen adressen ingevuld worden en poortnummers. Als de gegevens goed ingevuld zijn kan er naar de ChatGUI genavigeerd worden en als het profiel nog moet worden aangepast dan kan de gebruiker eerst nog op verander profiel klikken om dan terug te keren naar de InlogGUI om nogmaals jezelf in te loggen met de nieuwe gegevens. \\
 
+\noindent Op het moment dat er naar de ChatGUI genavigeerd wordt dan kan er uiteraard gechat worden en kan het geluid van de applicatie uitgezet worden. Ook kan er zoals eerder verteld terug gegaan worden naar de ConnectGUI door op het verlaat-knop te klikken en in het pop-up-scherm aan te geven dat dat je zeker weet dat je de chat wil gaan verlaten.
 
 \subsection{System Performance}
 
 
 \subsection{State Charts}
-Er is gekozen om een state chart te maken van de staten van het systeem binnen de GUI. Door dit te doen kan er ook worden aangegeven wat de staten binnen het netwerk zijn.
+Er is gekozen om een state chart te maken van de staten van het systeem binnen de GUI. Door dit te doen kan er ook worden aangegeven wat de staten binnen het netwerk zijn op pagina~\pageref{figure017} in figuur~\ref{figure017} te vinden.
 %State Diagrams&
 
 \newpage
@@ -149,7 +155,7 @@ De eerste versie van de ChatGUI zoals te zien is in figuur~\ref{figure001} is ee
 \end{figure}
 \\
 
-\noindent De derde versie van de ChatGUI is ook onze uiteindelijk gekozen ontwerp voor de chat window, logout window en de settings window. Er zal op pagina~\pageref{ChatGUI} verder ingegaan worden op de redenen voor het kiezen van dit ontwerp. Het ontwerp dat we geschetst hebben ziet is te vinden in figuur~\ref{figure003} op volgende pagina.
+\noindent De derde versie van de ChatGUI is ook onze uiteindelijk gekozen ontwerp voor de chat window, logout window en de settings window. Er zal op pagina~\pageref{ChatGUI} verder ingegaan worden op de redenen voor het kiezen van dit ontwerp. Het ontwerp dat we geschetst hebben ziet is te vinden in figuur~\ref{figure003} op pagina~\pageref{figure003}.
 \label{ChGv3Chat}
 %Hier ChGv3%
 \begin{figure}[ht]
@@ -161,7 +167,7 @@ De eerste versie van de ChatGUI zoals te zien is in figuur~\ref{figure001} is ee
 \end{figure}
 \\
 
-\noindent De eerste ConnectGUI is heel basaal en bevat enkel een tekstveld en een "connect"-knop en ondersteunt om die reden weinig functionaliteiten zoals te zien is in figuur~\ref{figure004} op de volgende pagina.
+\noindent De eerste ConnectGUI is heel basaal en bevat enkel een tekstveld en een "connect"-knop en ondersteunt om die reden weinig functionaliteiten zoals te zien is in figuur~\ref{figure004} op pagina~\pageref{figure004}..
 %Hier CGv1%
 \begin{figure}[ht]
 \begin{center}
@@ -172,7 +178,7 @@ De eerste versie van de ChatGUI zoals te zien is in figuur~\ref{figure001} is ee
 \end{figure}
 \\
 
-\noindent De tweede ConnectGUI voegt \'e\'en functionaliteit toe aan het eerste ontwerp en dat is de functie om je alias op te geven en het ontwerp is net iets anders gestructureerd zoals te zien is in figuur~\ref{figure005} op de volgende pagina.
+\noindent De tweede ConnectGUI voegt \'e\'en functionaliteit toe aan het eerste ontwerp en dat is de functie om je alias op te geven en het ontwerp is net iets anders gestructureerd zoals te zien is in figuur~\ref{figure005} op pagina~\pageref{figure005}.
 %Hier CGv2%
 \begin{figure}[ht]
 \begin{center}
@@ -183,7 +189,7 @@ De eerste versie van de ChatGUI zoals te zien is in figuur~\ref{figure001} is ee
 \end{figure}
 \\
 
-\noindent De derde ConnectGUI voegt op zijn beurt weer een functionaliteit toe aan het tweede ontwerp en dat is een "Maak profiel aan" knop. Deze knop navigeert naar een ander window, de create profile window waar op pagina~\pageref{CPW} verder op in wordt gegaan. In figuur~\ref{figure006} op de volgende pagina kunnen de requirements worden afgelezen.
+\noindent De derde ConnectGUI voegt op zijn beurt weer een functionaliteit toe aan het tweede ontwerp en dat is een "Maak profiel aan" knop. Deze knop navigeert naar een ander window, de create profile window waar op pagina~\pageref{CPW} verder op in wordt gegaan. In figuur~\ref{figure006} op pagina~\pageref{figure006} kunnen de requirements worden afgelezen.
 %Hier CGv3%
 \begin{figure}[ht]
 \begin{center}
@@ -290,7 +296,7 @@ De gemaakte chat windows lijken veel op de schets dat gemaakt is. Er was geen sc
 \end{figure}
 \\
 
-\noindent De create profile window heeft een paar wijzigingen ten opzichte van het ontwerp. De tekstvelden zijn even groot en dus ook de interesses veld is van gelijke grootte als de andere velden. Ook is er een paneelnaam toegevoegd zodat de window er wat gelikter uit kwam te zien. Ook Zijn er knoppen toegevoegd aan de onderkant om terug te navigeren naar de connect window. De ene knop slaat de gegevens op en de ander niet, mocht de gebruiker toch geen profiel willen. Dit is de vinden in figuur~\ref{figure012} op de volgende pagina.
+\noindent De create profile window heeft een paar wijzigingen ten opzichte van het ontwerp. De tekstvelden zijn even groot en dus ook de interesses veld is van gelijke grootte als de andere velden. Ook is er een paneelnaam toegevoegd zodat de window er wat gelikter uit kwam te zien. Ook Zijn er knoppen toegevoegd aan de onderkant om terug te navigeren naar de connect window. De ene knop slaat de gegevens op en de ander niet, mocht de gebruiker toch geen profiel willen. Dit is de vinden in figuur~\ref{figure012} op pagina~\pageref{figure012}.
 %Hier de create profile window%
 \begin{figure}[ht]
 \begin{center}
@@ -304,7 +310,7 @@ De gemaakte chat windows lijken veel op de schets dat gemaakt is. Er was geen sc
 \noindent Er zijn wat extra windows bijgekomen. Dit zijn de startscherm, de terms and conditions scherm,  een connect account scherm en een inlog scherm. Ook zijn er een directory scherm een emoticon scherm en een keuze scherm erbij gekomen. Bovendien is er een veranderbare error! scherm toegevoegd.
 \\
 
-\noindent In figuur~\ref{figure013} worden ze emoticons weergegeven die zijn toegevoegd aan de applicatie om de gebruiker ondersteuning van emoticons te bieden die een uitdrukking van de gebruiker kan versterken.
+\noindent In figuur~\ref{figure013} op pagina~\pageref{figure013} worden ze emoticons weergegeven die zijn toegevoegd aan de applicatie om de gebruiker ondersteuning van emoticons te bieden die een uitdrukking van de gebruiker kan versterken.
 %overige schermen%
 \begin{figure}[ht]
 \begin{center}
@@ -315,7 +321,7 @@ De gemaakte chat windows lijken veel op de schets dat gemaakt is. Er was geen sc
 \end{figure}
 \\
 
-\noindent In figuur~\ref{figure014} worden de extensies weergegeven. Deze extensies moeten het mogelijk maken om files te sturen voor de Chatser-applicatie\small\textcopyright.
+\noindent In figuur~\ref{figure014} op pagina~\pageref{figure014} worden de extensies weergegeven. Deze extensies moeten het mogelijk maken om files te sturen voor de Chatser-applicatie\small\textcopyright.
 \begin{figure}[!h]
 \begin{center}
 \includegraphics[width = 90mm]{chatser_extentions}
@@ -325,7 +331,7 @@ De gemaakte chat windows lijken veel op de schets dat gemaakt is. Er was geen sc
 \end{figure}
 \\
 
-\noindent In figuur~\ref{figure015} wordt de StartGUI weergegeven. Dit scherm is het eerste scherm dat gebruiker te zien krijgt als de applicatie opgestart wordt.
+\noindent In figuur~\ref{figure015} op pagina~\pageref{figure015} wordt de StartGUI weergegeven. Dit scherm is het eerste scherm dat gebruiker te zien krijgt als de applicatie opgestart wordt.
 \begin{figure}[!h]
 \begin{center}
 \includegraphics[width = 90mm]{StartGUI}
@@ -335,7 +341,7 @@ De gemaakte chat windows lijken veel op de schets dat gemaakt is. Er was geen sc
 \end{figure}
 \\
 
-\noindent In figuur~\ref{figure016} wordt het terms and conditions scherm weergegeven, dit is het tweede scherm dat de gebruiker te zien krijgt. De gebruiker moet eerst instemmen met de voorwaarden om verder te kunnen naar het inlogscherm. \newpage
+\noindent In figuur~\ref{figure016} op pagina~\pageref{figure016} wordt het terms and conditions scherm weergegeven, dit is het tweede scherm dat de gebruiker te zien krijgt. De gebruiker moet eerst instemmen met de voorwaarden om verder te kunnen naar het inlogscherm. \newpage
 
 \begin{figure}[!h]
 \begin{center}
@@ -355,8 +361,5 @@ Met het resultaat zijn het netwerk ontwerp en het grafische ontwerp bij elkaar g
 \section{Nawoord}
 Wij als gehele groep hebben dit project als zeer plezant ervaren. Tijdens het project hebben wij zoals op pagina~\pageref{taken} de taken verdeelt. Hierdoor was het team in staat om elk teamlid een aparte taak te geven om effectief te werk te kunnen gaan. Het resultaat van het project is zoals het voor ogen was binnen de groep. Een goed werkend systeem waarmee alle bestandsformaten kunnen  worden verstuurd onder een mooie voorkant, wat de GUI moet zijn. De hoop is dat de GUI voor een goede gebruikerservaring gaat zorgen voor een geavanceerde chatapplicatie. Het achterliggende idee is dat er geen andere applicatie zo'n goede gebruikerservaring zal bieden zoals de Chatser-applicatie\small.\textcopyright!
 
-\newpage
 
-\bibliographystyle{plain}
-\bibliography{ProjectBib}
 \end{document}
