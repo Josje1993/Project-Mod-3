@@ -180,8 +180,6 @@ public class LoggedInGUI implements ActionListener{
 			connectedFrame.dispose();
 		}
 		if(ae.getSource() == editProfileButton){
-			System.out.println(nickname);
-			System.out.println(password);
 			new EditProfileGUI(nickname, password);
 			connectedFrame.dispose();
 		}
